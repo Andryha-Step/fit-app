@@ -16,10 +16,9 @@ const ButtonStyled = styled.button<{primary: boolean | undefined, width: string 
     font-size: 1rem;
     text-transform: uppercase;
     transition: 0.2s all;
-    ${p => p.width ? `
+    text-decoration: none;
+    ${p => p.width && `
         width: ${p.width};
-    ` : `
-
     `}
     ${p => p.primary ? `
         background: linear-gradient(122.49deg, #429FBA 0%, #217E9A 100%);
