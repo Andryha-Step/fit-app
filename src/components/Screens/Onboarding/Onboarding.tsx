@@ -48,7 +48,7 @@ function Onboarding(): JSX.Element {
             <SwiperSlide>
               <Slide>
                 <Title center>ON-DEMAND AND LIVE CLASSES</Title>
-                <Text center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
+                <Text center weight="500">Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
           </Swiper>
@@ -72,11 +72,11 @@ function Onboarding(): JSX.Element {
 const Backdrop = styled.div`
   width: 100%;
   height: 100vh;
-  backdrop-filter: brightness(40%) blur(1px);
+  backdrop-filter: brightness(40%);
 `
 
 const Header = styled.header`
-  height: 9rem;
+  height: 16vh;
   display: flex;
   justify-content: center;
   align-items: flex-end;

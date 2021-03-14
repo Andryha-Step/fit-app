@@ -7,7 +7,7 @@ const StyledTitle = styled.span<{center?: boolean}>`
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     text-transform: uppercase;
     ${p => p.center && `
         text-align: center;

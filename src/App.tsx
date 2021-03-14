@@ -11,6 +11,7 @@ import background from './assets/backgrounds/onboarding.svg';
 
 import Onboarding from './components/Screens/Onboarding/Onboarding'
 import Auth from './components/Screens/Onboarding/Auth';
+import AccountForm from './components/Screens/Onboarding/AccountForm';
 
 const AppContainer = styled.div`
   width: 100%;
@@ -28,9 +29,11 @@ function App(): JSX.Element {
       <Switch>
         <AppContainer>
           <OnboardingBackground>
-            <Route path="/login" component={() => <Auth login/>} />
-            <Route path="/reg" component={() => <Auth registration/>} />
-            <Route path="/onboarding" component={Onboarding} />
+            <Route exact path="/login" component={() => <Auth login/>} />
+            <Route exact path="/reg" component={() => <Auth registration/>} />
+            <Route exact path="/suc" component={() => <Auth linkSent/>} />
+            <Route exact path="/ac" component={() => <AccountForm />} />
+            <Route exact path="/"  component={Onboarding} />
           </OnboardingBackground>
         </AppContainer>
       </Switch>

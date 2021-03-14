@@ -9,7 +9,7 @@ const StyledInput = styled.input<React.HTMLProps<HTMLInputElement>>`
     /* ––––––––––––––— */
     ${(p) => ['text', 'email', 'password'].includes(p.type || '')  && `
         margin: 0 1rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.7rem;
         border: 0.6px solid #F8F8F8;
         border-radius: 2rem;
         background-color: rgba(0,0,0,0);
@@ -20,7 +20,7 @@ const StyledInput = styled.input<React.HTMLProps<HTMLInputElement>>`
         font-weight: 500;
         font-size: 1rem;
         &::placeholder {
-            color: white;
+            color: #C5C5C5;
         }
     `}
 
@@ -47,16 +47,27 @@ const StyledInput = styled.input<React.HTMLProps<HTMLInputElement>>`
     `}
 `
 
-const StyledLabel = styled.label`
-    margin: 0 1rem;
-    margin-bottom: 1rem;
+const StyledLabel = styled.label<InputProps>`
+    display: flex;
+    flex-direction: column;
+    ${p => p.type === 'checkbox' && `
+        margin: 0 1rem;
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+    `}
     position: relative;
     color: white;
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 0.8rem;
-    padding-left: 2rem;
+`
+
+const StyledLabelText = styled.span<InputProps>`
+    ${p => p.type === 'text' && `
+        margin 0 1rem;
+        margin-bottom: 0.7rem;
+    `}
 `
 
 const StyledCheckboxIndicator = styled.div`
@@ -91,6 +102,7 @@ export interface InputProps {
     id?: string,
     name?: string,
     value?: string,
+    style?: React.CSSProperties
 }
 
 export function Input(props: InputProps): JSX.Element {
@@ -98,12 +110,15 @@ export function Input(props: InputProps): JSX.Element {
     let inputProps = {...props};
     inputProps.children = null;
 
-    if (props.type === 'checkbox') {
+    if (props.children) {
         return (
-            <StyledLabel>
+            <StyledLabel type={props.type}>
+                <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
                 <StyledInput {...inputProps} />
-                <StyledCheckboxIndicator />
-                <span>{props.children}</span>
+                {
+                    props.type === 'checkbox' &&
+                        <StyledCheckboxIndicator />
+                }
             </StyledLabel>
         )
     }
