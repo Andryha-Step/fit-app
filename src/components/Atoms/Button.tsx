@@ -1,6 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export interface ButtonProps {
+    children: React.ReactNode;
+    style?: React.CSSProperties;
+    primary?: boolean;
+    transparent?: boolean;
+    width?: string;
+}
+
+export default function Button(props: ButtonProps): JSX.Element {
+
+    const { primary, children, style, width, transparent } = props;
+
+    return (
+        <ButtonStyled
+            style={style}
+            primary={primary}
+            width={width}
+            transparent={transparent}
+        >
+            {children}
+        </ButtonStyled>
+    )
+}
+
 const ButtonStyled = styled.button<{primary: boolean | undefined, width: string | undefined, transparent: boolean | undefined}>`
     padding: 0.9rem;
     margin: 0 1rem;
@@ -55,28 +79,3 @@ const ButtonStyled = styled.button<{primary: boolean | undefined, width: string 
         `
     )}
 `
-
-export interface ButtonProps {
-    children: React.ReactNode;
-    style?: React.CSSProperties;
-    primary?: boolean;
-    transparent?: boolean;
-    width?: string;
-}
-
-export function Button(props: ButtonProps): JSX.Element {
-
-    const { primary, children, style, width, transparent } = props;
-
-    return (
-        <ButtonStyled
-            style={style}
-            primary={primary}
-            width={width}
-            transparent={transparent}
-        >
-            {children}
-        </ButtonStyled>
-    )
-}
-

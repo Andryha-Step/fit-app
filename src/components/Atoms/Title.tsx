@@ -20,7 +20,7 @@ export interface TitleProps {
     style?: React.CSSProperties;
 }
 
-export function Title(props: TitleProps): JSX.Element {
+export default function Title(props: TitleProps): JSX.Element {
 
     const { children, center, style } = props;
     

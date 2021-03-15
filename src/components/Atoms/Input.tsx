@@ -1,20 +1,57 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const StyledInput = styled.input<React.HTMLProps<HTMLInputElement>>`
+export interface InputProps {
+    children?: React.ReactNode
+    type?: 'text' | 'email' | 'password' | 'checkbox' | 'number'
+    placeholder?: string
+    id?: string
+    name?: string
+    value?: string
+    style?: React.CSSProperties
+    color?: 'white' | 'black'
+    onFocus?: (e: any) => void
+    ref?: any
+}
+
+
+export default React.forwardRef((props: InputProps, ref) => {
+    let inputProps = {...props};
+    inputProps.children = null;
+
+    if (props.children) {
+        return (
+            <StyledLabel type={props.type} htmlFor={props.name}>
+                <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
+                <StyledInput ref={ref} {...inputProps} />
+                {
+                    props.type === 'checkbox' &&
+                        <StyledCheckboxIndicator />
+                }
+            </StyledLabel>
+        )
+    }
+
+    return (
+        <StyledInput {...props}/>
+    )
+})
+
+
+const StyledInput = styled.input<InputProps>`
     outline: none;
     
     /* ––––––––––––––– */
     /* TEXT TYPE INPUT */
     /* ––––––––––––––— */
-    ${(p) => ['text', 'email', 'password'].includes(p.type || '')  && `
+    ${(p) => ['text', 'email', 'password', 'number'].includes(p.type || '')  && `
         margin: 0 1rem;
         margin-bottom: 0.7rem;
-        border: 0.6px solid #F8F8F8;
+        border: 0.6px solid ${p.color === 'black' ? '#636363' : '#F8F8F8'};
         border-radius: 2rem;
         background-color: rgba(0,0,0,0);
         padding: .8rem 1.3rem;
-        color: white;
+        color: ${p.color === 'black' ? 'black' : 'white'};
         font-family: Poppins, sans-serif;
         font-style: normal;
         font-weight: 500;
@@ -94,36 +131,3 @@ const StyledCheckboxIndicator = styled.div`
         display: none;
     }
 `
-
-export interface InputProps {
-    children?: React.ReactNode,
-    type?: 'text' | 'email' | 'password' | 'checkbox',
-    placeholder?: string,
-    id?: string,
-    name?: string,
-    value?: string,
-    style?: React.CSSProperties
-}
-
-export function Input(props: InputProps): JSX.Element {
-
-    let inputProps = {...props};
-    inputProps.children = null;
-
-    if (props.children) {
-        return (
-            <StyledLabel type={props.type}>
-                <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
-                <StyledInput {...inputProps} />
-                {
-                    props.type === 'checkbox' &&
-                        <StyledCheckboxIndicator />
-                }
-            </StyledLabel>
-        )
-    }
-
-    return (
-        <StyledInput {...props}/>
-    )
-}

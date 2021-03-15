@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button } from '../../../components/Button'
 import styled, { createGlobalStyle } from 'styled-components';
-import { Title } from '../../../components/Title'
-import { Text } from '../../../components/Text'
+import { Title, Text, Button } from '../../Atoms';
 import logo_img from '../../../assets/images/logo.svg'
 import powered_by_logo_img from '../../../assets/images/poweredby_logo.svg'
 import SwiperCore, { Pagination } from 'swiper';
@@ -140,10 +138,6 @@ const Slide = styled.div`
   align-items: center;
   justify-content: flex-end;
   user-select: none;
-`
-
-const Dots = styled.div`
-  height: 10vh;
 `
 
 const ButtonGroup = styled.div`

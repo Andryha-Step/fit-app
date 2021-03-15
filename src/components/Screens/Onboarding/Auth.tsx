@@ -5,10 +5,7 @@ import logo_img from '../../../assets/images/logo.svg'
 import powered_by_logo_img from '../../../assets/images/poweredby_logo.svg'
 import back_buttom from '../../../assets/images/back.svg'
 import success from '../../../assets/images/success.svg'
-import { Title } from '../../Title'
-import { Text } from '../../Text'
-import { Input } from '../../Input'
-import { Button } from '../../Button'
+import { Title, Text, Input, Button } from '../../Atoms';
 import { Link, useHistory } from "react-router-dom";
 
 export interface CreateAccountScreenProps {

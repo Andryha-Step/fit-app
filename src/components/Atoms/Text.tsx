@@ -20,7 +20,7 @@ export interface TextProps {
     weight?: string; 
 }
 
-export function Text(props: TextProps): JSX.Element {
+export default function Text(props: TextProps): JSX.Element {
 
     const { children, center, weight, style } = props;
     

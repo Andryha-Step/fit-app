@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import select_arrow from '../assets/images/select_arrow.svg';
+import select_arrow from '../../assets/images/select_arrow.svg';
 
 interface Option {
     title: string;
@@ -61,7 +61,7 @@ const StyledLabel = styled.label`
 `
 
 const StyledLabelText = styled.span`
-    margin 0 1rem;
+    margin: 0 1rem;
     margin-bottom: 0.7rem;
 `
 
