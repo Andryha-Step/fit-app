@@ -4,16 +4,17 @@ import styled from 'styled-components';
 const WidthConatiner = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100vw;
 
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 300px) {
     & {
-      width: 100vw;
+      width: 100%;
     }
-  }
+  } */
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 450px) {
     & {
-      width: 25rem;
+      width: 30rem;
     }
   }
 `

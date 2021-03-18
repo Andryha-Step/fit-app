@@ -14,7 +14,6 @@ import AccountForm from './components/Screens/Onboarding/AccountForm';
 
 const AppContainer = styled.div`
   width: 100%;
-  height: 100vh;
 `
 const OnboardingBackground = styled.div`
   background: url(${background});
@@ -34,6 +33,7 @@ function App(): JSX.Element {
             <Route exact path="/ac" component={() => <AccountForm />} />
             <Route exact path="/"  component={Onboarding} />
           </OnboardingBackground>
+          <Route exact path="/link" component={() => <Auth loginLink/>} />
         </AppContainer>
       </Switch>
     </Router>

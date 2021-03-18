@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media only screen and (max-width: 600px) {
   html {
     font-size: 15px;
@@ -26,12 +37,37 @@ code {
 
 @media only screen and (min-width: 992px) {
   html {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   html {
-    font-size: 20px;
+    font-size: 18px;
+  }
+}
+
+
+@media only screen and (orientation: landscape) and (max-height: 500px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 400px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 300px) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 700px) and (min-width: 992px) {
+  html {
+    font-size: 13px;
   }
 }

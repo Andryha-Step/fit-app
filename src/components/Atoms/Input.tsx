@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export interface InputProps {
     children?: React.ReactNode
     type?: 'text' | 'email' | 'password' | 'checkbox' | 'number'
+    error?: string
     placeholder?: string
     id?: string
     name?: string
@@ -11,7 +12,12 @@ export interface InputProps {
     style?: React.CSSProperties
     color?: 'white' | 'black'
     onFocus?: (e: any) => void
+    onChange?: (e: any) => void
+    onKeyDown?: (e: any) => void,
     ref?: any
+    pattern?: string
+    inputmode?: string
+    step?: string
 }
 
 
@@ -19,14 +25,21 @@ export default React.forwardRef((props: InputProps, ref) => {
     let inputProps = {...props};
     inputProps.children = null;
 
-    if (props.children) {
+    if (props.children || props.error) {
         return (
             <StyledLabel type={props.type} htmlFor={props.name}>
-                <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
+                {
+                    props.children &&
+                    <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
+                }
                 <StyledInput ref={ref} {...inputProps} />
                 {
                     props.type === 'checkbox' &&
                         <StyledCheckboxIndicator />
+                }
+                {
+                    props.error && props.error !== '' &&
+                    <StyledLabelText type={props.type} style={{color: '#FF3E3E'}}>{props.error}</StyledLabelText>
                 }
             </StyledLabel>
         )
@@ -45,9 +58,18 @@ const StyledInput = styled.input<InputProps>`
     /* TEXT TYPE INPUT */
     /* ––––––––––––––— */
     ${(p) => ['text', 'email', 'password', 'number'].includes(p.type || '')  && `
+        /* Remove ios safari shadow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
         margin: 0 1rem;
         margin-bottom: 0.7rem;
         border: 0.6px solid ${p.color === 'black' ? '#636363' : '#F8F8F8'};
+        ${p.error && p.error !== '' ? `
+            border-color: #FF3E3E;
+            margin-bottom: 0.1rem;
+        ` : ''}
         border-radius: 2rem;
         background-color: rgba(0,0,0,0);
         padding: .8rem 1.3rem;
@@ -101,7 +123,7 @@ const StyledLabel = styled.label<InputProps>`
 `
 
 const StyledLabelText = styled.span<InputProps>`
-    ${p => p.type === 'text' && `
+    ${p => ['text', 'email', 'password', 'number'].includes(p.type || '') && `
         margin 0 1rem;
         margin-bottom: 0.7rem;
     `}
@@ -118,11 +140,11 @@ const StyledCheckboxIndicator = styled.div`
     border-radius: 2px;
     &:after {
         left: .32rem;
-        top: .12rem;
-        width: 5px;
-        height: 10px;
+        top: 0.16rem;
+        width: .20rem;
+        height: .4rem;
         border: solid white;
-        border-width: 0 3px 3px 0;
+        border-width: 0 .15rem .15rem 0;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);

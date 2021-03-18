@@ -1,7 +1,10 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import VerticalContainer from '../../VerticalContainer'
 import { Title, Text, Input, Button, Select, Popup, TabSwitcher } from '../../Atoms';
+import { InputProps } from '../../Atoms/Input'
+import Flex from '../../Blocks/Flex'
+import Backdrop from '../../Blocks/Onboarding/Backdrop'
 import { useHistory } from 'react-router-dom'
 
 export interface AccountFormScreenProps {
@@ -12,8 +15,11 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 
     const history = useHistory();
     const [popupOpen, setPopupOpen] = useState<'weight' | 'height' | null>(null);
-    const weightInputRef = useRef<HTMLInputElement>(null);
-    const heightInputRef = useRef<HTMLInputElement>(null);
+    const [weightInput, setWeightInput] = useState<string>('');
+    const [heightInput, setHeightInput] = useState<string>('');
+    const [heightUnit, setHeightUnit] = useState<'cm' | 'ft'>('cm');
+    const [weightUnit, setWeightUnit] = useState<'kg' | 'lbs'>('kg');
+
 
     const onNumberFocus = (e: MouseEvent) => {
         e.preventDefault();
@@ -24,14 +30,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
     }
 
     useEffect(() => {
-        console.log(weightInputRef.current)
-        if (popupOpen === 'weight') {
-            document.getElementById(`weight_input`)?.focus()
-        }
-
-        if (popupOpen === 'height') {
-            document.getElementById(`height_input`)?.focus()
-        }
+        document.getElementById(`${popupOpen}_input_integral`)?.focus()
     }, [popupOpen])
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
@@ -39,42 +38,136 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 		history.push('/suc')
 	}
 
+    const handleNumberInput = (e: KeyboardEvent) => {
+        const target = e.target as HTMLInputElement
+
+        let setInput: React.Dispatch<React.SetStateAction<string>>;
+        let input = '';
+        if (target?.id.includes('height')) {
+            setInput = setHeightInput
+            input = 'height'
+        } else if (target?.id.includes('weight')) {
+            setInput = setWeightInput
+            input = 'weight'
+        } else {
+            return;
+        }
+
+        if (target?.id === `${input}_input_integral` && target.value.includes('.')) {
+            document.getElementById(`${input}_input_fractional`)?.focus()
+        }
+        if (target?.id === `${input}_input_integral`) setInput((current) => {
+            return (target.value.replace(/[^0-9]/g,'') || '0') + '.' + (current.split('.')[1] || '0')
+        })
+        if (target?.id === `${input}_input_fractional`) setInput((current) => {
+            return (current.split('.')[0] || '0') + '.' + (target.value.replace(/[^0-9]/g,'') || '0')
+        })
+
+    }
+
+    const handleUnitSave = (e: KeyboardEvent) => {
+        const target = e.target as HTMLInputElement
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setPopupOpen(null);
+        }
+
+        if (target?.id === 'weight_input_fractional' && e.key === 'Backspace' && target?.value === '') {
+            document.getElementById(`weight_input_integral`)?.focus()
+        }
+        if (target?.id === 'height_input_fractional' && e.key === 'Backspace' && target?.value === '') {
+            document.getElementById(`height_input_integral`)?.focus()
+        }
+    }
+
+    const numericInputProps:InputProps = {
+        onKeyDown: handleUnitSave,
+        inputmode: "numeric",
+        pattern: "\\d*",
+        onChange: handleNumberInput,
+        type: "number",
+        step: "1",
+        color: "black",
+    }
+
     return (
-        <Backdrop>
+        <Backdrop blur>
             <Popup 
                 isOpen={popupOpen !== null} 
                 wrapperTemplate='white-box' 
                 wrapperWidth='15rem' 
                 onClose={() => setPopupOpen(null)}
             >
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+                <form style={{display: 'flex', flexDirection: 'column'}}>
                     {
                         popupOpen === 'height' &&
                         <>
                             <TabSwitcher
+                                currentTab={heightUnit}
+                                onSwitch={(id: 'cm' | 'ft') => {
+                                    setHeightUnit(id); 
+                                    setHeightInput('');
+                                    document.getElementById(`height_input_integral`)?.focus()
+                                }}
                                 tabs={[
                                     {title: 'CM', id: 'cm'},
                                     {title: 'FT', id: 'ft'}
                                 ]}
                                 style={{marginBottom: '2rem'}}
                             />
-                            <Input type="number" color="black" placeholder={'169'} id='height_input' />
+                            <Flex>
+                                <Input 
+                                    style={{width: '50%', marginRight: '0'}} 
+                                    placeholder={'169'} 
+                                    id='height_input_integral' 
+                                    value={heightInput.split('.')[0] === '0' ? '' : (heightInput.split('.')[0] || '')} 
+                                    {...numericInputProps}
+                                />
+                                <Input 
+                                    style={{width: '50%'}} 
+                                    placeholder={'2'} 
+                                    id='height_input_fractional' 
+                                    value={heightInput.split('.')[1] === '0' ? '' : (heightInput.split('.')[1] || '')}
+                                    {...numericInputProps}
+                                />
+                            </Flex>
                         </>
                     }
                     {
                         popupOpen === 'weight' &&
                         <>
                             <TabSwitcher
+                                currentTab={weightUnit}
+                                onSwitch={(id: 'kg' | 'lbs') => {
+                                    setWeightUnit(id); 
+                                    setWeightInput('');
+                                    document.getElementById(`weight_input_integral`)?.focus();
+                                }}
                                 tabs={[
                                     {title: 'KG', id: 'kg'},
-                                    {title: 'LSB', id: 'lsb'}
+                                    {title: 'LBS', id: 'lbs'}
                                 ]}
                                 style={{marginBottom: '2rem'}}
                             />
-                            <Input type="number" color="black" placeholder={'60'} id='weight_input' />
+                            <Flex>
+                                <Input 
+                                    style={{width: '50%', marginRight: '0'}} 
+                                    placeholder={'60'} 
+                                    id='weight_input_integral' 
+                                    value={weightInput.split('.')[0] === '0' ? '' : (weightInput.split('.')[0] || '')} 
+                                    {...numericInputProps}
+                                />
+                                <Input 
+                                    style={{width: '50%'}} 
+                                    placeholder={'5'} 
+                                    id='weight_input_fractional' 
+                                    value={weightInput.split('.')[1] === '0' ? '' : (weightInput.split('.')[1] || '')}
+                                    {...numericInputProps} 
+                                />
+                            </Flex>
                         </>
                     }
-                </div>
+                </form>
             </Popup>
             <VerticalContainer>
                 <Header>
@@ -89,11 +182,11 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                         Last Name
                     </Input>
                     <InputRowContainer>
-                        <Input type="text" placeholder="60" id="weight" onFocus={onNumberFocus}>
-                            Weight
+                        <Input type="text" placeholder="60" id="weight" onFocus={onNumberFocus} value={weightInput === '0.0' ? '' : weightInput}>
+                            Weight <span style={{color: '#B0B0B0', marginLeft: '0.2rem'}}> {weightUnit} </span>
                         </Input>
-                        <Input type="text" placeholder="169" id="height" onFocus={onNumberFocus}>
-                            Height
+                        <Input type="text" placeholder="169" id="height" onFocus={onNumberFocus} value={heightInput === '0.0' ? '' : heightInput}>
+                            Height <span style={{color: '#B0B0B0', marginLeft: '0.2rem'}}> {heightUnit} </span>
                         </Input>
                     </InputRowContainer>
                     <Select
@@ -103,7 +196,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                             {title: 'Gain more weight'},
                             {title: 'Motivate myself'}
                         ]}
-                        style={{marginBottom: '3rem'}}
+                        style={{marginBottom: '2rem'}}
                     >
                         What is your fitness goal?
                     </Select>
@@ -113,12 +206,6 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
         </Backdrop>
     )
 }
-
-const Backdrop = styled.div`
-    width: 100%;
-    height: 100vh;
-    backdrop-filter: brightness(40%) blur(10px);
-`
 
 const Header = styled.header`
     height: 20vh;

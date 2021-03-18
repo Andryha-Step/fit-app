@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 
 interface Tab {
@@ -10,15 +10,16 @@ export interface TabSwitcherProps {
     tabs: Tab[];
     onSwitch?: Function;
     style?: React.CSSProperties;
+    currentTab: string | number;
 }
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
 
-    const [currentTab, setTab] = useState<string | number>(props.tabs[0].id) 
+    // const [currentTab, setTab] = useState<string | number>(props.tabs[0].id) 
 
     const handleTabClick = (event: MouseEvent) => {
-        setTab(event.currentTarget.id);
-        props.onSwitch && props.onSwitch();
+        const target = event.target as HTMLDivElement
+        props.onSwitch && props.onSwitch(target.id);
     }
     
     return <StyledTabSwitcher style={props.style}>
@@ -26,7 +27,7 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
             <StyledTab 
                 key={tab.id}
                 id={tab.id + ''}
-                active={currentTab === tab.id}
+                active={props.currentTab === tab.id}
                 onClick={handleTabClick}
             >{tab.title}</StyledTab>
         ))}

@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import swiper_arrow from '../../../assets/images/swiper_arrow.svg'
 import { Title, Text, Button } from '../../Atoms';
-import logo_img from '../../../assets/images/logo.svg'
-import powered_by_logo_img from '../../../assets/images/poweredby_logo.svg'
-import SwiperCore, { Pagination } from 'swiper';
+import Footer from '../../Blocks/Onboarding/Footer'
+import Backdrop from '../../Blocks/Onboarding/Backdrop'
+import Header from '../../Blocks/Onboarding/Header'
+import SwiperCore, { Pagination, Navigation, Controller } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperClass from 'swiper/types/swiper-class';
+
 import 'swiper/swiper-bundle.min.css';
 import { Link } from 'react-router-dom';
 
 import VerticalContainer from '../../VerticalContainer'
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Navigation, Controller]);
 
 function Onboarding(): JSX.Element {
+
+  const [swiper, setSwiper] = useState<SwiperClass | undefined>(undefined);
 
   const SwiperCofing = {
     pagination: {
       clickable: true
-    }
+    },
+    onSwiper: setSwiper,
+    controller: { control: swiper }
   }
 
   return (
     <Backdrop>
+      <DisableScroll />
       <SpaceForSliderDots />
       <VerticalContainer>
-        <Header>
-          <img width='47%' src={logo_img} alt='Moove logo' />
-        </Header>
+        <Header />
         <Slider>
+          <SliderArrowPrev src={swiper_arrow} alt='arrow prev'  onClick={() => swiper?.slidePrev()} />
+          <SliderArrowNext src={swiper_arrow} alt='arrow next' onClick={() => swiper?.slideNext()} />
           <Swiper
             {...SwiperCofing}
           >
@@ -59,66 +68,63 @@ function Onboarding(): JSX.Element {
             <Button transparent>log in</Button>
           </Link>
         </ButtonGroup>
-        <Footer>
-          <img width='30%' src={powered_by_logo_img} alt='Moove logo' />
-        </Footer>
+        <Footer />
       </VerticalContainer>
     </Backdrop>
   );
 }
 
-const Backdrop = styled.div`
-  width: 100%;
-  height: 100vh;
-  backdrop-filter: brightness(40%);
-`
-
-const Header = styled.header`
-  height: 16vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-`
-
-const Footer = styled.footer`
-  @media only screen and (max-width: 600px) {
-    & {
-      flex: 0.7;
-      align-items: flex-start;
-    }
-  }
-  height: 9rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 const Slider = styled.div`
+  position: relative;
   display: flex; 
   margin-left: 3vh;
   margin-right: 3vh;
   flex: 3.9;
 `
 
-// Creating a new swiper-container class identical to original
+const SliderArrow = styled.img`
+  width: 2rem;
+  cursor: pointer;
+  display: none;
+  @media only screen and (min-width: 1200px) {
+    & {
+      display: unset;
+    }
+  }
+`
+
+const SliderArrowNext = styled(SliderArrow)`
+  position: absolute;
+  right: -5rem;
+  bottom: 6rem;
+`
+
+const SliderArrowPrev = styled(SliderArrow)`
+  transform: rotate(180deg);
+  position: absolute;
+  left: -5rem;
+  bottom: 6rem;
+`
+
+// Creating a new swiper-container class 
 // with padding-bottom: 2rem to make space for slider pagination
 const SpaceForSliderDots = createGlobalStyle`
   .swiper-container {
     padding-bottom: 2.5rem;
   }
 
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
     .swiper-container {
       padding-bottom: 3rem;
     }
-  }
+  } */
 
   .swiper-pagination-bullet {
     background: white;
     transition: width .35s .2s, opacity .35s .2s;
     border-radius: 8px;
-    width: 9px;
-    height: 9px;
+    width: 0.5rem;
+    height: 0.5rem;
   }
 
   .swiper-pagination-bullets {
@@ -126,9 +132,18 @@ const SpaceForSliderDots = createGlobalStyle`
   }
 
   .swiper-pagination-bullet-active {
-    width: 18px;
+    width: 1rem;
     border-radius: 8px;
   }
+`
+
+const DisableScroll = createGlobalStyle`
+  body,
+  html {
+    width: 100%;
+    position: fixed;
+  }
+
 `
 
 const Slide = styled.div`
