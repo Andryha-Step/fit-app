@@ -31,6 +31,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 
     useEffect(() => {
         document.getElementById(`${popupOpen}_input_integral`)?.focus()
+        document.getElementById(`${popupOpen}_input`)?.focus()
     }, [popupOpen])
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
@@ -38,7 +39,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 		history.push('/suc')
 	}
 
-    const handleNumberInput = (e: KeyboardEvent) => {
+    const handleNumberInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>) => {
         const target = e.target as HTMLInputElement
 
         let setInput: React.Dispatch<React.SetStateAction<string>>;
@@ -53,40 +54,42 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
             return;
         }
 
-        if (target?.id === `${input}_input_integral` && target.value.includes('.')) {
-            document.getElementById(`${input}_input_fractional`)?.focus()
-        }
-        if (target?.id === `${input}_input_integral`) setInput((current) => {
-            return (target.value.replace(/[^0-9]/g,'') || '0') + '.' + (current.split('.')[1] || '0')
-        })
-        if (target?.id === `${input}_input_fractional`) setInput((current) => {
-            return (current.split('.')[0] || '0') + '.' + (target.value.replace(/[^0-9]/g,'') || '0')
-        })
+        if (target?.id.includes('height') && heightUnit === 'ft') {
+            // if (e.nativeEvent.data === '.') {
+            //     document.getElementById(`${input}_input_fractional`)?.focus();
+            //     return;
+            // }
+            if (target?.id === `${input}_input_integral`) setInput((current) => {
+                return (target.value.replace(/[^0-9]/g,'') || '0') + '′' + (current.split('′')[1]?.replace('″', '') || '0') + '″'
+            })
+            if (target?.id === `${input}_input_fractional`) setInput((current) => {
+                return (current.split('′')[0] || '0') + '′' + (target.value.replace(/[^0-9]/g,'') || '0') + '″'
+            })
+            return;
+        } 
+
+        setInput(target.value.replace(/[^0-9,.]/g,''))
 
     }
 
-    const handleUnitSave = (e: KeyboardEvent) => {
+    const handleInputKeyDown = (e: React.SyntheticEvent<HTMLInputElement, KeyboardEvent>) => {
         const target = e.target as HTMLInputElement
-        if (e.key === 'Enter') {
+        if (e.nativeEvent.key === 'Enter') {
             e.preventDefault();
             setPopupOpen(null);
         }
 
-        if (target?.id === 'weight_input_fractional' && e.key === 'Backspace' && target?.value === '') {
-            document.getElementById(`weight_input_integral`)?.focus()
-        }
-        if (target?.id === 'height_input_fractional' && e.key === 'Backspace' && target?.value === '') {
+        if (target?.id === 'height_input_fractional' && e.nativeEvent.key === 'Backspace' && target?.value === '') {
             document.getElementById(`height_input_integral`)?.focus()
         }
     }
 
     const numericInputProps:InputProps = {
-        onKeyDown: handleUnitSave,
+        onKeyDown: handleInputKeyDown,
         inputmode: "numeric",
         pattern: "\\d*",
         onChange: handleNumberInput,
         type: "number",
-        step: "1",
         color: "black",
     }
 
@@ -108,29 +111,40 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                                     setHeightUnit(id); 
                                     setHeightInput('');
                                     document.getElementById(`height_input_integral`)?.focus()
+                                    document.getElementById(`height_input`)?.focus()
                                 }}
                                 tabs={[
                                     {title: 'CM', id: 'cm'},
-                                    {title: 'FT', id: 'ft'}
+                                    {title: 'Ft/In', id: 'ft'}
                                 ]}
                                 style={{marginBottom: '2rem'}}
                             />
-                            <Flex>
-                                <Input 
-                                    style={{width: '50%', marginRight: '0'}} 
+                            {heightUnit === 'ft' ?
+                                <Flex>
+                                    <Input 
+                                        style={{width: '50%', marginRight: '0'}} 
+                                        placeholder={'169'} 
+                                        step={1}
+                                        id='height_input_integral' 
+                                        value={heightInput.split('′')[0] === '0' ? '' : (heightInput.split('′')[0] || '')} 
+                                        {...numericInputProps}
+                                    />
+                                    <Input 
+                                        style={{width: '50%'}} 
+                                        placeholder={'2'} 
+                                        id='height_input_fractional' 
+                                        value={heightInput.split('′')[1]?.replace('″', '') === '0' ? '' : (heightInput.split('′')[1]?.replace('″', '') || '')}
+                                        {...numericInputProps}
+                                    />
+                                </Flex>
+                                : <Input 
                                     placeholder={'169'} 
-                                    id='height_input_integral' 
-                                    value={heightInput.split('.')[0] === '0' ? '' : (heightInput.split('.')[0] || '')} 
+                                    id='height_input' 
+                                    value={heightInput} 
                                     {...numericInputProps}
                                 />
-                                <Input 
-                                    style={{width: '50%'}} 
-                                    placeholder={'2'} 
-                                    id='height_input_fractional' 
-                                    value={heightInput.split('.')[1] === '0' ? '' : (heightInput.split('.')[1] || '')}
-                                    {...numericInputProps}
-                                />
-                            </Flex>
+                            }
+
                         </>
                     }
                     {
@@ -141,7 +155,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                                 onSwitch={(id: 'kg' | 'lbs') => {
                                     setWeightUnit(id); 
                                     setWeightInput('');
-                                    document.getElementById(`weight_input_integral`)?.focus();
+                                    document.getElementById(`weight_input`)?.focus();
                                 }}
                                 tabs={[
                                     {title: 'KG', id: 'kg'},
@@ -149,22 +163,12 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                                 ]}
                                 style={{marginBottom: '2rem'}}
                             />
-                            <Flex>
-                                <Input 
-                                    style={{width: '50%', marginRight: '0'}} 
-                                    placeholder={'60'} 
-                                    id='weight_input_integral' 
-                                    value={weightInput.split('.')[0] === '0' ? '' : (weightInput.split('.')[0] || '')} 
-                                    {...numericInputProps}
-                                />
-                                <Input 
-                                    style={{width: '50%'}} 
-                                    placeholder={'5'} 
-                                    id='weight_input_fractional' 
-                                    value={weightInput.split('.')[1] === '0' ? '' : (weightInput.split('.')[1] || '')}
-                                    {...numericInputProps} 
-                                />
-                            </Flex>
+                            <Input 
+                                placeholder={'60'} 
+                                id='weight_input' 
+                                value={weightInput} 
+                                {...numericInputProps}
+                            />
                         </>
                     }
                 </form>

@@ -17,7 +17,7 @@ export interface InputProps {
     ref?: any
     pattern?: string
     inputmode?: string
-    step?: string
+    step?: number
 }
 
 
