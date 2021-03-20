@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export interface InputProps {
     children?: React.ReactNode
+    width?: string
     type?: 'text' | 'email' | 'password' | 'checkbox' | 'number'
     error?: string
     placeholder?: string
@@ -13,7 +14,7 @@ export interface InputProps {
     color?: 'white' | 'black'
     onFocus?: (e: any) => void
     onChange?: (e: any) => void
-    onKeyDown?: (e: any) => void,
+    onKeyDown?: (e: any) => void
     ref?: any
     pattern?: string
     inputmode?: string
@@ -30,7 +31,7 @@ export default React.forwardRef((props: InputProps, ref) => {
             <StyledLabel type={props.type} htmlFor={props.name}>
                 {
                     props.children &&
-                    <StyledLabelText type={props.type}>{props.children}</StyledLabelText>
+                    <StyledLabelText color={props.color} type={props.type}>{props.children}</StyledLabelText>
                 }
                 <StyledInput ref={ref} {...inputProps} />
                 {
@@ -39,7 +40,7 @@ export default React.forwardRef((props: InputProps, ref) => {
                 }
                 {
                     props.error && props.error !== '' &&
-                    <StyledLabelText type={props.type} style={{color: '#FF3E3E'}}>{props.error}</StyledLabelText>
+                    <StyledLabelText color={props.color} type={props.type}  style={{color: '#FF3E3E'}}>{props.error}</StyledLabelText>
                 }
             </StyledLabel>
         )
@@ -126,6 +127,11 @@ const StyledLabelText = styled.span<InputProps>`
     ${p => ['text', 'email', 'password', 'number'].includes(p.type || '') && `
         margin 0 1rem;
         margin-bottom: 0.7rem;
+        color: ${p.color === 'black' ? 'black' : 'white'};
+    `}
+    ${p => ['checkbox'].includes(p.type || '') && `
+        margin-top: 0.1rem;
+        user-select: none;
     `}
 `
 

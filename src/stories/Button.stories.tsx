@@ -3,41 +3,32 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Button, { ButtonProps } from '../components/Atoms/Button';
-import styled from 'styled-components';
-
-const StoryContainer = styled.div<{background: string | undefined}>`
-  display: flex;
-  width: 100%;
-  height: 40vh;
-  justify-content: center;
-  align-items: center;
-  background: ${p => p.background || '#FFFFFF'};
-`
+import AtomicContainer, { bgType } from './AtomicContainer';
 
 export default {
-  title: 'Button',
+  title: 'Atoms/Button',
   component: Button,
   argTypes: {
     background: { control: 'color' },
   },
 } as Meta;
 
-const Template: Story<ButtonProps & {background: string, label: string}> = (args) => <StoryContainer background={args.background}>
+const Template: Story<ButtonProps & {background: bgType, label: string}> = (args) => <AtomicContainer background={args.background}>
   <Button {...args}>{args.label}</Button>
-</StoryContainer>;
+</AtomicContainer>;
 
 export const Primary = Template.bind({});
 Primary.args = {
   primary: true,
   label: 'get started',
-  background: '#FFFFFF',
+  background: 'light',
   width: '20vw'
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Button',
-  background: '#373560',
+  background: 'dark',
   width: '20vw'
 };
 
@@ -45,7 +36,7 @@ export const Transparent = Template.bind({});
 Transparent.args = {
   transparent: true, 
   label: 'log in',
-  background: '#373560', 
+  background: 'dark', 
   width: '20vw'
 };
 
