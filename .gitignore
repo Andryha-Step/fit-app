@@ -25,3 +25,8 @@ yarn-error.log*
 # lock files
 package-lock.json
 yarn.lock
+
+# firebase hosting files
+.firebase/*
+.firebaserc
+firebase.json
