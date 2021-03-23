@@ -7,26 +7,24 @@ export interface ButtonProps {
     primary?: boolean;
     transparent?: boolean;
     width?: string;
+    small?: boolean;
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
 
-    const { primary, children, style, width, transparent } = props;
+    const { children } = props;
 
     return (
         <ButtonStyled
-            style={style}
-            primary={primary}
-            width={width}
-            transparent={transparent}
+            {...props}
         >
             {children}
         </ButtonStyled>
     )
 }
 
-const ButtonStyled = styled.button<{primary: boolean | undefined, width: string | undefined, transparent: boolean | undefined}>`
-    padding: 0.9rem;
+const ButtonStyled = styled.button<ButtonProps>`
+    padding: ${p => p.small ? '0.4rem' : '0.9rem'};
     margin: 0 1rem;
     margin-bottom: 1rem;
     box-shadow: 0px 4px 20px rgba(59, 152, 179, 0.3);
