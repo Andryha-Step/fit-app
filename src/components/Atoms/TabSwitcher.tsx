@@ -7,41 +7,51 @@ interface Tab {
 }
 
 export interface TabSwitcherProps {
-    tabs: Tab[];
-    onSwitch?: Function;
-    style?: React.CSSProperties;
-    currentTab: string | number;
+    tabs: Tab[]
+    onSwitch?: Function
+    style?: React.CSSProperties
+    tabStyle?: React.CSSProperties
+    tabClass?: string
+    flex?: string
+    currentTab: string | number
+    borderIndicatior?: boolean
 }
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
-
-    // const [currentTab, setTab] = useState<string | number>(props.tabs[0].id) 
 
     const handleTabClick = (event: MouseEvent) => {
         const target = event.target as HTMLDivElement
         props.onSwitch && props.onSwitch(target.id);
     }
     
-    return <StyledTabSwitcher style={props.style}>
+    return <StyledTabSwitcher flex={props.flex} style={props.style}>
         {props.tabs.map(tab => (
             <StyledTab 
+                style={props.tabStyle}
+                className={props.tabClass || ''}
                 key={tab.id}
                 id={tab.id + ''}
                 active={props.currentTab === tab.id}
+                borderIndicatior={props.borderIndicatior}
                 onClick={handleTabClick}
             >{tab.title}</StyledTab>
         ))}
     </StyledTabSwitcher>
 }
 
-const StyledTabSwitcher = styled.div`
+const StyledTabSwitcher = styled.div<{flex?: string}>`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    margin-bottom: 1rem;
+    align-items: center;
+    /* margin-bottom: 1rem; */
+
+    ${p => p.flex ? `
+        flex: ${p.flex};
+    ` : ''}
 `
 
-const StyledTab = styled.div<{active: boolean}>`
+const StyledTab = styled.div<{active: boolean, borderIndicatior?: boolean}>`
     font-size: 1rem;
     color: #B0B0B0;
     font-family: Poppins, sans-serif;
@@ -49,8 +59,12 @@ const StyledTab = styled.div<{active: boolean}>`
     font-weight: bold;
     cursor: pointer;
 
+    ${p => p.borderIndicatior && `
+        border-bottom: 3px solid rgba(0,0,0,0);
+    `}
+
     ${p => p.active && `
-        border-bottom: 3px solid #217E9A;
+        border-color: #217E9A;
         color: #217E9A;
     `}
 `

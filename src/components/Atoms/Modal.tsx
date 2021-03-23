@@ -1,10 +1,10 @@
 import React, { useRef, MouseEvent } from 'react';
 import styled from 'styled-components';
 
-export interface PopupProps {
+export interface ModalProps {
     children?: React.ReactNode | React.ReactNode[];
 
-    // Describes a type of wrapper for popup
+    // Describes a type of wrapper for Modal
     wrapperTemplate?: 'white-box';
     wrapperWidth?: string;
 
@@ -12,22 +12,22 @@ export interface PopupProps {
     onClose?: () => void;
 }
 
-export default function Popup(props: PopupProps): JSX.Element {
+export default function Modal(props: ModalProps): JSX.Element {
 
-    const PopupRef = useRef<HTMLDivElement>(null);
+    const ModalRef = useRef<HTMLDivElement>(null);
 
     if (!props.isOpen) return <></>;
     
     const clickHandler = (e: MouseEvent) => {
 
         // Check if user clicked on container, not wrapper or content
-        if (e.target === PopupRef.current) {
+        if (e.target === ModalRef.current) {
             props.onClose && props.onClose()
         }
     }
 
     return (
-        <PopupContainer onClick={clickHandler} ref={PopupRef}>
+        <ModalContainer onClick={clickHandler} ref={ModalRef}>
             {
                 props.wrapperTemplate === 'white-box' && 
                     <WhiteBoxWrapper width={props.wrapperWidth}>
@@ -37,11 +37,11 @@ export default function Popup(props: PopupProps): JSX.Element {
             {
                 !props.wrapperTemplate && props.children
             }
-        </PopupContainer>
+        </ModalContainer>
     )
 }
 
-const PopupContainer = styled.div`
+const ModalContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -59,5 +59,12 @@ const WhiteBoxWrapper = styled.div<{width?: string}>`
     background: #F8F8F8;
     border-radius: 20px;
     padding: 1.5rem;
+    font-size: 1.3rem;
+    color: black;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
     ${p => p.width && `width: ${p.width};`}
 `

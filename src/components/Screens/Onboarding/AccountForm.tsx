@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import VerticalContainer from '../../VerticalContainer'
-import { Title, Text, Input, Button, Select, Popup, TabSwitcher } from '../../Atoms';
+import { Title, Text, Input, Button, Select, Modal, TabSwitcher } from '../../Atoms';
 import { InputProps } from '../../Atoms/Input'
 import Flex from '../../Blocks/Flex'
 import Backdrop from '../../Blocks/Onboarding/Backdrop'
@@ -14,7 +14,7 @@ export interface AccountFormScreenProps {
 export default function AccountForm(props: AccountFormScreenProps): JSX.Element {
 
     const history = useHistory();
-    const [popupOpen, setPopupOpen] = useState<'weight' | 'height' | null>(null);
+    const [modalOpen, setModalOpen] = useState<'weight' | 'height' | null>(null);
     const [weightInput, setWeightInput] = useState<string>('');
     const [heightInput, setHeightInput] = useState<string>('');
     const [heightUnit, setHeightUnit] = useState<'cm' | 'ft'>('cm');
@@ -26,13 +26,13 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
         const target = e.currentTarget as HTMLInputElement;
         const id = target.id as 'weight' | 'height' | null
 
-        setPopupOpen(id)
+        setModalOpen(id)
     }
 
     useEffect(() => {
-        document.getElementById(`${popupOpen}_input_integral`)?.focus()
-        document.getElementById(`${popupOpen}_input`)?.focus()
-    }, [popupOpen])
+        document.getElementById(`${modalOpen}_input_integral`)?.focus()
+        document.getElementById(`${modalOpen}_input`)?.focus()
+    }, [modalOpen])
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
@@ -76,7 +76,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
         const target = e.target as HTMLInputElement
         if (e.nativeEvent.key === 'Enter') {
             e.preventDefault();
-            setPopupOpen(null);
+            setModalOpen(null);
         }
 
         if (target?.id === 'height_input_fractional' && e.nativeEvent.key === 'Backspace' && target?.value === '') {
@@ -95,15 +95,15 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 
     return (
         <Backdrop blur>
-            <Popup 
-                isOpen={popupOpen !== null} 
+            <Modal 
+                isOpen={modalOpen !== null} 
                 wrapperTemplate='white-box' 
                 wrapperWidth='15rem' 
-                onClose={() => setPopupOpen(null)}
+                onClose={() => setModalOpen(null)}
             >
                 <form style={{display: 'flex', flexDirection: 'column'}}>
                     {
-                        popupOpen === 'height' &&
+                        modalOpen === 'height' &&
                         <>
                             <TabSwitcher
                                 currentTab={heightUnit}
@@ -118,6 +118,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                                     {title: 'Ft/In', id: 'ft'}
                                 ]}
                                 style={{marginBottom: '2rem'}}
+                                borderIndicatior
                             />
                             {heightUnit === 'ft' ?
                                 <Flex>
@@ -148,7 +149,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                         </>
                     }
                     {
-                        popupOpen === 'weight' &&
+                        modalOpen === 'weight' &&
                         <>
                             <TabSwitcher
                                 currentTab={weightUnit}
@@ -162,6 +163,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                                     {title: 'LBS', id: 'lbs'}
                                 ]}
                                 style={{marginBottom: '2rem'}}
+                                borderIndicatior
                             />
                             <Input 
                                 placeholder={'60'} 
@@ -172,7 +174,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                         </>
                     }
                 </form>
-            </Popup>
+            </Modal>
             <VerticalContainer>
                 <Header>
                     <Title>Let’s get to know you</Title>

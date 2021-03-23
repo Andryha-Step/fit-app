@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'; 
 import logo_img from '../../../assets/images/logo.svg'
-import back_button from '../../../assets/images/back.svg'
+import back_button from '../../../assets/icons/back.svg'
 import { Link } from 'react-router-dom';
 
 interface HeaderProps {

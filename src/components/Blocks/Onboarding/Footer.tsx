@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Text } from '../../Atoms'
-import secondary_logo from '../../../assets/images/secondary-logo.png'
+import secondary_logo from '../../../assets/images/logo.png'
 
 interface FooterProps {
     terms?: boolean;

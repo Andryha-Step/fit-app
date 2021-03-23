@@ -8,7 +8,6 @@ const StyledTitle = styled.span<{center?: boolean}>`
     font-style: normal;
     font-weight: bold;
     margin-bottom: 0.8rem;
-    text-transform: uppercase;
     ${p => p.center && `
         text-align: center;
     `}
