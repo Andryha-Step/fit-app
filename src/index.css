@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: overlay;
 }
 
 code {
@@ -46,7 +47,6 @@ input::-webkit-inner-spin-button {
     font-size: 18px;
   }
 }
-
 
 @media only screen and (orientation: landscape) and (max-height: 500px) {
   html {

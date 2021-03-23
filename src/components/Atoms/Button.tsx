@@ -8,6 +8,8 @@ export interface ButtonProps {
     transparent?: boolean;
     width?: string;
     small?: boolean;
+    noMargin?: boolean;
+    fontSize?: string;
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
@@ -35,7 +37,7 @@ const ButtonStyled = styled.button<ButtonProps>`
     letter-spacing: 0.6px;
     user-select: none;
     outline: none;
-    font-size: 1rem;
+    font-size: ${p => p.fontSize || '1rem'};
     text-transform: uppercase;
     transition: 0.2s all;
     ${p => p.width && `
@@ -76,4 +78,6 @@ const ButtonStyled = styled.button<ButtonProps>`
             // }
         `
     )}
+
+    ${p => p.noMargin ? 'margin: 0;' : ''}
 `

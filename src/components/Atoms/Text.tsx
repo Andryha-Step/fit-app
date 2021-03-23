@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledText = styled.span<{center?: boolean, weight?: string, color?: string}>`
-    font-size: 0.8rem;
+const StyledText = styled.span<TextProps>`
+    font-size: ${(p) => p.size || '0.8rem'};
     color: white;
     font-family: Poppins, sans-serif;
     font-style: normal;
@@ -16,6 +16,10 @@ const StyledText = styled.span<{center?: boolean, weight?: string, color?: strin
     ${p => p.color ? `
         color: ${p.color};
     ` : ''}
+
+    ${p => p.noMargin ? `
+        margin: 0;
+    ` : ''}
 `
 
 export interface TextProps {
@@ -24,13 +28,15 @@ export interface TextProps {
     style?: React.CSSProperties
     color?: string
     weight?: string;
+    noMargin?: boolean,
+    size?: string
 }
 
 export default function Text(props: TextProps): JSX.Element {
 
-    const { children, center, weight, style, color } = props;
+    const { children } = props;
     
-    return <StyledText style={style} center={center} weight={weight} color={color}>
+    return <StyledText {...props}>
         {children}
     </StyledText>
 }
