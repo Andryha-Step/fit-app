@@ -57,5 +57,25 @@
 			"} as TemplateArgsType\n",
 		],
 		"description": "Default storybook story base"
+	},
+	"JSX Condition": {
+		"scope": "typescriptreact",
+		"prefix": "jxc",
+		"body": [
+			"{",
+			"\t$1 &&",
+			"\t$0",
+			"}"
+		],
+		"description": "JSX Condition base"
+	},
+	"Styled-components Condition": {
+		"scope": "source.css.styled, css",
+		"prefix": "scc",
+		"body": [
+			"${p => p.$1 ? `\n\t$2",
+        	"` : ''}"
+		],
+		"description": "Styled-components Condition"
 	}
 }

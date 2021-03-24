@@ -35,6 +35,7 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
                 <CategoryContainer first>
                     {Array(10).fill(null).map((el, i) => (
                         <ClassCard 
+                            type='upcoming'
                             iconType={randomElFromArray(['remote', 'one_to_one', undefined])}
                             duration={randomElFromArray(['5 min', '10 min', '30 min', '45 min', '1 hr 25 min', '2 hr'])}
                             middleText={'Class starts in 0:00:12'}
@@ -46,9 +47,31 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
                 <CategoryContainer>
                     {Array(10).fill(null).map((el, i) => (
                         <ClassCard 
-                            iconType={randomElFromArray(['remote', 'one_to_one', undefined])}
-                            duration={randomElFromArray(['5 min', '10 min', '30 min', '45 min', '1 hr 25 min', '2 hr'])}
-                            middleText={'Class starts in 0:00:12'}
+                            type='plan'
+                            middleTitle={<>Get Ready For<br/> Summer</>}
+                            middleText='8 Weeks | 20 Workouts'
+                        />
+                    ))}
+                </CategoryContainer>
+            </Category>
+            <Category title={'Your Challenges'} link={'View all'}>
+                <CategoryContainer>
+                    {Array(10).fill(null).map((el, i) => (
+                        <ClassCard 
+                            type="challenge"
+                            middleTitle={<>Get Ready For<br/> Summer</>}
+                            middleText='8 Weeks | 20 Workouts'
+                        />
+                    ))}
+                </CategoryContainer>
+            </Category>
+            <Category title={'Classes Based On Your Fitness Goal'} link={'View all'}>
+                <CategoryContainer>
+                    {Array(10).fill(null).map((el, i) => (
+                        <ClassCard 
+                            type="new"
+                            middleTitle={<>Get Ready For<br/> Summer</>}
+                            middleText='8 Weeks | 20 Workouts'
                         />
                     ))}
                 </CategoryContainer>

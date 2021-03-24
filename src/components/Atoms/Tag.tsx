@@ -4,20 +4,21 @@ import styled from 'styled-components'
 export interface TagProps {
     children?: React.ReactNode
     style?: React.CSSProperties
+    width?: string
 }
 
 export default function Tag(props: TagProps): JSX.Element {
 
-    const { style, children } = props
+    const { children } = props
 
     return (
-        <StyledTag style={style}>
+        <StyledTag {...props}>
             {children}
         </StyledTag>
     )
 }
 
-const StyledTag = styled.div`
+const StyledTag = styled.div<TagProps>`
     padding: 0 1rem;
     background-color: white;
     text-align: center;
@@ -28,4 +29,8 @@ const StyledTag = styled.div`
     font-style: normal;
     font-weight: 500;
     margin: 0.5rem 0;
+
+    ${p => p.width ? `
+        width: ${p.width};
+    ` : ''}
 `

@@ -7,11 +7,12 @@ import Title, { TitleProps } from "./Title";
 import TabSwitcher, { TabSwitcherProps } from "./TabSwitcher";
 import Logo, { LogoProps } from './Logo';
 import Tag, { TagProps } from './Tag';
+import ProgressBar, { ProgressBarProps } from './ProgressBar'
 
 export { 
-    Button, Input, Modal, Select, Text, Title, TabSwitcher, Logo, Tag
+    Button, Input, Modal, Select, Text, Title, TabSwitcher, Logo, Tag, ProgressBar
 }
 
 export type {
-    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps
+    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps
 }
