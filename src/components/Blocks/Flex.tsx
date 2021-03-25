@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export interface FlexProps {
-    columns?: boolean
+    column?: boolean
     center?: boolean
     flex?: string
     jc?: string
@@ -12,7 +12,7 @@ export default styled.div<FlexProps>`
 
     display: flex;
 
-    ${p => p.columns ? `
+    ${p => p.column ? `
         flex-direction: column;
     ` : ''}
 

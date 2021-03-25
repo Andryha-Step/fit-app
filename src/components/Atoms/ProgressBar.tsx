@@ -46,11 +46,11 @@ const ProgressBarOuter = styled.div`
     align-items: center;
     background: #F2F2F2;
     border-radius: 1rem;
-    border: 0.1rem solid #F2F2F2;
+    border: 2px solid #F2F2F2;
 `
 
 const ProgressBarInner = styled.div<ProgressBarProps>`
-    width: ${p => p.progress * 100}%;
+    width: ${p => p.progress * 100 >= 5 ? p.progress * 100 : '0.6rem'}%;
     border-radius: 1rem;
     height: 0.6rem;
     background: linear-gradient(122.49deg, #429FBA 0%, #217E9A 100%);

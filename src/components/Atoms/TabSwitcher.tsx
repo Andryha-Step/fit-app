@@ -11,6 +11,7 @@ export interface TabSwitcherProps {
     onSwitch?: Function
     style?: React.CSSProperties
     tabStyle?: React.CSSProperties
+    activeTabStyle?: React.CSSProperties
     tabClass?: string
     flex?: string
     currentTab: string | number
@@ -27,7 +28,7 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
     return <StyledTabSwitcher flex={props.flex} style={props.style}>
         {props.tabs.map(tab => (
             <StyledTab 
-                style={props.tabStyle}
+                style={{...props.tabStyle, ...(props.currentTab === tab.id ? props.activeTabStyle : {})}}
                 className={props.tabClass || ''}
                 key={tab.id}
                 id={tab.id + ''}

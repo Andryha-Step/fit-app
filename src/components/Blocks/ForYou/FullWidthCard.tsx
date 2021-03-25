@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Tag, Title, Text } from '../../Atoms'
+import { Button, Tag, Title, Text, IconsRow } from '../../Atoms'
 import forYouBackground from '../../../assets/backgrounds/forYouBackground.png'
 import clock from '../../../assets/icons/clock.svg'
 import eye from '../../../assets/icons/eye.svg'
@@ -10,6 +10,10 @@ import useWindowSize from '../../../customHooks/useWindowSize'
 export interface FullWidthCardProps {
     children?: React.ReactNode
     style?: React.CSSProperties
+    cardTitle?: string,
+    cardText?: string
+    buttonText?: string,
+    onButtonClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 interface Icon {
@@ -20,7 +24,7 @@ interface Icon {
 
 export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
 
-    const { style } = props
+    const { style, cardTitle, cardText, buttonText, onButtonClick } = props
     const { width: windowWidth } = useWindowSize()
     
     const icons = [
@@ -47,22 +51,13 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
                 <Content>
                     <ContentContainer>
                         <Tag>FEATURED</Tag>
-                        <Title weight={'600'} size={windowWidth >= 600 ? '2.5rem' : ''} color="black">Cardio Blast</Title>
-                        <Text color="black">Body | Cardio | Stay Toned</Text>
-                        <IconsWrapper>
-                            {
-                                icons.map((icon, i) => (
-                                    <IconsElement key={i}>
-                                        <img src={icon.src} alt={icon.alt}/>
-                                        <Text color="black">{icon.title}</Text>
-                                    </IconsElement>
-                                ))
-                            }
-                        </IconsWrapper>
+                        <Title weight={'600'} size={windowWidth >= 600 ? '2.5rem' : ''} color="black">{cardTitle}</Title>
+                        <Text color="black">{cardText}</Text>
+                        <IconsRow icons={icons} />
                     </ContentContainer>
                     <ButtonContainer>
-                        <Button width={'7rem'} primary small>
-                            Resume
+                        <Button width={'7rem'} primary small onClick={onButtonClick}>
+                            {buttonText}
                         </Button>
                     </ButtonContainer>
                 </Content>
@@ -140,30 +135,5 @@ const ContentContainer = styled.div`
 
     & > span {
         margin-bottom: 0.5rem;
-    }
-`
-
-const IconsWrapper = styled.div`
-    display: flex;
-`
-
-const IconsElement = styled.div`
-    display: flex;
-    margin-right: 1rem;
-    align-items: center;
-
-    & img {
-        margin-right: 0.3rem;
-        height: 1.2rem;
-    }
-
-    & span {
-        margin: 0;
-    }
-
-    @media only screen and (max-width: 350px) {
-        & span {
-            font-size: 0.7rem;
-        }
     }
 `

@@ -2,19 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 export interface ButtonProps {
-    children: React.ReactNode;
-    style?: React.CSSProperties;
-    primary?: boolean;
-    transparent?: boolean;
-    width?: string;
-    small?: boolean;
-    noMargin?: boolean;
-    fontSize?: string;
+    children: React.ReactNode
+    style?: React.CSSProperties
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
+    primary?: boolean
+    transparent?: boolean
+    width?: string
+    small?: boolean
+    noMargin?: boolean
+    fontSize?: string
+    color?: string
+    background?: string
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
 
-    const { children } = props;
+    const { children } = props
 
     return (
         <ButtonStyled
@@ -34,7 +37,7 @@ const ButtonStyled = styled.button<ButtonProps>`
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
-    letter-spacing: 0.6px;
+    /* letter-spacing: 0.6px; */
     user-select: none;
     outline: none;
     font-size: ${p => p.fontSize || '1rem'};
@@ -58,8 +61,7 @@ const ButtonStyled = styled.button<ButtonProps>`
             background: rgba(196, 196, 196, 0.05);
             color: #FFFFFF;
             border: 2px solid #F8F8F8;
-            padding-top: calc(0.9rem - 4px);
-            padding-bottom: calc(0.9rem - 4px);
+            padding: ${p.small ? 'calc(0.4rem - 4px);' : 'calc(0.9rem - 4px)'};
             cursor: pointer;
             // &:hover {
             //     background: #FFFFFF;
@@ -80,4 +82,12 @@ const ButtonStyled = styled.button<ButtonProps>`
     )}
 
     ${p => p.noMargin ? 'margin: 0;' : ''}
+
+    ${p => p.background ? `
+        background: ${p.background}
+    ` : ''}
+
+    ${p => p.color ? `
+        color: ${p.color}
+    ` : ''}
 `

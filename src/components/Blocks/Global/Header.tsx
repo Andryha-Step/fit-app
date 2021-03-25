@@ -6,48 +6,59 @@ import useWindowSize from '../../../customHooks/useWindowSize';
 
 export interface HeaderProps {
     search?: boolean;
+    bottomTabs?: Tab[]
+    setBottomTab?: Function,
+    currentBottomTab?: string,
+    tabs?: Tab[]
+    setTab?: Function,
+    currentTab?: string,
+}
+
+interface Tab {
+    id: string | number;
+    title: string;
 }
 
 export default function Header(props:HeaderProps): JSX.Element {
 
-    const [currentTab, setCurrentTab] = useState('fy')
+    const { bottomTabs, setBottomTab, currentBottomTab, setTab, currentTab, tabs } = props
+
     const { width: screenWidth } = useWindowSize()
-    const tabs = [{
-        id: 'for_you',
-        title: 'For You',
-    },{
-        id: 'expore',
-        title: 'Explore',
-    },{
-        id: 'book',
-        title: 'Book',
-    },{
-        id: 'chat',
-        title: 'Chat',
-    },{
-        id: 'profile',
-        title: 'Profile',
-    }]
 
     return (
-        <StyledHeader>
-            <Logo style={{justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%'}} flex={'1'} dark/>
+        <>
+            <StyledHeader>
+                <Logo style={{justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%'}} flex={'1'} dark/>
+                {
+                    screenWidth > 600 && 
+                    <TabSwitcher 
+                        tabStyle={screenWidth > 1000 ? {margin: '0 2rem'} : {}}
+                        tabClass='headerTab'
+                        style={screenWidth > 1000 ? {justifyContent: 'center'} : {}}
+                        flex={'5'}
+                        tabs={tabs || []}
+                        currentTab={currentTab || ''}
+                        onSwitch={setTab}
+                    />
+                }
+                <SearchContainer isVisable={props.search} >
+                    <img src={searchIcon} alt="searchIcon" />
+                </SearchContainer>
+            </StyledHeader>
             {
-                screenWidth > 600 && 
-                <TabSwitcher 
-                    tabStyle={screenWidth > 1000 ? {margin: '0 2rem'} : {}}
-                    tabClass='headerTab'
-                    style={screenWidth > 1000 ? {justifyContent: 'center'} : {}}
-                    flex={'5'}
-                    tabs={tabs}
-                    currentTab={currentTab}
-                    onSwitch={setCurrentTab}
-                />
+                (bottomTabs || true) &&
+                <HeaderBottom>
+                    <TabSwitcher 
+                        tabs={bottomTabs || []}
+                        currentTab={currentBottomTab || ''}
+                        onSwitch={setBottomTab}
+                        activeTabStyle={{background: "rgba(48, 143, 171, 0.2)"}}
+                        style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}
+                        tabStyle={bottomTabStyle}
+                    />
+                </HeaderBottom>
             }
-            <SearchContainer isVisable={props.search} >
-                <img src={searchIcon} alt="searchIcon" />
-            </SearchContainer>
-        </StyledHeader>
+        </>
     )
 }
 
@@ -81,6 +92,21 @@ const SearchContainer = styled.div<{isVisable?: boolean}>`
         }
     }
 `
+
+const HeaderBottom = styled.div`
+    height: 3.5rem;
+    justify-content: center;
+    align-items: center;
+`
+
+const bottomTabStyle = {
+    margin: '0 0.5rem',
+    background: '#F8F8F8',
+    borderRadius: '2rem',
+    padding: '0.5rem 1rem',
+    color: 'black',
+    fontSize: '0.9rem'
+} as React.CSSProperties
 
 // const StyledTabSwitcher = styled(TabSwitcher)`
 //     background-color: red;
