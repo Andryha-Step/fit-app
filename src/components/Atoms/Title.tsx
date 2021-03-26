@@ -20,6 +20,9 @@ const StyledTitle = styled.span<TitleProps>`
     ${p => p.clickable ? `
         cursor: pointer;
     ` : ''}
+    ${p => p.noWrap ? `
+        white-space: nowrap;
+    ` : ''}
 `
 
 export interface TitleProps {
@@ -32,6 +35,7 @@ export interface TitleProps {
     noMargin?: boolean
     clickable?: boolean;
     onClick?: React.MouseEventHandler<HTMLSpanElement>;
+    noWrap?: boolean
 }
 
 export default function Title(props: TitleProps): JSX.Element {

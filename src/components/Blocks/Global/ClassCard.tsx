@@ -64,7 +64,7 @@ function UpcomingInner(props:ClassCardProps): JSX.Element {
                         style={{marginRight: '0.5rem', height: '1.1rem'}} 
                         src={clock} alt="clock"
                     />
-                    <Text noMargin>{duration}</Text>
+                    <Text noWrap noMargin>{duration}</Text>
                 </Flex>
                 <Avatars>
                     <img style={{zIndex: 1, left: '0.9rem'}} src={example_avatar_1} alt="avatar"/>

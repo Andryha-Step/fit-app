@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Logo, TabSwitcher } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
 import useWindowSize from '../../../customHooks/useWindowSize';
+import Flex from '../Flex'
 
 export interface HeaderProps {
     search?: boolean;
@@ -33,7 +34,7 @@ export default function Header(props:HeaderProps): JSX.Element {
                     screenWidth > 600 && 
                     <TabSwitcher 
                         tabStyle={screenWidth > 1000 ? {margin: '0 2rem'} : {}}
-                        tabClass='headerTab'
+                        tabClassName='headerTab'
                         style={screenWidth > 1000 ? {justifyContent: 'center'} : {}}
                         flex={'5'}
                         tabs={tabs || []}
@@ -48,14 +49,19 @@ export default function Header(props:HeaderProps): JSX.Element {
             {
                 (bottomTabs || true) &&
                 <HeaderBottom>
-                    <TabSwitcher 
-                        tabs={bottomTabs || []}
-                        currentTab={currentBottomTab || ''}
-                        onSwitch={setBottomTab}
-                        activeTabStyle={{background: "rgba(48, 143, 171, 0.2)"}}
-                        style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}
-                        tabStyle={bottomTabStyle}
-                    />
+                    <Flex flex="1">
+                        <TabSwitcher 
+                            tabs={bottomTabs || []}
+                            currentTab={currentBottomTab || ''}
+                            onSwitch={setBottomTab}
+                            activeTabStyle={{background: "rgba(48, 143, 171, 0.2)"}}
+                            style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}
+                            tabStyle={bottomTabStyle}
+                        />
+                    </Flex>
+                    <SearchContainer headerBottom isVisable={props.search} >
+                        <img src={searchIcon} alt="searchIcon" />
+                    </SearchContainer>
                 </HeaderBottom>
             }
         </>
@@ -70,15 +76,14 @@ const StyledHeader = styled.header`
     display: flex;
 `
 
-const SearchContainer = styled.div<{isVisable?: boolean}>`
-    flex: 1;
-    display: flex;
+const SearchContainer = styled.div<{isVisable?: boolean, headerBottom?: boolean}>`
+    /* flex: 1; */
     justify-content: flex-end;
     align-items: center;
     margin: 0 2rem;
 
     & > img {
-        height: 50%;
+        height: 2rem;
         cursor: pointer;
 
         ${p => !p.isVisable ? `
@@ -86,15 +91,26 @@ const SearchContainer = styled.div<{isVisable?: boolean}>`
         ` : ''}
     }
 
-    @media screen and (max-width: 1000px) and (min-width: 600px) {
-        & {
-            display: none;
+    ${p => p.headerBottom ? `
+        display: none;
+        @media screen and (max-width: 1000px) and (min-width: 600px) {
+            & {
+                display: flex;
+            }
         }
-    }
+    ` : `
+        display: flex;
+        @media screen and (max-width: 1000px) and (min-width: 600px) {
+            & {
+                display: none;
+            }
+        }
+    `}
 `
 
 const HeaderBottom = styled.div`
     height: 3.5rem;
+    display: flex;
     justify-content: center;
     align-items: center;
 `

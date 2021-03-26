@@ -4,6 +4,9 @@ import styled from 'styled-components';
 interface Tab {
     id: string | number;
     title: string;
+    icon?: string
+    iconActive?: string;
+    imgStyle?: React.CSSProperties
 }
 
 export interface TabSwitcherProps {
@@ -12,10 +15,14 @@ export interface TabSwitcherProps {
     style?: React.CSSProperties
     tabStyle?: React.CSSProperties
     activeTabStyle?: React.CSSProperties
-    tabClass?: string
+    tabClassName?: string
     flex?: string
     currentTab: string | number
     borderIndicatior?: boolean
+    showTitleOnlyWhenActive?: boolean
+    fontWeight?: string
+    fontSize?: string
+    containerClassName?: string
 }
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
@@ -25,17 +32,35 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
         props.onSwitch && props.onSwitch(target.id);
     }
     
-    return <StyledTabSwitcher flex={props.flex} style={props.style}>
+    return <StyledTabSwitcher flex={props.flex} style={props.style} className={props.containerClassName || ''}>
         {props.tabs.map(tab => (
             <StyledTab 
                 style={{...props.tabStyle, ...(props.currentTab === tab.id ? props.activeTabStyle : {})}}
-                className={props.tabClass || ''}
+                className={props.tabClassName || ''}
                 key={tab.id}
                 id={tab.id + ''}
-                active={props.currentTab === tab.id}
                 borderIndicatior={props.borderIndicatior}
                 onClick={handleTabClick}
-            >{tab.title}</StyledTab>
+            >
+                {
+                    tab.icon && props.currentTab !== tab.id && 
+                        <img style={tab.imgStyle} src={tab.icon} alt={tab.title} id={tab.id + ''} />
+                }
+                {
+                    tab.iconActive && props.currentTab === tab.id &&
+                        <img style={tab.imgStyle} src={tab.iconActive} alt={tab.title} id={tab.id + ''} />
+                }
+                {
+                    <StyledTitle
+                        {...props}
+                        id={tab.id + ''}
+                        active={props.currentTab === tab.id}
+                        style={((props.showTitleOnlyWhenActive && props.currentTab === tab.id) || !props.showTitleOnlyWhenActive) ? {} : {opacity: 0}}
+                    >
+                        {tab.title}
+                    </StyledTitle>
+                }
+            </StyledTab>
         ))}
     </StyledTabSwitcher>
 }
@@ -52,13 +77,20 @@ const StyledTabSwitcher = styled.div<{flex?: string}>`
     ` : ''}
 `
 
-const StyledTab = styled.div<{active: boolean, borderIndicatior?: boolean}>`
-    font-size: 1rem;
+const StyledTab = styled.div<{borderIndicatior?: boolean, fontSize?: string, fontWeight?: string}>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+`
+
+const StyledTitle = styled.span<{fontSize?: string, fontWeight?: string, active?: boolean, borderIndicatior?: boolean}>`
+    font-size: ${p => p.fontSize || '1rem'};
     color: #B0B0B0;
     font-family: Poppins, sans-serif;
     font-style: normal;
-    font-weight: bold;
-    cursor: pointer;
+    font-weight: ${p => p.fontWeight || 'bold'};
 
     ${p => p.borderIndicatior && `
         border-bottom: 3px solid rgba(0,0,0,0);

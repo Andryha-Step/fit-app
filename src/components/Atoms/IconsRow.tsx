@@ -46,6 +46,7 @@ const IconsElement = styled.div<IconsRowProps>`
     & span {
         margin: 0;
         font-size: ${p => p.fontSize || '0.8rem'};
+        white-space: nowrap;
     }
 
     @media only screen and (max-width: 350px) {

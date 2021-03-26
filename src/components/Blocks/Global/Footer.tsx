@@ -21,8 +21,10 @@ const StyledFooter = styled.footer`
     @media only screen and (max-width: 600px) {
 		& {
 			flex: 0.7;
+			margin-bottom: 5rem;
 		}
 	}
+
 	height: 15vh;
 	margin-top: 1rem;
 	display: flex;

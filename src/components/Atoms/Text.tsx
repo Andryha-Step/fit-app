@@ -20,6 +20,10 @@ const StyledText = styled.span<TextProps>`
     ${p => p.noMargin ? `
         margin: 0;
     ` : ''}
+
+    ${p => p.noWrap ? `
+        white-space: nowrap;
+    ` : ''}
 `
 
 export interface TextProps {
@@ -30,6 +34,7 @@ export interface TextProps {
     weight?: string;
     noMargin?: boolean,
     size?: string
+    noWrap?: boolean
 }
 
 export default function Text(props: TextProps): JSX.Element {

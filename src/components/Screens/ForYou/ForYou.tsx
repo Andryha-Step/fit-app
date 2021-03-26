@@ -6,6 +6,7 @@ import Footer from '../../Blocks/Global/Footer';
 import ClassCard from '../../Blocks/Global/ClassCard';
 import Category from '../../Blocks/ForYou/Category';
 import { Link } from 'react-router-dom';
+import BottomTabNav from '../../Blocks/Global/BottomTabNav'
 
 function randomElFromArray<T>(arr:T[]): T {
     return arr[~~(Math.random() * arr.length)]
@@ -48,6 +49,7 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
 
     return (
         <div>
+            <BottomTabNav />
             <Header 
                 search
                 bottomTabs={headerBottomTabs}
@@ -63,7 +65,7 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
                 buttonText="RESUME"
             />
             <Category 
-                tabs={Array(10).fill(null).map((el, i) => ({
+                tabs={Array(20).fill(null).map((el, i) => ({
                     title: `${9 + i}:00`,
                     id: `${9 + i}00` 
                 }))}
@@ -137,12 +139,18 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
 
 const CategoryContainer = styled.div<{first?: boolean}>`
     display: flex;
-    width: calc(100vw - 4rem);
+    width: calc(100vw - 3rem);
     padding: 0 1rem;
-    margin-right: 2rem;
+    margin-right: 1rem;
+
+    & > div:last-child {
+        margin-right: 2rem;
+    }
+
     ${p => p.first ? `
         margin: 1rem 0rem;
     ` : ''}
+
     overflow-x: scroll;
     &::-webkit-scrollbar {
         display: none;

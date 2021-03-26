@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { Title, TabSwitcher, Text } from '../../Atoms'
 
 interface Tab {
@@ -25,12 +25,13 @@ export default function Category(props: CategoryProps): JSX.Element {
 
     return (
         <div style={style}>
+            <CategorySwitcherStyle />
             <HeaderContainer tabs={props.tabs}>
                 <Header tabs={props.tabs}>
                     <Title noMargin color='black'>{title}</Title>
                     {
                         link &&
-                        <Title noMargin weight={"500"} size={'0.9rem'} color="#429FBA" clickable onClick={props.onLinkClick}>
+                        <Title noWrap noMargin weight={"500"} size={'0.9rem'} color="#429FBA" clickable onClick={props.onLinkClick}>
                             {link}
                         </Title>
                     }
@@ -46,7 +47,8 @@ export default function Category(props: CategoryProps): JSX.Element {
                             currentTab={currentTab}
                             onSwitch={onSwitch}
                             borderIndicatior
-                            tabStyle={TabStyle}
+                            containerClassName={'category-switcher'}
+                            tabClassName={'category-switcher-tab'}
                         />
                 }
             </HeaderContainer>
@@ -83,9 +85,30 @@ const HeaderContainer = styled.div<CategoryProps>`
     ` : ''}
 `
 
-const TabStyle = {
-    padding: "0.5rem 0",
-    fontSize: "0.9rem",
-    fontWeight: 400,
+const CategorySwitcherStyle = createGlobalStyle`
+    .category-switcher {
+        overflow-x: scroll;
+        height: 100%;
+        justify-content: flex-start;
+    }
 
-} as React.CSSProperties
+    .category-switcher-tab {
+        margin: 0 1.5rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+    }
+
+    .category-switcher-tab > span {
+        padding: 0.5rem 0;
+    }
+
+    .category-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media screen and (min-width: 900px) {
+        .category-switcher-tab {
+            margin: 0 4rem;
+        }
+    }
+`
