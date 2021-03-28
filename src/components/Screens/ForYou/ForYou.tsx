@@ -74,85 +74,55 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
                 link={'View all'} 
                 onSwitch={setUpcomingTab}
             >
-                <CategoryContainer first>
-                    {Array(5).fill(null).map((el, i) => (
-                        <ClassCard 
-                            type='upcoming'
-                            iconType={randomElFromArray(['remote', 'one_to_one', undefined])}
-                            duration={randomElFromArray(['5 min', '10 min', '30 min', '45 min', '1 hr 25 min', '2 hr'])}
-                            cardText="Class starts in 0:00:12"
-                            cardTitle="Cardio Blast"
-                        />
-                    ))}
-                </CategoryContainer>
+                {Array(20).fill(null).map((el, i) => (
+                    <ClassCard 
+                        type='upcoming'
+                        iconType={randomElFromArray(['remote', 'one_to_one', undefined])}
+                        duration={randomElFromArray(['5 min', '10 min', '30 min', '45 min', '1 hr 25 min', '2 hr'])}
+                        cardText="Class starts in 0:00:12"
+                        cardTitle="Cardio Blast"
+                    />
+                ))}
             </Category>
             <Category title={'Your plan'} link={'View all'}>
-                <CategoryContainer>
-                    <ClassCard 
-                        type='plan'
-                        cardTitle={<>Get Ready For<br/> Summer</>}
-                        cardText='8 Weeks | 20 Workouts'
-                    />
-                </CategoryContainer>
+                <ClassCard 
+                    type='plan'
+                    cardTitle={<>Get Ready For<br/> Summer</>}
+                    cardText='8 Weeks | 20 Workouts'
+                />
             </Category>
             <Category title={'Your Challenges'} link={'View all'}>
-                <CategoryContainer>
-                    <ClassCard 
-                        type="challenge"
-                        cardTitle="April Challenge"
-                        cardText='2 Weeks | 10 Workouts'
-                    />
-                    <ClassCard 
-                        type="challenge"
-                        cardTitle="Summer Challenge"
-                        cardText='2 Weeks | 10 Workouts'
-                    />
-                </CategoryContainer>
+                <ClassCard 
+                    type="challenge"
+                    cardTitle="April Challenge"
+                    cardText='2 Weeks | 10 Workouts'
+                />
+                <ClassCard 
+                    type="challenge"
+                    cardTitle="Summer Challenge"
+                    cardText='2 Weeks | 10 Workouts'
+                />
             </Category>
             <Category title={'Classes Based On Your Fitness Goal'} subtitle="Be More Active" link={'View all'}>
-                <CategoryContainer>
-                    {Array(5).fill(null).map((el, i) => (
-                        <ClassCard 
-                            type="new"
-                            cardTitle="Cardio Blast"
-                            cardText='Cardio'
-                        />
-                    ))}
-                </CategoryContainer>
+                {Array(5).fill(null).map((el, i) => (
+                    <ClassCard 
+                        type="new"
+                        cardTitle="Cardio Blast"
+                        cardText='Cardio'
+                    />
+                ))}
             </Category>
             <Category title={'Favourites'} link={'View all'}>
-                <CategoryContainer>
-                    {Array(5).fill(null).map((el, i) => (
-                        <ClassCard 
-                            liked
-                            type="new"
-                            cardTitle="Cardio Blast"
-                            cardText='Cardio'
-                        />
-                    ))}
-                </CategoryContainer>
+                {Array(5).fill(null).map((el, i) => (
+                    <ClassCard 
+                        liked
+                        type="new"
+                        cardTitle="Cardio Blast"
+                        cardText='Cardio'
+                    />
+                ))}
             </Category>
             <Footer terms/>
         </div>
     )
 }
-
-const CategoryContainer = styled.div<{first?: boolean}>`
-    display: flex;
-    width: calc(100vw - 3rem);
-    padding: 0 1rem;
-    margin-right: 1rem;
-
-    & > div:last-child {
-        margin-right: 2rem;
-    }
-
-    ${p => p.first ? `
-        margin: 1rem 0rem;
-    ` : ''}
-
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`

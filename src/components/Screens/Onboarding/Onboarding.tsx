@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import swiper_arrow from '../../../assets/images/swiper_arrow.svg'
+import swiper_arrow from '../../../assets/icons/swiper_arrow.svg'
 import { Title, Text, Button } from '../../Atoms';
 import Footer from '../../Blocks/Onboarding/Footer'
 import Backdrop from '../../Blocks/Onboarding/Backdrop'

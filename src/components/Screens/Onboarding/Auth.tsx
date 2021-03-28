@@ -33,11 +33,11 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 		}
 
 		if (props.linkSent) {
-			history.push('/ac')
+			history.push('/forYou')
 		}
 		
 		if (props.loginLink) {
-			history.push('/ac')
+			history.push('/forYou')
 		}
 	}
 

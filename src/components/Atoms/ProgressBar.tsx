@@ -50,7 +50,7 @@ const ProgressBarOuter = styled.div`
 `
 
 const ProgressBarInner = styled.div<ProgressBarProps>`
-    width: ${p => p.progress * 100 >= 5 ? p.progress * 100 : '0.6rem'}%;
+    width: ${p => p.progress * 100 >= 5 ? p.progress * 100 + '%' : '0.6rem'};
     border-radius: 1rem;
     height: 0.6rem;
     background: linear-gradient(122.49deg, #429FBA 0%, #217E9A 100%);
