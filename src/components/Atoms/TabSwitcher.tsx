@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, RefObject } from 'react';
 import styled from 'styled-components';
 
 interface Tab {
@@ -6,7 +6,8 @@ interface Tab {
     title: string;
     icon?: string
     iconActive?: string;
-    imgStyle?: React.CSSProperties
+    imgStyle?: React.CSSProperties,
+    link?: string,
 }
 
 export interface TabSwitcherProps {
@@ -23,6 +24,7 @@ export interface TabSwitcherProps {
     fontWeight?: string
     fontSize?: string
     containerClassName?: string
+    containerRef?: RefObject<HTMLDivElement>
 }
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
@@ -32,7 +34,7 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
         props.onSwitch && props.onSwitch(target.id);
     }
     
-    return <StyledTabSwitcher flex={props.flex} style={props.style} className={props.containerClassName || ''}>
+    return <StyledTabSwitcher ref={props.containerRef} flex={props.flex} style={props.style} className={props.containerClassName || ''}>
         {props.tabs.map(tab => (
             <StyledTab 
                 style={{...props.tabStyle, ...(props.currentTab === tab.id ? props.activeTabStyle : {})}}

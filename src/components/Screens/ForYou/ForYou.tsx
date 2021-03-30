@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
-import FullWidthCard from '../../Blocks/ForYou/FullWidthCard';
-import Header from '../../Blocks/Global/Header';
-import Footer from '../../Blocks/Global/Footer';
+import FullWidthCard from '../../Blocks/Global/FullWidthCard';
 import ClassCard from '../../Blocks/Global/ClassCard';
-import Category from '../../Blocks/ForYou/Category';
+import Category from '../../Blocks/Global/Category';
 import { Link } from 'react-router-dom';
 import BottomTabNav from '../../Blocks/Global/BottomTabNav'
 
@@ -19,46 +17,10 @@ interface ForYouScreenProps {
 export default function ForYou(props:ForYouScreenProps): JSX.Element {
 
     const [upcomingTab, setUpcomingTab] = useState('900')
-    const [headerTab, setHeaderTab] = useState('for_you')
-    const [headerBottomTab, setHeaderBottomTab] = useState('fitness')
-
-    const headerTabs = [{
-        id: 'for_you',
-        title: 'For You',
-    },{
-        id: 'expore',
-        title: 'Explore',
-    },{
-        id: 'book',
-        title: 'Book',
-    },{
-        id: 'chat',
-        title: 'Chat',
-    },{
-        id: 'profile',
-        title: 'Profile',
-    }]
-
-    const headerBottomTabs = [{
-        id: 'fitness',
-        title: 'Fitness'
-    }, {
-        id: 'experiences',
-        title: 'Experiences'
-    }]
 
     return (
         <div>
             <BottomTabNav />
-            <Header 
-                search
-                bottomTabs={headerBottomTabs}
-                currentBottomTab={headerBottomTab}
-                setBottomTab={setHeaderBottomTab}
-                tabs={headerTabs}
-                currentTab={headerTab}
-                setTab={setHeaderTab}
-            />
             <FullWidthCard 
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"
@@ -122,7 +84,6 @@ export default function ForYou(props:ForYouScreenProps): JSX.Element {
                     />
                 ))}
             </Category>
-            <Footer terms/>
         </div>
     )
 }

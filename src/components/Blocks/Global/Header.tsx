@@ -1,34 +1,118 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Logo, TabSwitcher } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
 import useWindowSize from '../../../customHooks/useWindowSize';
 import Flex from '../Flex'
+import { useHistory } from 'react-router';
 
 export interface HeaderProps {
     search?: boolean;
-    bottomTabs?: Tab[]
-    setBottomTab?: Function,
-    currentBottomTab?: string,
-    tabs?: Tab[]
-    setTab?: Function,
-    currentTab?: string,
 }
 
-interface Tab {
-    id: string | number;
+interface HeaderTab {
+    id: string;
     title: string;
+    link: string;
 }
+
+type HeaderId = 'for_you' | 'explore' | 'book' | 'chat' | 'profile'
+const tabs: HeaderTab[] = [{
+    id: 'for_you',
+    title: 'For You',
+    link: '/app/forYou',
+},{
+    id: 'explore',
+    title: 'Explore',
+    link: '/app/explore',
+},{
+    id: 'book',
+    title: 'Book',
+    link: '/app/book',
+},{
+    id: 'chat',
+    title: 'Chat',
+    link: '/app/chat',
+},{
+    id: 'profile',
+    title: 'Profile',
+    link: '/app/profile',
+}]
+
+// const ExploreBottomTabs = [{
+//     id: 'workouts',
+//     title: 'Workouts',
+// },{
+//     id: 'Community',
+//     title: 'Community',
+// },{
+//     id: 'Plans',
+//     title: 'Plans',
+// },{
+//     id: 'Challenges',
+//     title: 'Challenges',
+// },{
+//     id: 'Experiences',
+//     title: 'Experiences',
+// },{
+//     id: 'Shop',
+//     title: 'Shop',
+// }]
+const ExploreBottomTabs = [{
+    id: 'workouts',
+    title: 'Workouts',
+},{
+    id: 'Community',
+    title: 'Community',
+}]
+
+const ForYouBottomTabs = [{
+    id: 'fitness',
+    title: 'Fitness'
+}, {
+    id: 'experiences',
+    title: 'Experiences'
+}]
 
 export default function Header(props:HeaderProps): JSX.Element {
 
-    const { bottomTabs, setBottomTab, currentBottomTab, setTab, currentTab, tabs } = props
-
     const { width: screenWidth } = useWindowSize()
+    const history = useHistory()
+
+    const [currentTab, setTab] = useState('for_you')
+	const [currentBottomTab, setBottomTab] = useState('fitness')
+
+    useEffect(() => {
+        tabs.forEach(tab => {
+            if (history.location.pathname.includes(tab.link)) {
+                setTab(tab.id)
+            }
+        })
+    }, [history])
+
+    const onTabSwitch = (tab_id: string) => {
+        tabs.forEach(tab => {
+            if (tab.id === tab_id) {
+                history.push(tab.link)
+            }
+        })
+        setTab(tab_id)
+    }
+
+    let bottomTabs;
+    switch(currentTab) {
+        case 'for_you':
+            bottomTabs = ForYouBottomTabs; break;
+        case 'explore':
+            bottomTabs = ExploreBottomTabs; break;
+        default:
+            break;
+    }
 
     return (
         <>
             <StyledHeader>
+                <HeaderSpace />
                 <Logo style={{justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%'}} flex={'1'} dark/>
                 {
                     screenWidth > 600 && 
@@ -39,7 +123,7 @@ export default function Header(props:HeaderProps): JSX.Element {
                         flex={'5'}
                         tabs={tabs || []}
                         currentTab={currentTab || ''}
-                        onSwitch={setTab}
+                        onSwitch={onTabSwitch}
                     />
                 }
                 <SearchContainer isVisable={props.search} >
@@ -69,6 +153,9 @@ export default function Header(props:HeaderProps): JSX.Element {
 }
 
 const StyledHeader = styled.header`
+    position: fixed;
+    z-index: 21;
+    top: 0;
     width: 100vw;
     height: 5rem;
     background-color: #ffffff;
@@ -109,6 +196,11 @@ const SearchContainer = styled.div<{isVisable?: boolean, headerBottom?: boolean}
 `
 
 const HeaderBottom = styled.div`
+    position: fixed;
+    top: calc(5rem + 1px);
+    width: 100vw;
+    z-index: 21;
+    background-color: #ffffff;
     height: 3.5rem;
     display: flex;
     justify-content: center;
@@ -123,6 +215,12 @@ const bottomTabStyle = {
     color: 'black',
     fontSize: '0.9rem'
 } as React.CSSProperties
+
+const HeaderSpace = createGlobalStyle`
+    body {
+        margin-top: calc(8.5rem + 1px);
+    }
+`
 
 // const StyledTabSwitcher = styled(TabSwitcher)`
 //     background-color: red;

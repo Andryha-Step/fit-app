@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { TabSwitcher } from '../../Atoms'
 import homeFilled from '../../../assets/icons/homeFilled.svg'
@@ -6,6 +6,7 @@ import expolore from '../../../assets/icons/explore.svg'
 import book from '../../../assets/icons/book.svg'
 import chat from '../../../assets/icons/chat.png'
 import exampleAvatar from '../../../assets/images/example-avatar-4.png'
+import { useHistory } from 'react-router'
 
 export interface BottomTabNavProps {
     children?: React.ReactNode
@@ -15,7 +16,25 @@ export interface BottomTabNavProps {
 export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
 
     const { style } = props
-    const [currentTab, setCurrentTab] = useState('forYou')
+    const [currentTab, setTab] = useState('forYou')
+    const history = useHistory()
+
+    useEffect(() => {
+        tabs.forEach(tab => {
+            if (history.location.pathname.includes(tab.link)) {
+                setTab(tab.id)
+            }
+        })
+    }, [history])
+
+    const onTabSwitch = (tab_id: string) => {
+        tabs.forEach(tab => {
+            if (tab.id === tab_id) {
+                history.push(tab.link)
+            }
+        })
+        setTab(tab_id)
+    }
 
     const tabs = [
         {
@@ -23,35 +42,40 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
             title: 'For you',
             icon: expolore,
             iconActive: homeFilled,
-            imgStyle: {height: '1.5rem'}
+            imgStyle: {height: '1.5rem'},
+            link: '/app/forYou',
         },
         {
             id: 'exp',
             title: 'Explore',
             icon: expolore,
             iconActive: homeFilled,
-            imgStyle: {height: '1.5rem'}
+            imgStyle: {height: '1.5rem'},
+            link: '/app/explore',
         },
         {
             id: 'book',
             title: 'Book',
             icon: book,
             iconActive: homeFilled,
-            imgStyle: {height: '1.5rem'}
+            imgStyle: {height: '1.5rem'},
+            link: '/app/book',
         },
         {
             id: 'chat',
             title: 'Chat',
             icon: chat,
             iconActive: homeFilled,
-            imgStyle: {height: '1.5rem'}
+            imgStyle: {height: '1.5rem'},
+            link: '/app/chat',
         },
         {
-            id: 'prof',
+            id: 'profile',
             title: 'Profile',
             icon: exampleAvatar,
             iconActive: exampleAvatar,
-            imgStyle: {height: '1.5rem', borderRadius: '1rem'}
+            imgStyle: {height: '1.5rem', borderRadius: '1rem'},
+            link: '/app/profile',
         }
     ]
 
@@ -60,7 +84,7 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
             <TabSwitcher
                 tabs={tabs}
                 currentTab={currentTab}
-                onSwitch={setCurrentTab}
+                onSwitch={onTabSwitch}
                 fontWeight={'400'}
                 fontSize="0.8rem"
                 showTitleOnlyWhenActive

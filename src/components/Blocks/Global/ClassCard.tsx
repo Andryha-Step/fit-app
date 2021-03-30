@@ -22,7 +22,7 @@ export interface ClassCardProps {
     duration?: string
     cardText?: string | JSX.Element
     cardTitle?: string | JSX.Element
-    type: 'upcoming' | 'plan' | 'challenge' | 'new'
+    type: 'upcoming' | 'plan' | 'challenge' | 'new' | 'only_title' | 'duration'
     liked?: boolean
 }
 
@@ -47,6 +47,14 @@ export default function ClassCard(props: ClassCardProps): JSX.Element {
             {
                 type === 'new' &&
                     <NewInner {...props} />
+            }
+            {
+                type === 'only_title' &&
+                    <OnlyTitleInner {...props} />
+            }
+            {
+                type === 'duration' &&
+                    <DurationInner {...props} />
             }
         </StyledClassCard>
     )
@@ -91,7 +99,7 @@ function UpcomingInner(props:ClassCardProps): JSX.Element {
                 <Text noMargin size={'1.1rem'}>
                     {cardTitle}
                 </Text>
-                <Button noMargin fontSize={'0.8rem'} small width={'6rem'}>JOINED</Button>
+                <Button noShadow noMargin fontSize={'0.8rem'} small width={'6rem'}>JOINED</Button>
             </Control>
         </CardContainer>
     )
@@ -175,8 +183,34 @@ function NewInner(props:ClassCardProps) {
                     <Text style={{marginBottom: '0.2rem'}} noMargin color="#636363">{cardText}</Text>
                     <IconsRow icons={icons} iconSize='1rem' fontSize="0.7rem" />
                 </Flex>
-                <Button style={{padding: '0.3rem 1rem'}} fontSize="0.7rem" primary small noMargin>START</Button>
+                <Button noShadow style={{padding: '0.3rem 1rem'}} fontSize="0.7rem" primary small noMargin>START</Button>
             </BottomFilledControl>
+        </CardContainer>
+    )
+}
+
+function OnlyTitleInner(props:ClassCardProps) {
+
+    const { cardTitle } = props
+
+    return (
+        <CardContainer {...props}>
+            <Flex flex={'1'} jc={'center'} ai={'flex-center'} column>
+                <Title center noMargin>{cardTitle}</Title>
+            </Flex>
+        </CardContainer>
+    )
+}
+
+function DurationInner(props:ClassCardProps) {
+
+    const { cardTitle } = props
+
+    return (
+        <CardContainer {...props}>
+            <Flex flex={'1'} jc={'center'} ai={'flex-center'} column>
+                <Title color={'#217E9A'} center noMargin>{cardTitle}</Title>
+            </Flex>
         </CardContainer>
     )
 }
@@ -184,6 +218,18 @@ function NewInner(props:ClassCardProps) {
 const StyledClassCard = styled.div<ClassCardProps>`
     min-width: 20rem;
     height: 16rem;
+    border-radius: 0.5rem;
+    background-image: url(${forYouBackground});
+    transition: background-size 0.4s;
+    background-size: 56rem;
+    background-position: center center;
+    margin: 1rem;
+
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-size: 66rem;
+    }
 
     ${p => p.type === 'challenge' ? `
         min-width: 18rem;
@@ -195,16 +241,28 @@ const StyledClassCard = styled.div<ClassCardProps>`
         height: 12rem;
     ` : ''}
 
-    border-radius: 0.5rem;
-    background-image: url(${forYouBackground});
-    transition: background-size 0.4s;
-    background-size: 56rem;
-    background-position: center center;
-    margin: 1rem;
+    ${p => p.type === 'duration' ? `
+        background: #FFFFFF;
+        border: 2px solid #217E9A;
+        height: 10rem;
+    ` : ''}
 
-    &:hover {
-        background-size: 66rem;
-    }
+    ${p => ['duration', 'only_title'].includes(p.type) ? `
+        height: 12rem;
+        min-width: 18rem;
+
+        @media only screen and (max-width: 680px) {
+            && {
+                background-size: 35rem;
+                min-width: 8rem;
+                height: 9rem;
+                margin: 0.3rem;
+                margin-top: 0.8rem;
+                margin-left: 1rem;
+                margin-right: 0;
+            }
+        }
+    ` : ''}
 `
 
 const CardContainer = styled.div<ClassCardProps>`
@@ -222,6 +280,11 @@ const CardContainer = styled.div<ClassCardProps>`
         padding: 0;
         width: 100%;
         height: 100%;
+    ` : ''}
+
+    ${p => p.type === 'duration' ? `
+        background: transparent;
+        backdrop-filter: none!important;
     ` : ''}
 
     &:hover {

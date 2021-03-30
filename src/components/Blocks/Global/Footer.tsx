@@ -25,7 +25,7 @@ const StyledFooter = styled.footer`
 		}
 	}
 
-	height: 15vh;
+	height: 10rem;
 	margin-top: 1rem;
 	display: flex;
     flex-direction: column;

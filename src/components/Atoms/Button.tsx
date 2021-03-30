@@ -13,6 +13,7 @@ export interface ButtonProps {
     fontSize?: string
     color?: string
     background?: string
+    noShadow?: boolean,
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
@@ -32,7 +33,9 @@ const ButtonStyled = styled.button<ButtonProps>`
     padding: ${p => p.small ? '0.4rem' : '0.9rem'};
     margin: 0 1rem;
     margin-bottom: 1rem;
-    box-shadow: 0px 4px 20px rgba(59, 152, 179, 0.3);
+    ${p => !p.noShadow ? `
+        box-shadow: 0px 4px 20px rgba(59, 152, 179, 0.3);
+    ` : ''}
     border-radius: 50px;
     font-family: 'Poppins', sans-serif;
     font-style: normal;

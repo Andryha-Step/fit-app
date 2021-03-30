@@ -56,7 +56,7 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
                         <IconsRow icons={icons} />
                     </ContentContainer>
                     <ButtonContainer>
-                        <Button style={{marginLeft: '0'}} width={'7rem'} primary small onClick={onButtonClick}>
+                        <Button style={{marginLeft: '0'}} width={'7rem'} onClick={onButtonClick} primary small noShadow>
                             {buttonText}
                         </Button>
                     </ButtonContainer>
@@ -95,7 +95,7 @@ const Content = styled.div`
 
     @media only screen and (min-width: 600px) {
         & {
-            padding: 0 10vw;
+            padding: 0 2rem;
             margin-bottom: 0.5rem;
         }
     }
@@ -126,7 +126,8 @@ const ButtonContainer = styled.div`
 
 const ContentContainer = styled.div`
     flex: 1;
-    margin: 1rem;
+    margin: 2rem;
+    margin-bottom: 1rem;
     margin-right: 0;
     display: flex;
     flex-direction: column;

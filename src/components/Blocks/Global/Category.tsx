@@ -18,16 +18,19 @@ export interface CategoryProps {
     onSwitch?: Function,
     onLinkClick?: React.MouseEventHandler<HTMLSpanElement>
     subtitle?: string | JSX.Element | (() => JSX.Element)
+    noScroll?: boolean,
+    cardMinWidth?: string;
 }
 
 export default function Category(props: CategoryProps): JSX.Element {
 
-    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle } = props
+    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth } = props
     const [showRightArrow, setRightArrow] = useState<Boolean>(false)
     const [showLeftArrow, setLeftArrow] = useState<Boolean>(false)
 
     const ClassesContainerNode: React.Ref<HTMLDivElement> = useRef(null)
-
+    const SwitcherContainerRef: React.Ref<HTMLDivElement> = useRef(null)
+ 
     useEffect(() => {
 
         setRightArrow((ClassesContainerNode.current?.scrollWidth || 0) > (ClassesContainerNode.current?.clientWidth || 0))
@@ -51,8 +54,6 @@ export default function Category(props: CategoryProps): JSX.Element {
             } else {
                 ClassesContainerNode.current?.scrollTo(ClassesContainerNode.current?.scrollLeft + cardFullWidth, 0);
             }
-
-            console.log(cardFullWidth, ClassesContainerNode.current?.scrollLeft, isLeft, (e.target as HTMLDivElement).id)
 
         } else {
             if (isLeft) {
@@ -80,6 +81,9 @@ export default function Category(props: CategoryProps): JSX.Element {
         }
     }
 
+    function onTabSwitch(id: string) {
+        onSwitch && onSwitch(id)
+    }
 
 
     return (
@@ -102,9 +106,10 @@ export default function Category(props: CategoryProps): JSX.Element {
                 {
                     tabs && currentTab &&
                         <TabSwitcher
+                            containerRef={SwitcherContainerRef}
                             tabs={tabs}
                             currentTab={currentTab}
-                            onSwitch={onSwitch}
+                            onSwitch={onTabSwitch}
                             borderIndicatior
                             containerClassName={'category-switcher'}
                             tabClassName={'category-switcher-tab'}
@@ -112,17 +117,21 @@ export default function Category(props: CategoryProps): JSX.Element {
                 }
             </HeaderContainer>
             <ArrowsContainer>
-                <ArrowContainer hide={!showRightArrow}>
-                    <Arrow id={'right'} onClick={onArrowClick}>
-                        <img src={arrow} alt="" id={'right'}/>
-                    </Arrow>
-                </ArrowContainer>
-                <ArrowContainer hide={!showLeftArrow} left>
-                    <Arrow id={'left'} onClick={onArrowClick} left>
-                        <img src={arrow} alt="" id={'left'}/>
-                    </Arrow>
-                </ArrowContainer>
-                 <ClassesContainer onScroll={onContainerScroll} ref={ClassesContainerNode}> 
+                {
+                    !noScroll && <ArrowContainer hide={!showRightArrow}>
+                        <Arrow id={'right'} onClick={onArrowClick}>
+                            <img src={arrow} alt="" id={'right'}/>
+                        </Arrow>
+                    </ArrowContainer>
+                }
+                {
+                    !noScroll && <ArrowContainer hide={!showLeftArrow} left>
+                        <Arrow id={'left'} onClick={onArrowClick} left>
+                            <img src={arrow} alt="" id={'left'}/>
+                        </Arrow>
+                    </ArrowContainer>
+                }
+                 <ClassesContainer cardMinWidth={cardMinWidth} noScroll={noScroll} onScroll={onContainerScroll} ref={ClassesContainerNode}> 
                     {
                         children
                     }
@@ -181,11 +190,22 @@ const ClassesContainer = styled.div<CategoryProps>`
         margin: 1rem 0rem;
     ` : ''}
 
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    ${p => !p.noScroll ? `
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    ` : `
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(${p.cardMinWidth}, 1fr));
+
+        & > div:last-child {
+            margin-right: 0;
+        }
+    `}
 `
 
 const Arrow = styled.div<{left?: boolean}>`
@@ -226,6 +246,10 @@ const ArrowContainer = styled.div<{hide?: boolean, left?: boolean}>`
     ${p => p.hide ? `
         opacity: 0;
     ` : ''}
+
+    @media screen and (max-width: 992px) {
+        display: none;
+    }
 `
 
 const CategorySwitcherStyle = createGlobalStyle`
