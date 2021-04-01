@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import FullWidthCard from '../../Blocks/Global/FullWidthCard'
 import Category from '../../Blocks/Global/Category';
 import ClassCard from '../../Blocks/Global/ClassCard';
-import useWindowSize from '../../../customHooks/useWindowSize';
+import useWindowSize from '../../../hooks/useWindowSize';
 import { Coach } from '../../Atoms';
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
 
@@ -52,7 +52,7 @@ export default function Explore(props: ExploreProps): JSX.Element {
             </Category>
             <Category
                 title={'On-Demand'}  
-                cardMinWidth={screenWidth > 680 ? '20rem' : '10rem'}  
+                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}  
                 noScroll  
             >
                 {Array(8).fill(null).map((el, i) => (
@@ -65,7 +65,7 @@ export default function Explore(props: ExploreProps): JSX.Element {
             </Category>
             <Category
                 title={'Duration'} 
-                cardMinWidth={screenWidth > 680 ? '20rem' : '10rem'}  
+                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}  
                 noScroll  
             >
                 {Array(8).fill(null).map((el, i) => (

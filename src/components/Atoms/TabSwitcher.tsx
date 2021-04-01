@@ -1,7 +1,7 @@
 import React, { MouseEvent, RefObject } from 'react';
 import styled from 'styled-components';
 
-interface Tab {
+export interface Tab {
     id: string | number;
     title: string;
     icon?: string
@@ -11,16 +11,17 @@ interface Tab {
 }
 
 export interface TabSwitcherProps {
-    tabs: Tab[]
+    tabs?: Tab[]
     onSwitch?: Function
     style?: React.CSSProperties
     tabStyle?: React.CSSProperties
     activeTabStyle?: React.CSSProperties
     tabClassName?: string
     flex?: string
-    currentTab: string | number
+    currentTab?: string | number
     borderIndicatior?: boolean
     showTitleOnlyWhenActive?: boolean
+    withScroll?:boolean
     fontWeight?: string
     fontSize?: string
     containerClassName?: string
@@ -34,8 +35,8 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
         props.onSwitch && props.onSwitch(target.id);
     }
     
-    return <StyledTabSwitcher ref={props.containerRef} flex={props.flex} style={props.style} className={props.containerClassName || ''}>
-        {props.tabs.map(tab => (
+    return <StyledTabSwitcher withScroll={props.withScroll} ref={props.containerRef} flex={props.flex} style={props.style} className={props.containerClassName || ''}>
+        {props.tabs?.map(tab => (
             <StyledTab 
                 style={{...props.tabStyle, ...(props.currentTab === tab.id ? props.activeTabStyle : {})}}
                 className={props.tabClassName || ''}
@@ -67,12 +68,17 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
     </StyledTabSwitcher>
 }
 
-const StyledTabSwitcher = styled.div<{flex?: string}>`
+const StyledTabSwitcher = styled.div<{flex?: string, withScroll?: boolean}>`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     /* margin-bottom: 1rem; */
+
+    ${p => p.withScroll ? `
+        overflow-x: scroll;
+        justify-content: flex-start;
+    ` : ''}
 
     ${p => p.flex ? `
         flex: ${p.flex};

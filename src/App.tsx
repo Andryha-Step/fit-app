@@ -79,9 +79,7 @@ function App(): JSX.Element {
 			<Route exact path='/app/chat' component={() => <ForYou />} />
 			<Route exact path='/app/profile' component={() => <ForYou />} /> */}
 			<Route path="/app/:appPage" render={() => (
-				<>
-					<Footer terms/>
-				</>
+				<Footer terms/>
 			)} />
 		</AppContainer>
 		</Switch>

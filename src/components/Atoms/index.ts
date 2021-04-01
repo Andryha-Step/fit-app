@@ -4,7 +4,7 @@ import Modal, { ModalProps } from './Modal';
 import Select, { SelectProps } from "./Select";
 import Text, { TextProps } from "./Text";
 import Title, { TitleProps } from "./Title";
-import TabSwitcher, { TabSwitcherProps } from "./TabSwitcher";
+import TabSwitcher, { TabSwitcherProps, Tab } from "./TabSwitcher";
 import Logo, { LogoProps } from './Logo';
 import Tag, { TagProps } from './Tag';
 import ProgressBar, { ProgressBarProps } from './ProgressBar'
@@ -16,5 +16,5 @@ export {
 }
 
 export type {
-    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps, IconsRowProps, CoachProps
+    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps, IconsRowProps, CoachProps, Tab
 }

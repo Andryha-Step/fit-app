@@ -249,7 +249,7 @@ const StyledClassCard = styled.div<ClassCardProps>`
 
     ${p => ['duration', 'only_title'].includes(p.type) ? `
         height: 12rem;
-        min-width: 18rem;
+        min-width: 16rem;
 
         @media only screen and (max-width: 680px) {
             && {
@@ -272,9 +272,9 @@ const CardContainer = styled.div<ClassCardProps>`
     border-radius: 0.5rem;
     width: calc(100% - 2rem);
     height: calc(100% - 2rem);
-    background: linear-gradient(180deg, rgba(27, 27, 27, 0) 0%, rgba(27, 27, 27, 0.55) 79.86%);
-    transition: backdrop-filter 0.4s;
-    backdrop-filter: brightness(90%);
+    background: linear-gradient(180deg, rgba(27, 27, 27, 0.1) 0%, rgba(27, 27, 27, 0.75) 79.86%);
+    /* transition: backdrop-filter 0.4s; */
+    /* backdrop-filter: brightness(90%); */
 
     ${p => p.type === 'new' ? `
         padding: 0;
@@ -284,11 +284,11 @@ const CardContainer = styled.div<ClassCardProps>`
 
     ${p => p.type === 'duration' ? `
         background: transparent;
-        backdrop-filter: none!important;
+        // backdrop-filter: none!important;
     ` : ''}
 
     &:hover {
-        backdrop-filter: brightness(60%);
+        /* backdrop-filter: brightness(60%); */
     }
 `
 

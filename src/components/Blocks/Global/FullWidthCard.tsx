@@ -5,7 +5,7 @@ import forYouBackground from '../../../assets/backgrounds/forYouBackground.png'
 import clock from '../../../assets/icons/clock.svg'
 import eye from '../../../assets/icons/eye.svg'
 import star from '../../../assets/icons/filledStar.svg'
-import useWindowSize from '../../../customHooks/useWindowSize'
+import useWindowSize from '../../../hooks/useWindowSize'
 
 export interface FullWidthCardProps {
     children?: React.ReactNode

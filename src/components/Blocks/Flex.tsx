@@ -32,4 +32,8 @@ export default styled.div<FlexProps>`
     ${p => p.ai ? `
         align-items: ${p.ai};
     ` : ''}
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `

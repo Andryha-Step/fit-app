@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Logo, TabSwitcher } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
-import useWindowSize from '../../../customHooks/useWindowSize';
+import useWindowSize from '../../../hooks/useWindowSize';
+import useTabSwitcher from '../../../hooks/useTabSwitcher';
 import Flex from '../Flex'
 import { useHistory } from 'react-router';
 
@@ -39,40 +40,41 @@ const tabs: HeaderTab[] = [{
     link: '/app/profile',
 }]
 
-// const ExploreBottomTabs = [{
-//     id: 'workouts',
-//     title: 'Workouts',
-// },{
-//     id: 'Community',
-//     title: 'Community',
-// },{
-//     id: 'Plans',
-//     title: 'Plans',
-// },{
-//     id: 'Challenges',
-//     title: 'Challenges',
-// },{
-//     id: 'Experiences',
-//     title: 'Experiences',
-// },{
-//     id: 'Shop',
-//     title: 'Shop',
-// }]
-const ExploreBottomTabs = [{
-    id: 'workouts',
-    title: 'Workouts',
-},{
-    id: 'Community',
-    title: 'Community',
-}]
+const bottomTabs = [
+    {
+        id: 'explore',
+        tabs: [{
+            id: 'workouts',
+            title: 'Workouts',
+        },{
+            id: 'Community',
+            title: 'Community',
+        },{
+            id: 'Plans',
+            title: 'Plans',
+        },{
+            id: 'Challenges',
+            title: 'Challenges',
+        },{
+            id: 'Experiences',
+            title: 'Experiences',
+        },{
+            id: 'Shop',
+            title: 'Shop',
+        }],
+    },
+    {
+        id: 'for_you',
+        tabs: [{
+            id: 'fitness',
+            title: 'Fitness'
+        }, {
+            id: 'experiences',
+            title: 'Experiences'
+        }]
+    }
+]
 
-const ForYouBottomTabs = [{
-    id: 'fitness',
-    title: 'Fitness'
-}, {
-    id: 'experiences',
-    title: 'Experiences'
-}]
 
 export default function Header(props:HeaderProps): JSX.Element {
 
@@ -80,15 +82,25 @@ export default function Header(props:HeaderProps): JSX.Element {
     const history = useHistory()
 
     const [currentTab, setTab] = useState('for_you')
-	const [currentBottomTab, setBottomTab] = useState('fitness')
+	// const [currentBottomTab, setBottomTab] = useState('fitness')
+    console.log(bottomTabs.find(tab => tab.id === currentTab), currentTab, bottomTabs)
+    const { tabSwitcher: bottomTabSwitcher } = useTabSwitcher({
+        tabs: bottomTabs.find(tab => tab.id === currentTab)?.tabs || [],
+        tabSwitcherProps: {
+            activeTabStyle: {background: "rgba(48, 143, 171, 0.2)"},
+            style: {justifyContent: 'center', alignItems: 'center', height: '100%'},
+            tabStyle: bottomTabStyle
+        }
+    })
 
+    
     useEffect(() => {
         tabs.forEach(tab => {
             if (history.location.pathname.includes(tab.link)) {
                 setTab(tab.id)
             }
         })
-    }, [history])
+    }, [history.location.pathname])
 
     const onTabSwitch = (tab_id: string) => {
         tabs.forEach(tab => {
@@ -99,15 +111,15 @@ export default function Header(props:HeaderProps): JSX.Element {
         setTab(tab_id)
     }
 
-    let bottomTabs;
-    switch(currentTab) {
-        case 'for_you':
-            bottomTabs = ForYouBottomTabs; break;
-        case 'explore':
-            bottomTabs = ExploreBottomTabs; break;
-        default:
-            break;
-    }
+    // let bottomTabs;
+    // switch(currentTab) {
+    //     case 'for_you':
+    //         bottomTabs = ForYouBottomTabs; break;
+    //     case 'explore':
+    //         bottomTabs = ExploreBottomTabs; break;
+    //     default:
+    //         break;
+    // }
 
     return (
         <>
@@ -131,19 +143,17 @@ export default function Header(props:HeaderProps): JSX.Element {
                 </SearchContainer>
             </StyledHeader>
             {
-                (bottomTabs || true) &&
+                bottomTabs &&
                 <HeaderBottom>
-                    <Flex flex="1">
-                        <TabSwitcher 
+                    <Flex style={{overflowX: 'scroll'}}>
+                        {/* <TabSwitcher 
                             tabs={bottomTabs || []}
                             currentTab={currentBottomTab || ''}
                             onSwitch={setBottomTab}
-                            activeTabStyle={{background: "rgba(48, 143, 171, 0.2)"}}
-                            style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}
-                            tabStyle={bottomTabStyle}
-                        />
+                        /> */}
+                        { bottomTabSwitcher }
                     </Flex>
-                    <SearchContainer headerBottom isVisable={props.search} >
+                    <SearchContainer headerBottom isVisable={props.search}>
                         <img src={searchIcon} alt="searchIcon" />
                     </SearchContainer>
                 </HeaderBottom>
@@ -205,6 +215,9 @@ const HeaderBottom = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    /* overflow-x: scroll; */
+
+    
 `
 
 const bottomTabStyle = {
