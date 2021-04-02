@@ -88,7 +88,7 @@ export default function Header(props:HeaderProps): JSX.Element {
         tabs: bottomTabs.find(tab => tab.id === currentTab)?.tabs || [],
         tabSwitcherProps: {
             activeTabStyle: {background: "rgba(48, 143, 171, 0.2)"},
-            style: {justifyContent: 'center', alignItems: 'center', height: '100%'},
+            style: {justifyContent: 'flex-start', alignItems: 'center', height: '100%'},
             tabStyle: bottomTabStyle
         }
     })
@@ -145,14 +145,14 @@ export default function Header(props:HeaderProps): JSX.Element {
             {
                 bottomTabs &&
                 <HeaderBottom>
-                    <Flex style={{overflowX: 'scroll'}}>
+                    <StyledSwitcherContainer>
                         {/* <TabSwitcher 
                             tabs={bottomTabs || []}
                             currentTab={currentBottomTab || ''}
                             onSwitch={setBottomTab}
                         /> */}
                         { bottomTabSwitcher }
-                    </Flex>
+                    </StyledSwitcherContainer>
                     <SearchContainer headerBottom isVisable={props.search}>
                         <img src={searchIcon} alt="searchIcon" />
                     </SearchContainer>
@@ -173,9 +173,20 @@ const StyledHeader = styled.header`
     display: flex;
 `
 
+const StyledSwitcherContainer = styled(Flex)`
+    overflow-x: scroll;
+    @media screen and (max-width: 1000px) and (min-width: 600px) {
+        & > div::after { // space for search button
+            content: '';
+            min-width: 6rem;
+            height: 1px;
+        }
+    }
+`
+
 const SearchContainer = styled.div<{isVisable?: boolean, headerBottom?: boolean}>`
     /* flex: 1; */
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     margin: 0 2rem;
 
@@ -190,6 +201,15 @@ const SearchContainer = styled.div<{isVisable?: boolean, headerBottom?: boolean}
 
     ${p => p.headerBottom ? `
         display: none;
+        position: absolute;
+        right: 0;
+        margin: 0;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0), white, white, white, white, white);
+        width: 8rem;
+        height: 100%;
+        & > img {
+            margin-left: 2rem;
+        }
         @media screen and (max-width: 1000px) and (min-width: 600px) {
             & {
                 display: flex;
@@ -217,7 +237,18 @@ const HeaderBottom = styled.div`
     align-items: center;
     /* overflow-x: scroll; */
 
-    
+    /* @media screen and (max-width: 1000px) and (min-width: 600px) {
+        & {
+            width: calc(100vw - 4rem);
+            padding-right: 4rem;
+        }
+    } */
+
+    @media screen and (max-width: 1000px) {
+        & {
+            justify-content: flex-start;
+        }
+    }
 `
 
 const bottomTabStyle = {
