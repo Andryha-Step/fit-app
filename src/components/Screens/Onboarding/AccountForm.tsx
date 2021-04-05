@@ -35,9 +35,9 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
     }, [modalOpen])
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-		event.preventDefault();
-		history.push('/suc')
-	}
+        event.preventDefault();
+        history.push('/suc')
+    }
 
     const handleNumberInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>) => {
         const target = e.target as HTMLInputElement
@@ -60,15 +60,15 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
             //     return;
             // }
             if (target?.id === `${input}_input_integral`) setInput((current) => {
-                return (target.value.replace(/[^0-9]/g,'') || '0') + '′' + (current.split('′')[1]?.replace('″', '') || '0') + '″'
+                return (target.value.replace(/[^0-9]/g, '') || '0') + '′' + (current.split('′')[1]?.replace('″', '') || '0') + '″'
             })
             if (target?.id === `${input}_input_fractional`) setInput((current) => {
-                return (current.split('′')[0] || '0') + '′' + (target.value.replace(/[^0-9]/g,'') || '0') + '″'
+                return (current.split('′')[0] || '0') + '′' + (target.value.replace(/[^0-9]/g, '') || '0') + '″'
             })
             return;
-        } 
+        }
 
-        setInput(target.value.replace(/[^0-9,.]/g,''))
+        setInput(target.value.replace(/[^0-9,.]/g, ''))
 
     }
 
@@ -84,7 +84,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
         }
     }
 
-    const numericInputProps:InputProps = {
+    const numericInputProps: InputProps = {
         onKeyDown: handleInputKeyDown,
         inputmode: "numeric",
         pattern: "\\d*",
@@ -95,53 +95,53 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 
     return (
         <Backdrop blur>
-            <Modal 
-                isOpen={modalOpen !== null} 
-                wrapperTemplate='white-box' 
-                wrapperWidth='15rem' 
+            <Modal
+                isOpen={modalOpen !== null}
+                wrapperTemplate='white-box'
+                wrapperWidth='15rem'
                 onClose={() => setModalOpen(null)}
             >
-                <form style={{display: 'flex', flexDirection: 'column'}}>
+                <form style={{ display: 'flex', flexDirection: 'column' }}>
                     {
                         modalOpen === 'height' &&
                         <>
                             <TabSwitcher
                                 currentTab={heightUnit}
                                 onSwitch={(id: 'cm' | 'ft') => {
-                                    setHeightUnit(id); 
+                                    setHeightUnit(id);
                                     setHeightInput('');
                                     document.getElementById(`height_input_integral`)?.focus()
                                     document.getElementById(`height_input`)?.focus()
                                 }}
                                 tabs={[
-                                    {title: 'CM', id: 'cm'},
-                                    {title: 'Ft/In', id: 'ft'}
+                                    { title: 'CM', id: 'cm' },
+                                    { title: 'Ft/In', id: 'ft' }
                                 ]}
-                                style={{marginBottom: '2rem'}}
+                                style={{ marginBottom: '2rem' }}
                                 borderIndicatior
                             />
                             {heightUnit === 'ft' ?
                                 <Flex>
-                                    <Input 
-                                        style={{width: '50%', marginRight: '0'}} 
-                                        placeholder={'169'} 
+                                    <Input
+                                        style={{ width: '50%', marginRight: '0' }}
+                                        placeholder={'169'}
                                         step={1}
-                                        id='height_input_integral' 
-                                        value={heightInput.split('′')[0] === '0' ? '' : (heightInput.split('′')[0] || '')} 
+                                        id='height_input_integral'
+                                        value={heightInput.split('′')[0] === '0' ? '' : (heightInput.split('′')[0] || '')}
                                         {...numericInputProps}
                                     />
-                                    <Input 
-                                        style={{width: '50%'}} 
-                                        placeholder={'2'} 
-                                        id='height_input_fractional' 
+                                    <Input
+                                        style={{ width: '50%' }}
+                                        placeholder={'2'}
+                                        id='height_input_fractional'
                                         value={heightInput.split('′')[1]?.replace('″', '') === '0' ? '' : (heightInput.split('′')[1]?.replace('″', '') || '')}
                                         {...numericInputProps}
                                     />
                                 </Flex>
-                                : <Input 
-                                    placeholder={'169'} 
-                                    id='height_input' 
-                                    value={heightInput} 
+                                : <Input
+                                    placeholder={'169'}
+                                    id='height_input'
+                                    value={heightInput}
                                     {...numericInputProps}
                                 />
                             }
@@ -154,21 +154,21 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                             <TabSwitcher
                                 currentTab={weightUnit}
                                 onSwitch={(id: 'kg' | 'lbs') => {
-                                    setWeightUnit(id); 
+                                    setWeightUnit(id);
                                     setWeightInput('');
                                     document.getElementById(`weight_input`)?.focus();
                                 }}
                                 tabs={[
-                                    {title: 'KG', id: 'kg'},
-                                    {title: 'LBS', id: 'lbs'}
+                                    { title: 'KG', id: 'kg' },
+                                    { title: 'LBS', id: 'lbs' }
                                 ]}
-                                style={{marginBottom: '2rem'}}
+                                style={{ marginBottom: '2rem' }}
                                 borderIndicatior
                             />
-                            <Input 
-                                placeholder={'60'} 
-                                id='weight_input' 
-                                value={weightInput} 
+                            <Input
+                                placeholder={'60'}
+                                id='weight_input'
+                                value={weightInput}
                                 {...numericInputProps}
                             />
                         </>
@@ -177,8 +177,8 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
             </Modal>
             <VerticalContainer>
                 <Header>
-                    <Title>Let’s get to know you</Title>
-                    <Text>Share your details to setup a personalised experience.</Text>
+                    <Title color={'white'}>Let’s get to know you</Title>
+                    <Text color={'white'}>Share your details to setup a personalised experience.</Text>
                 </Header>
                 <FormContainer onSubmit={handleSubmit}>
                     <Input type="text" placeholder="First name">
@@ -189,20 +189,20 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                     </Input>
                     <InputRowContainer>
                         <Input type="text" placeholder="60" id="weight" onFocus={onNumberFocus} value={weightInput === '0.0' ? '' : weightInput}>
-                            Weight <span style={{color: '#B0B0B0', marginLeft: '0.2rem'}}> {weightUnit} </span>
+                            Weight <span style={{ color: '#B0B0B0', marginLeft: '0.2rem' }}> {weightUnit} </span>
                         </Input>
                         <Input type="text" placeholder="169" id="height" onFocus={onNumberFocus} value={heightInput === '0.0' ? '' : heightInput}>
-                            Height <span style={{color: '#B0B0B0', marginLeft: '0.2rem'}}> {heightUnit} </span>
+                            Height <span style={{ color: '#B0B0B0', marginLeft: '0.2rem' }}> {heightUnit} </span>
                         </Input>
                     </InputRowContainer>
                     <Select
                         options={[
-                            {title: 'Be more active'},
-                            {title: 'Lose weight'},
-                            {title: 'Gain more weight'},
-                            {title: 'Motivate myself'}
+                            { title: 'Be more active' },
+                            { title: 'Lose weight' },
+                            { title: 'Gain more weight' },
+                            { title: 'Motivate myself' }
                         ]}
-                        style={{marginBottom: '2rem'}}
+                        style={{ marginBottom: '2rem' }}
                     >
                         What is your fitness goal?
                     </Select>

@@ -19,14 +19,22 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
 
     const { style } = props
     const [currentTab, setTab] = useState('forYou')
+    const [isHidden, setIsHidden] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
+        let found = false;
         tabs.forEach(tab => {
             if (history.location.pathname.includes(tab.link)) {
                 setTab(tab.id)
+                found = true;
             }
         })
+
+        if (!found) {
+            setIsHidden(true)
+        }
+
     }, [history.location.pathname])
 
     const onTabSwitch = (tab_id: string) => {
@@ -39,7 +47,7 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
     }
 
     return (
-        <StyledBottomTabNav style={style}>
+        <StyledBottomTabNav style={style} isHidden={isHidden}>
             <TabSwitcher
                 tabs={tabs}
                 currentTab={currentTab}
@@ -95,7 +103,7 @@ const tabs = [
     }
 ]
 
-const StyledBottomTabNav = styled.div`
+const StyledBottomTabNav = styled.div<{isHidden?: boolean;}>`
     width: calc(100vw - 2rem);
     position: fixed;
     z-index: 20;
@@ -105,6 +113,10 @@ const StyledBottomTabNav = styled.div`
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
     border-radius: 5rem;
     padding: 1rem 1rem;
+
+    ${p => p.isHidden ? `
+        display: none;
+    ` : ''}
 
     @media screen and (min-width: 600px) {
         & {

@@ -35,7 +35,7 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 		if (props.linkSent) {
 			history.push('/forYou')
 		}
-		
+
 		if (props.loginLink) {
 			history.push('/forYou')
 		}
@@ -44,49 +44,49 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 	return (
 		<Backdrop blur>
 			<VerticalContainer>
-			<Header back />
-			<FormContainer onSubmit={handleSubmit}>
-				{
-					(props.linkSent || props.loginLink) &&
+				<Header back />
+				<FormContainer onSubmit={handleSubmit}>
+					{
+						(props.linkSent || props.loginLink) &&
 						<SuccessImg>
-							<img src={props.linkSent ? success : (props.loginLink ? lock : '')} style={{height: '2.5rem'}} alt='success' />	
+							<img src={props.linkSent ? success : (props.loginLink ? lock : '')} style={{ height: '2.5rem' }} alt='success' />
 						</SuccessImg>
-				}	
-				<Title center>
-					{props.login && 'Log In'}
-					{props.registration && 'Create Account'}
-					{props.linkSent && 'Login link sent'}
-					{props.loginLink && 'Your Login link'}
-				</Title>
-				{
-					props.linkSent &&
-					<Text center>Please check your email inbox for your <br /> login link.</Text>
-				}
-				{
-					props.loginLink &&
-					<Text center>Tap below to get started</Text>
-				}
-				{
-					(props.login || props.registration) &&
-					<Input type="email" id="email" name="email" placeholder='Email adress' error={'Invalid email address'} />
-				}
-				{
-					props.registration &&
-					<Input type="checkbox" id="terms" name="terms" value="terms">
-						I confirm that I have read and agree to the <br /> <StyledA href='#'>Terms & Conditions</StyledA> and <StyledA href='#'>Privacy Policy</StyledA>
-					</Input>
-				}
-				<Button primary style={{marginTop: '1rem', marginBottom: '1.8rem'}}>
-					{(props.registration || props.login) && 'send me a login link'}
-					{props.linkSent && 'OPEN EMAIL APP'}
-					{props.loginLink && 'LOGIN'}
-				</Button>
-				{
-					props.loginLink && 
-					<Text center>This link will expire in 30 minutes <br /> and can only be used once.</Text>
-				}
-			</FormContainer>
-			<Footer terms={props.loginLink}/>
+					}
+					<Title center color={'white'} >
+						{props.login && 'Log In'}
+						{props.registration && 'Create Account'}
+						{props.linkSent && 'Login link sent'}
+						{props.loginLink && 'Your Login link'}
+					</Title>
+					{
+						props.linkSent &&
+						<Text color={'white'} center>Please check your email inbox for your <br /> login link.</Text>
+					}
+					{
+						props.loginLink &&
+						<Text color={'white'} center>Tap below to get started</Text>
+					}
+					{
+						(props.login || props.registration) &&
+						<Input type="email" id="email" name="email" placeholder='Email adress' error={'Invalid email address'} />
+					}
+					{
+						props.registration &&
+						<Input type="checkbox" id="terms" name="terms" value="terms">
+							I confirm that I have read and agree to the <br /> <StyledA href='#'>Terms & Conditions</StyledA> and <StyledA href='#'>Privacy Policy</StyledA>
+						</Input>
+					}
+					<Button primary style={{ marginTop: '1rem', marginBottom: '1.8rem' }}>
+						{(props.registration || props.login) && 'send me a login link'}
+						{props.linkSent && 'OPEN EMAIL APP'}
+						{props.loginLink && 'LOGIN'}
+					</Button>
+					{
+						props.loginLink &&
+						<Text color={'white'} center>This link will expire in 30 minutes <br /> and can only be used once.</Text>
+					}
+				</FormContainer>
+				<Footer terms={props.loginLink} />
 			</VerticalContainer>
 		</Backdrop>
 	)

@@ -26,13 +26,13 @@ const Template: Story<TemplateArgsType> = args => (
 export const Search = Template.bind({});
 
 Search.args = {
-    search: true
+    // search: true
 } as TemplateArgsType
 
 export const NoSearch = Template.bind({});
 
 NoSearch.args = {
-    search: false
+    // search: false
 } as TemplateArgsType
 
 const MarginDisable = createGlobalStyle`

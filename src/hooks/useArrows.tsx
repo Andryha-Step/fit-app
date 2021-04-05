@@ -6,22 +6,20 @@ interface useArrowsHook {
     leftArrow: JSX.Element
     rightArrow: JSX.Element
     scrollContainerRef: React.Ref<HTMLDivElement>
-    onContainerScroll: (e:React.UIEvent<HTMLDivElement>) => void
+    onContainerScroll: (e: React.UIEvent<HTMLDivElement>) => void
 }
 
-export default function useArrows(): useArrowsHook {
+export default function useArrows(scrollContainerRef: React.RefObject<HTMLDivElement>): useArrowsHook {
 
 
     const [showRightArrow, setRightArrow] = useState<boolean>(false)
     const [showLeftArrow, setLeftArrow] = useState<boolean>(false)
 
-    const scrollContainerRef: React.Ref<HTMLDivElement> = useRef(null)
+    // const scrollContainerRef: React.Ref<HTMLDivElement> = useRef(null)
 
- 
+
     useEffect(() => {
-
         setRightArrow((scrollContainerRef.current?.scrollWidth || 0) > (scrollContainerRef.current?.clientWidth || 0))
-
     }, [scrollContainerRef])
 
 
@@ -52,14 +50,14 @@ export default function useArrows(): useArrowsHook {
 
     }
 
-    function onContainerScroll(e:React.UIEvent<HTMLDivElement>) {
+    function onContainerScroll(e: React.UIEvent<HTMLDivElement>) {
         const target = e.target as HTMLDivElement
 
         if (target.scrollWidth > (target.clientWidth + target.scrollLeft)) {
             setRightArrow(true)
         } else if (target.scrollWidth === (target.clientWidth + target.scrollLeft)) {
             setRightArrow(false)
-        } 
+        }
 
         if (target.scrollLeft === 0) {
             setLeftArrow(false)
@@ -70,25 +68,25 @@ export default function useArrows(): useArrowsHook {
 
     const leftArrow = (
         <Arrow id={'left'} onClick={onArrowClick} left hideArrow={!showLeftArrow}>
-            <img src={arrow} alt="" id={'left'}/>
+            <img src={arrow} alt="" id={'left'} />
         </Arrow>
     )
 
     const rightArrow = (
         <Arrow id={'right'} onClick={onArrowClick} hideArrow={!showRightArrow}>
-            <img src={arrow} alt="" id={'right'}/>
+            <img src={arrow} alt="" id={'right'} />
         </Arrow>
-    )   
+    )
 
     return {
-        leftArrow, 
+        leftArrow,
         rightArrow,
         scrollContainerRef,
         onContainerScroll
     }
 }
 
-const Arrow = styled.div<{left?: boolean, hideArrow: boolean}>`
+const Arrow = styled.div<{ left?: boolean, hideArrow: boolean }>`
     width: 3rem;
     height: 3rem;
     background-color: rgba(255, 255, 255, 0.1);

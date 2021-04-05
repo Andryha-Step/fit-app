@@ -23,7 +23,8 @@ export interface ClassCardProps {
     cardText?: string | JSX.Element
     cardTitle?: string | JSX.Element
     type: 'upcoming' | 'plan' | 'challenge' | 'new' | 'only_title' | 'duration'
-    liked?: boolean
+    liked?: boolean,
+    id?: string
 }
 
 export default function ClassCard(props: ClassCardProps): JSX.Element {
@@ -34,33 +35,33 @@ export default function ClassCard(props: ClassCardProps): JSX.Element {
         <StyledClassCard {...props}>
             {
                 type === 'upcoming' &&
-                    <UpcomingInner {...props}/>
+                <UpcomingInner {...props} />
             }
             {
                 type === 'plan' &&
-                    <PlanInner {...props}/>
+                <PlanInner {...props} />
             }
-             {
+            {
                 type === 'challenge' &&
-                    <ChallengeInner {...props}/>
+                <ChallengeInner {...props} />
             }
             {
                 type === 'new' &&
-                    <NewInner {...props} />
+                <NewInner {...props} />
             }
             {
                 type === 'only_title' &&
-                    <OnlyTitleInner {...props} />
+                <OnlyTitleInner {...props} />
             }
             {
                 type === 'duration' &&
-                    <DurationInner {...props} />
+                <DurationInner {...props} />
             }
         </StyledClassCard>
     )
 }
 
-function UpcomingInner(props:ClassCardProps): JSX.Element {
+function UpcomingInner(props: ClassCardProps): JSX.Element {
 
     const { iconType, duration, cardText, cardTitle } = props
 
@@ -68,35 +69,35 @@ function UpcomingInner(props:ClassCardProps): JSX.Element {
         <CardContainer {...props}>
             <Control>
                 <Flex>
-                    <img 
-                        style={{marginRight: '0.5rem', height: '1.1rem'}} 
+                    <img
+                        style={{ marginRight: '0.5rem', height: '1.1rem' }}
                         src={clock} alt="clock"
                     />
-                    <Text noWrap noMargin>{duration}</Text>
+                    <Text noWrap noMargin color={'white'}>{duration}</Text>
                 </Flex>
                 <Avatars>
-                    <img style={{zIndex: 1, left: '0.9rem'}} src={example_avatar_1} alt="avatar"/>
-                    <img style={{zIndex: 2, left: '0.6rem'}} src={example_avatar_2} alt="avatar"/>
-                    <img style={{zIndex: 3, left: '0.3rem'}} src={example_avatar_3} alt="avatar"/>
-                    <div style={{zIndex: 4, left: '0rem'}}><Text noMargin>+200</Text></div>
+                    <img style={{ zIndex: 1, left: '0.9rem' }} src={example_avatar_1} alt="avatar" />
+                    <img style={{ zIndex: 2, left: '0.6rem' }} src={example_avatar_2} alt="avatar" />
+                    <img style={{ zIndex: 3, left: '0.3rem' }} src={example_avatar_3} alt="avatar" />
+                    <div style={{ zIndex: 4, left: '0rem' }}><Text noMargin color={'white'}>+200</Text></div>
                 </Avatars>
             </Control>
             <MiddleText>
-                <Title weight={'500'} size={'1rem'}>
+                <Title color={'white'} weight={'500'} size={'1rem'}>
                     {cardText}
                 </Title>
             </MiddleText>
             {
                 iconType && (
-                    iconType === 'one_to_one' ? <ClassIcon src={one_to_one} alt="class type"/> : (
-                    iconType === 'remote' && <ClassIcon src={remote} alt="class type"/>
-                ))
+                    iconType === 'one_to_one' ? <ClassIcon src={one_to_one} alt="class type" /> : (
+                        iconType === 'remote' && <ClassIcon src={remote} alt="class type" />
+                    ))
             }
             {
-                !iconType && <ClassIcon style={{opacity: 0}}/>
+                !iconType && <ClassIcon style={{ opacity: 0 }} />
             }
             <Control>
-                <Text noMargin size={'1.1rem'}>
+                <Text noMargin size={'1.1rem'} color={'white'}>
                     {cardTitle}
                 </Text>
                 <Button noShadow noMargin fontSize={'0.8rem'} small width={'6rem'}>JOINED</Button>
@@ -105,29 +106,29 @@ function UpcomingInner(props:ClassCardProps): JSX.Element {
     )
 }
 
-function PlanInner(props:ClassCardProps): JSX.Element {
+function PlanInner(props: ClassCardProps): JSX.Element {
 
     const { cardText, cardTitle } = props
 
     return (<CardContainer {...props}>
-        <MiddleText style={{marginTop: '3rem'}}>
+        <MiddleText style={{ marginTop: '3rem' }}>
             <Tag>
                 PLAN
             </Tag>
-            <Title center>
+            <Title center color={'white'}>
                 {cardTitle}
             </Title>
-            <Text>
+            <Text color={'white'}>
                 {cardText}
             </Text>
         </MiddleText>
         <ProgressBarContainer>
             <ProgressBar progress={Math.random()} withText />
-            </ProgressBarContainer>
+        </ProgressBarContainer>
     </CardContainer>)
 }
 
-function ChallengeInner(props:ClassCardProps) {
+function ChallengeInner(props: ClassCardProps) {
 
     const { cardText, cardTitle } = props
 
@@ -135,15 +136,15 @@ function ChallengeInner(props:ClassCardProps) {
         <CardContainer {...props}>
             <Flex flex={'1'} jc={'flex-end'} ai={'flex-start'} column>
                 <Tag>CHALLENGE</Tag>
-                <Title>{cardTitle}</Title>
-                <Text>{cardText}</Text>
+                <Title color={'white'}>{cardTitle}</Title>
+                <Text color={'white'}>{cardText}</Text>
             </Flex>
-            <ProgressBar progress={Math.random()} withText />
+            <ProgressBar progress={Math.random()} withText textColor={'white'} />
         </CardContainer>
     )
 }
 
-function NewInner(props:ClassCardProps) {
+function NewInner(props: ClassCardProps) {
 
     const { cardText, cardTitle, liked } = props
 
@@ -158,7 +159,7 @@ function NewInner(props:ClassCardProps) {
             alt: 'time',
             title: '45 min',
         },
-        { 
+        {
             src: star,
             alt: 'rating',
             title: '4.9',
@@ -167,29 +168,29 @@ function NewInner(props:ClassCardProps) {
 
     return (
         <CardContainer {...props}>
-            <Flex style={{margin: '0.8rem', cursor: 'pointer'}} jc={'flex-end'}>
+            <Flex style={{ margin: '0.8rem', cursor: 'pointer' }} jc={'flex-end'}>
                 {
-                    liked ? 
-                        <img src={likeFilled} alt=""/>
-                    :   <img src={like} alt=""/> 
+                    liked ?
+                        <img src={likeFilled} alt="" />
+                        : <img src={like} alt="" />
                 }
             </Flex>
-            <Flex style={{margin: '0.8rem'}} flex="1" column ai={'flex-start'} jc={'flex-end'}>
+            <Flex style={{ margin: '0.8rem' }} flex="1" column ai={'flex-start'} jc={'flex-end'}>
                 <Tag>NEW</Tag>
-                <Title noMargin>{cardTitle}</Title>
+                <Title noMargin color={'white'}>{cardTitle}</Title>
             </Flex>
             <BottomFilledControl>
                 <Flex column>
-                    <Text style={{marginBottom: '0.2rem'}} noMargin color="#636363">{cardText}</Text>
+                    <Text style={{ marginBottom: '0.2rem' }} noMargin color="#636363">{cardText}</Text>
                     <IconsRow icons={icons} iconSize='1rem' fontSize="0.7rem" />
                 </Flex>
-                <Button noShadow style={{padding: '0.3rem 1rem'}} fontSize="0.7rem" primary small noMargin>START</Button>
+                <Button noShadow style={{ padding: '0.3rem 1rem' }} fontSize="0.7rem" primary small noMargin>START</Button>
             </BottomFilledControl>
         </CardContainer>
     )
 }
 
-function OnlyTitleInner(props:ClassCardProps) {
+function OnlyTitleInner(props: ClassCardProps) {
 
     const { cardTitle } = props
 
@@ -202,7 +203,7 @@ function OnlyTitleInner(props:ClassCardProps) {
     )
 }
 
-function DurationInner(props:ClassCardProps) {
+function DurationInner(props: ClassCardProps) {
 
     const { cardTitle } = props
 

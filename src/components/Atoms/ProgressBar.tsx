@@ -7,12 +7,13 @@ export interface ProgressBarProps {
     style?: React.CSSProperties
     withText?: boolean
     progress: number,
-    width?: string
+    width?: string,
+    textColor?: string,
 }
 
 export default function ProgressBar(props: ProgressBarProps): JSX.Element {
 
-    const { withText, progress } = props
+    const { withText, progress, textColor } = props
 
     return (
         <StyledProgressBar {...props}>
@@ -21,8 +22,8 @@ export default function ProgressBar(props: ProgressBarProps): JSX.Element {
             </ProgressBarOuter>
             {
                 withText &&
-                <Text style={{marginLeft: '1rem'}} size={'.6rem'} noMargin>
-                    {~~(progress * 100)} % 
+                <Text style={{ marginLeft: '1rem' }} size={'.6rem'} noMargin color={textColor}>
+                    {~~(progress * 100)} %
                 </Text>
             }
         </StyledProgressBar>

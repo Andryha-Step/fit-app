@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
-import { Title, TabSwitcher, Text } from '../../Atoms'
+import { Title, TabSwitcher, Text, useTabSwitcher } from '../../Atoms'
 // import arrow from '../../../assets/icons/arrow-right.svg'
 import useArrows from '../../../hooks/useArrows';
 
@@ -26,23 +26,67 @@ export interface CategoryProps {
 export default function Category(props: CategoryProps): JSX.Element {
 
     const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth } = props
+    const scrollContainerRef: React.RefObject<HTMLDivElement> = useRef(null)
 
     const {
-        leftArrow, 
+        leftArrow,
         rightArrow,
-        scrollContainerRef,
-        onContainerScroll
-    } = useArrows();
+        onContainerScroll: onContainerScrollArrows
+    } = useArrows(scrollContainerRef);
 
-    const SwitcherContainerRef: React.Ref<HTMLDivElement> = useRef(null)
- 
+
+    const tabSwitcher = useTabSwitcher({
+        tabs: tabs || [],
+        fontSize: '0.9rem',
+        visualStyle: 'text-vertical-padding',
+        borderIndicatior: true,
+        withScroll: true,
+        onSwitch: onTabSwitch
+    })
+
     function onTabSwitch(id: string) {
+
+        const card = scrollContainerRef.current?.querySelector(`#${id}`)
+        // if (card) {
+        //     const style = getComputedStyle(card);
+        //     const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
+        //     const cardWidth = card?.offsetWidth
+        //     const cardFullWidth = cardWidth + cardMarginHorizontal
+
+        //     scrollContainerRef.current?.scrollTo(id)
+        // }
+
+        // card?.scrollIntoView()
+
+        console.log(card)
+
+        // scrollContainerRef.current?.scrollTo(card)
+
         onSwitch && onSwitch(id)
+    }
+
+    function onContainerScroll(e: React.UIEvent<HTMLDivElement>) {
+
+        const target = e.target as HTMLDivElement
+
+        // if (!scrollContainerRef) return;
+        // // target.scrollWidth target.clientWidth target.scrollLeft
+
+        // const card = scrollContainerRef.current?.getElementsByTagName('div')[0]
+        // if (card) {
+        //     const style = getComputedStyle(card);
+        //     const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
+        //     const cardWidth = card?.offsetWidth
+        //     const cardFullWidth = cardWidth + cardMarginHorizontal
+
+        //     scrollContainerRef.current?.scrollTo
+        // }
+
+        onContainerScrollArrows && onContainerScrollArrows(e)
     }
 
     return (
         <StyledCatagory style={style}>
-            <CategorySwitcherStyle />
             <HeaderContainer tabs={props.tabs}>
                 <Header tabs={props.tabs}>
                     <Title noMargin color='black'>{title}</Title>
@@ -59,30 +103,34 @@ export default function Category(props: CategoryProps): JSX.Element {
                 }
                 {
                     tabs && currentTab &&
-                        <TabSwitcher
-                            containerRef={SwitcherContainerRef}
-                            tabs={tabs}
-                            currentTab={currentTab}
-                            onSwitch={onTabSwitch}
-                            borderIndicatior
-                            containerClassName={'category-switcher'}
-                            tabClassName={'category-switcher-tab'}
-                            withScroll
-                        />
+                    <TabSwitcher
+                        {...tabSwitcher.tabSwitcherProps}
+                        fontSize={'0.9rem'}
+                    />
+                    // <TabSwitcher
+                    //     containerRef={SwitcherContainerRef}
+                    //     tabs={tabs}
+                    //     currentTab={currentTab}
+                    //     onSwitch={onTabSwitch}
+                    //     borderIndicatior
+                    //     containerClassName={'category-switcher'}
+                    //     tabClassName={'category-switcher-tab'}
+                    //     withScroll
+                    // />
                 }
             </HeaderContainer>
             <ArrowsContainer>
                 {
                     !noScroll && <ArrowContainer>
-                        { rightArrow }
+                        {rightArrow}
                     </ArrowContainer>
                 }
                 {
                     !noScroll && <ArrowContainer left>
-                        { leftArrow }
+                        {leftArrow}
                     </ArrowContainer>
                 }
-                 <ClassesContainer cardMinWidth={cardMinWidth} noScroll={noScroll} onScroll={onContainerScroll} ref={scrollContainerRef}> 
+                <ClassesContainer cardMinWidth={cardMinWidth} noScroll={noScroll} onScroll={onContainerScroll} ref={scrollContainerRef}>
                     {
                         children
                     }
@@ -156,7 +204,7 @@ const ClassesContainer = styled.div<CategoryProps>`
 
 
 
-const ArrowContainer = styled.div<{hide?: boolean, left?: boolean}>`
+const ArrowContainer = styled.div<{ hide?: boolean, left?: boolean }>`
     height: 100%;
     position: absolute;
     top: 0;
@@ -178,28 +226,28 @@ const ArrowContainer = styled.div<{hide?: boolean, left?: boolean}>`
     }
 `
 
-const CategorySwitcherStyle = createGlobalStyle`
-    .category-switcher {
-        height: 100%;
-    }
+// const CategorySwitcherStyle = createGlobalStyle`
+//     .category-switcher {
+//         height: 100%;
+//     }
 
-    .category-switcher-tab {
-        margin: 0 1.5rem;
-        font-size: 0.9rem;
-        font-weight: 400;
-    }
+//     .category-switcher-tab {
+//         margin: 0 1.5rem;
+//         font-size: 0.9rem;
+//         font-weight: 400;
+//     }
 
-    .category-switcher-tab > span {
-        padding: 0.5rem 0;
-    }
+//     .category-switcher-tab > span {
+//         padding: 0.5rem 0;
+//     }
 
-    .category-switcher::-webkit-scrollbar {
-        display: none;
-    }
+//     .category-switcher::-webkit-scrollbar {
+//         display: none;
+//     }
 
-    @media screen and (min-width: 900px) {
-        .category-switcher-tab {
-            margin: 0 4rem;
-        }
-    }
-`
+//     @media screen and (min-width: 900px) {
+//         .category-switcher-tab {
+//             margin: 0 4rem;
+//         }
+//     }
+// `

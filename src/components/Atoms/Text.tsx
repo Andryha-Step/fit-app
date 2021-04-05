@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledText = styled.span<TextProps>`
     font-size: ${(p) => p.size || '0.8rem'};
-    color: white;
+    color: black;
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: ${(p) => p.weight || '400'};
@@ -40,7 +40,7 @@ export interface TextProps {
 export default function Text(props: TextProps): JSX.Element {
 
     const { children } = props;
-    
+
     return <StyledText {...props}>
         {children}
     </StyledText>

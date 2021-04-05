@@ -1,132 +1,146 @@
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Logo, TabSwitcher } from '../../Atoms';
+import { Logo, TabSwitcher, useTabSwitcher, TabSwitcherHook } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
 import useWindowSize from '../../../hooks/useWindowSize';
-import useTabSwitcher from '../../../hooks/useTabSwitcher';
 import Flex from '../Flex'
 import { useHistory } from 'react-router';
 
 export interface HeaderProps {
-    search?: boolean;
+    bottomTabSwitcher: TabSwitcherHook,
+    mainTabSwitcher: TabSwitcherHook
 }
 
 interface HeaderTab {
     id: string;
     title: string;
-    link: string;
+    link?: string;
 }
 
-type HeaderId = 'for_you' | 'explore' | 'book' | 'chat' | 'profile'
-const tabs: HeaderTab[] = [{
+interface RouteState {
+    route: string;
+    bottomTabs: HeaderTab[],
+}
+
+interface HeaderHookArgs {
+
+}
+
+interface HeaderHook {
+    renderHeader: Function
+}
+
+const tabs: HeaderTab[] = [{ // List of tabs for rendering in header
     id: 'for_you',
     title: 'For You',
     link: '/app/forYou',
-},{
+}, {
     id: 'explore',
     title: 'Explore',
     link: '/app/explore',
-},{
+}, {
     id: 'book',
     title: 'Book',
     link: '/app/book',
-},{
+}, {
     id: 'chat',
     title: 'Chat',
     link: '/app/chat',
-},{
+}, {
     id: 'profile',
     title: 'Profile',
     link: '/app/profile',
 }]
 
-const bottomTabs = [
+const bottomTabs = [ // List of header states for each route
     {
-        id: 'explore',
-        tabs: [{
+        route: '/app/explore',
+        bottomTabs: [{
             id: 'workouts',
             title: 'Workouts',
-        },{
+        }, {
             id: 'Community',
             title: 'Community',
-        },{
+        }, {
             id: 'Plans',
             title: 'Plans',
-        },{
+        }, {
             id: 'Challenges',
             title: 'Challenges',
-        },{
+        }, {
             id: 'Experiences',
             title: 'Experiences',
-        },{
+        }, {
             id: 'Shop',
             title: 'Shop',
         }],
     },
     {
-        id: 'for_you',
-        tabs: [{
+        route: '/app/forYou',
+        bottomTabs: [{
             id: 'fitness',
             title: 'Fitness'
         }, {
             id: 'experiences',
             title: 'Experiences'
         }]
-    }
+    },
+    {
+        route: '/app/search',
+        bottomTabs: [{
+            id: 'fitness',
+            title: 'Fitness'
+        }, {
+            id: 'experiences',
+            title: 'Experiences'
+        }]
+    },
 ]
 
 
-export default function Header(props:HeaderProps): JSX.Element {
 
-    const { width: screenWidth } = useWindowSize()
-    const history = useHistory()
+export default function Header(props: HeaderProps): JSX.Element {
 
-    const [currentTab, setTab] = useState('for_you')
-	// const [currentBottomTab, setBottomTab] = useState('fitness')
-    console.log(bottomTabs.find(tab => tab.id === currentTab), currentTab, bottomTabs)
-    const { tabSwitcher: bottomTabSwitcher } = useTabSwitcher({
-        tabs: bottomTabs.find(tab => tab.id === currentTab)?.tabs || [],
-        tabSwitcherProps: {
-            activeTabStyle: {background: "rgba(48, 143, 171, 0.2)"},
-            style: {justifyContent: 'flex-start', alignItems: 'center', height: '100%'},
-            tabStyle: bottomTabStyle
-        }
-    })
+    const { bottomTabSwitcher, mainTabSwitcher } = props;
 
-    
-    useEffect(() => {
-        tabs.forEach(tab => {
-            if (history.location.pathname.includes(tab.link)) {
-                setTab(tab.id)
-            }
-        })
-    }, [history.location.pathname])
+    // const { width: screenWidth } = useWindowSize()
+    // const history = useHistory()
 
-    const onTabSwitch = (tab_id: string) => {
-        tabs.forEach(tab => {
-            if (tab.id === tab_id) {
-                history.push(tab.link)
-            }
-        })
-        setTab(tab_id)
-    }
+    // const [currentTab, setTab] = useState('')
+    // const [routeState, setRouteState] = useState({})
 
-    // let bottomTabs;
-    // switch(currentTab) {
-    //     case 'for_you':
-    //         bottomTabs = ForYouBottomTabs; break;
-    //     case 'explore':
-    //         bottomTabs = ExploreBottomTabs; break;
-    //     default:
-    //         break;
+    // useEffect(() => { // Switch tab when route change
+    //     tabs.forEach(tab => {
+    //         if (history.location.pathname.includes(tab.link)) {
+    //             setTab(tab.id)
+    //         }
+    //     })
+    // }, [history.location.pathname])
+
+    // const onTabSwitch = (tab_id: string) => { // When tab pressed
+    //     tabs.forEach(tab => {
+    //         if (tab.id === tab_id) {
+    //             history.push(tab.link)
+    //         }
+    //     })
+    //     setTab(tab_id)
     // }
+
+    // const { tabSwitcher: bottomTabSwitcher } = useTabSwitcher({ // Bottom tabs
+    //     tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.link))?.tabs || [],
+    //     tabSwitcherProps: {
+    //         activeTabStyle: {background: "rgba(48, 143, 171, 0.2)"},
+    //         style: {justifyContent: 'flex-start', alignItems: 'center', height: '100%'},
+    //         tabStyle: bottomTabStyle
+    //     }
+    // })
 
     return (
         <>
             <StyledHeader>
-                <HeaderSpace />
-                <Logo style={{justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%'}} flex={'1'} dark/>
-                {
+                <HeaderSpaceGlobalStyle />
+                <Logo style={{ justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%' }} flex={'1'} dark />
+                {/* {
                     screenWidth > 600 && 
                     <TabSwitcher 
                         tabStyle={screenWidth > 1000 ? {margin: '0 2rem'} : {}}
@@ -137,8 +151,11 @@ export default function Header(props:HeaderProps): JSX.Element {
                         currentTab={currentTab || ''}
                         onSwitch={onTabSwitch}
                     />
-                }
-                <SearchContainer isVisable={props.search} >
+                } */}
+                <TabSwitcher
+                    {...mainTabSwitcher.tabSwitcherProps}
+                />
+                <SearchContainer isVisable={true} >
                     <img src={searchIcon} alt="searchIcon" />
                 </SearchContainer>
             </StyledHeader>
@@ -151,15 +168,44 @@ export default function Header(props:HeaderProps): JSX.Element {
                             currentTab={currentBottomTab || ''}
                             onSwitch={setBottomTab}
                         /> */}
-                        { bottomTabSwitcher }
+                        <TabSwitcher
+                            {...bottomTabSwitcher.tabSwitcherProps}
+                        />
                     </StyledSwitcherContainer>
-                    <SearchContainer headerBottom isVisable={props.search}>
+                    <SearchContainer headerBottom isVisable={true}>
                         <img src={searchIcon} alt="searchIcon" />
                     </SearchContainer>
                 </HeaderBottom>
             }
         </>
     )
+}
+
+export function useHeader(args: HeaderHookArgs): HeaderHook {
+
+    const history = useHistory()
+
+    const mainTabSwitcher = useTabSwitcher({ // Main tabs
+        tabs: tabs || [],
+        layoutStyle: 'header'
+    })
+
+    const bottomTabSwitcher = useTabSwitcher({ // Bottom tabs
+        tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || [],
+        layoutStyle: 'header-bottom',
+        visualStyle: 'button'
+    })
+
+    const renderHeader = () => (
+        <Header
+            bottomTabSwitcher={bottomTabSwitcher}
+            mainTabSwitcher={mainTabSwitcher}
+        />
+    )
+
+    return {
+        renderHeader
+    }
 }
 
 const StyledHeader = styled.header`
@@ -176,7 +222,7 @@ const StyledHeader = styled.header`
 const StyledSwitcherContainer = styled(Flex)`
     overflow-x: scroll;
     @media screen and (max-width: 1000px) and (min-width: 600px) {
-        & > div::after { // space for search button
+        & > div::after { // space for search button on pads
             content: '';
             min-width: 6rem;
             height: 1px;
@@ -184,7 +230,7 @@ const StyledSwitcherContainer = styled(Flex)`
     }
 `
 
-const SearchContainer = styled.div<{isVisable?: boolean, headerBottom?: boolean}>`
+const SearchContainer = styled.div<{ isVisable?: boolean, headerBottom?: boolean }>`
     /* flex: 1; */
     justify-content: center;
     align-items: center;
@@ -251,16 +297,8 @@ const HeaderBottom = styled.div`
     }
 `
 
-const bottomTabStyle = {
-    margin: '0 0.5rem',
-    background: '#F8F8F8',
-    borderRadius: '2rem',
-    padding: '0.5rem 1rem',
-    color: 'black',
-    fontSize: '0.9rem'
-} as React.CSSProperties
 
-const HeaderSpace = createGlobalStyle`
+const HeaderSpaceGlobalStyle = createGlobalStyle`
     body {
         margin-top: calc(8.5rem + 1px);
     }

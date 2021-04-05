@@ -35,36 +35,36 @@ function Onboarding(): JSX.Element {
       <VerticalContainer>
         <Header />
         <Slider>
-          <SliderArrowPrev src={swiper_arrow} alt='arrow prev'  onClick={() => swiper?.slidePrev()} />
+          <SliderArrowPrev src={swiper_arrow} alt='arrow prev' onClick={() => swiper?.slidePrev()} />
           <SliderArrowNext src={swiper_arrow} alt='arrow next' onClick={() => swiper?.slideNext()} />
           <Swiper
             {...SwiperCofing}
           >
             <SwiperSlide>
               <Slide>
-                <Title center>ON-DEMAND AND LIVE CLASSES</Title>
-                <Text center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
+                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Text color={'white'} center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
             <SwiperSlide>
               <Slide>
-                <Title center>ON-DEMAND AND LIVE CLASSES</Title>
-                <Text center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
+                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Text color={'white'} center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
             <SwiperSlide>
               <Slide>
-                <Title center>ON-DEMAND AND LIVE CLASSES</Title>
-                <Text center weight="500">Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
+                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Text color={'white'} center weight="500">Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
           </Swiper>
         </Slider>
         <ButtonGroup>
-          <Link to='/reg' style={{display: 'flex', flexDirection: 'column', textDecoration: 'none'}}>
+          <Link to='/reg' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
             <Button primary>get started</Button>
           </Link>
-          <Link to='/login' style={{display: 'flex', flexDirection: 'column', textDecoration: 'none'}}>
+          <Link to='/login' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
             <Button transparent>log in</Button>
           </Link>
         </ButtonGroup>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledTitle = styled.span<TitleProps>`
     font-size: ${p => p.size || '1.3rem'};
-    color: white;
+    color: black;
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: ${p => p.weight || 'bold'};
@@ -35,13 +35,14 @@ export interface TitleProps {
     noMargin?: boolean
     clickable?: boolean;
     onClick?: React.MouseEventHandler<HTMLSpanElement>;
-    noWrap?: boolean
+    noWrap?: boolean,
+    id?: string,
 }
 
 export default function Title(props: TitleProps): JSX.Element {
 
     const { children } = props;
-    
+
     return <StyledTitle {...props}>
         {children}
     </StyledTitle>

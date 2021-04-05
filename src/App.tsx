@@ -13,6 +13,7 @@ import Auth from './components/Screens/Onboarding/Auth';
 import AccountForm from './components/Screens/Onboarding/AccountForm';
 import ForYou from './components/Screens/ForYou/ForYou';
 import Explore from './components/Screens/Explore/Explore';
+import Search from './components/Screens/App/Search';
 import Header from './components/Blocks/Global/Header';
 import BottomTabNav from './components/Blocks/Global/BottomTabNav'
 import Footer from './components/Blocks/Global/Footer';
@@ -30,38 +31,13 @@ function App(): JSX.Element {
 	const [headerTab, setHeaderTab] = useState('for_you')
 	const [headerBottomTab, setHeaderBottomTab] = useState('fitness')
 
-	const headerTabs = [{
-		id: 'for_you',
-		title: 'For You',
-	},{
-		id: 'expore',
-		title: 'Explore',
-	},{
-		id: 'book',
-		title: 'Book',
-	},{
-		id: 'chat',
-		title: 'Chat',
-	},{
-		id: 'profile',
-		title: 'Profile',
-	}]
-
-	const headerBottomTabs = [{
-		id: 'fitness',
-		title: 'Fitness'
-	}, {
-		id: 'experiences',
-		title: 'Experiences'
-	}]
-
 	return (
 	<Router>
 		<Switch>
 		<AppContainer>
 			<Route path="/app/:appPage" render={() => (
 				<>
-					<Header search/>
+					{/* <Header search/> */}
 					<BottomTabNav />
 				</>
 			)} />
@@ -72,9 +48,10 @@ function App(): JSX.Element {
 				<Route exact path="/ac" component={() => <AccountForm />} />
 				<Route exact path="/"  component={Onboarding} />
 			</OnboardingBackground>
-			<Route exact path="/app/link" component={() => <Auth loginLink/>} />
+			<Route exact path="/link" component={() => <Auth loginLink/>} />
 			<Route exact path='/app/forYou' component={() => <ForYou />} />
 			<Route exact path='/app/explore' component={() => <Explore />} />
+			<Route exact path='/app/search' component={Search} />
 			{/* <Route exact path='/app/book' component={() => <ForYou />} />
 			<Route exact path='/app/chat' component={() => <ForYou />} />
 			<Route exact path='/app/profile' component={() => <ForYou />} /> */}
