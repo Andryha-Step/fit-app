@@ -196,6 +196,13 @@ export function useHeader(args: HeaderHookArgs): HeaderHook {
         visualStyle: 'button'
     })
 
+    useEffect(() => {
+        const link = tabs.find(tab => tab.id === mainTabSwitcher.currentTab)?.link
+        if (link) {
+            history.push(link)
+        }
+    }, [mainTabSwitcher.currentTab, history])
+
     const renderHeader = () => (
         <Header
             bottomTabSwitcher={bottomTabSwitcher}

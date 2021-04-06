@@ -1,5 +1,6 @@
 import { findAllByDisplayValue } from '@testing-library/dom';
 import React, { MouseEvent, RefObject, useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import styled, { StyledComponent } from 'styled-components';
 import Title from './Title';
 
@@ -50,7 +51,6 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
 
     const handleTabClick = (event: MouseEvent) => {
         const target = event.target as HTMLDivElement
-        console.log(props.tabs, target.id)
         props.onSwitch && props.onSwitch(target.id);
     }
 
@@ -110,12 +110,15 @@ export function useTabSwitcher(tabSwitcherArgs: TabSwitcherHookArgs): TabSwitche
     const { tabs, visualStyle, layoutStyle, withScroll, borderIndicatior, showTitleOnlyWhenActive, fontWeight, fontSize } = tabSwitcherArgs
 
     const [currentTab, setTab] = useState<string | number>(tabs ? tabs[0]?.id : '')
+    const history = useHistory()
 
     useEffect(() => {
-        console.log(tabs.find(tab => tab.id === currentTab))
         if (!currentTab || !tabs.find(tab => tab.id === currentTab)) {
             setTab(tabs[0]?.id)
         }
+
+        // console.log(currentTab)
+
     }, [tabs, currentTab])
 
     // if (!tabs || !tabs[0]) {
@@ -176,9 +179,14 @@ const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layo
     ` : ''}
 
     ${p => p.layoutStyle === 'header' ? `
-        @media screen and (max-height: 1000px) {
+        @media screen and (max-width: 1000px) {
             & {
                 justify-content: center;
+            }
+        }
+        @media screen and (max-width: 800px) {
+            & {
+                display: none;
             }
         }
     ` : ''}

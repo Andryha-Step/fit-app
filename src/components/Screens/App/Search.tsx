@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import closeButton from '../../../assets/icons/closeButton.svg'
-import { Title, TabSwitcher, Text, useTabSwitcher } from '../../Atoms'
+import { Title, TabSwitcher, useTabSwitcher, MultipleSelect, useMultipleSelect, Button, Coach } from '../../Atoms'
+import Category from '../../Blocks/Global/Category'
+import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
+import { useHistory } from 'react-router'
+
 
 export interface SearchProps {
     children?: React.ReactNode
@@ -11,6 +15,12 @@ export interface SearchProps {
 export default function Search(props: SearchProps): JSX.Element {
 
     const { style } = props
+
+    const history = useHistory()
+
+    const closeButtonClick = () => {
+        history.goBack()
+    }
 
     const searchTypeSwitcher = useTabSwitcher({
         tabs: [{
@@ -22,11 +32,100 @@ export default function Search(props: SearchProps): JSX.Element {
         }]
     })
 
+    const targetAreaMultipleSelect = useMultipleSelect({
+        buttons: [{
+            id: 'fb',
+            title: 'Full Body',
+        }, {
+            id: 'co',
+            title: 'Core',
+        }, {
+            id: 'lb',
+            title: 'Lower Body',
+        }, {
+            id: 'ub',
+            title: 'Upper Body',
+        }]
+    })
+
+    const categoryMultipleSelect = useMultipleSelect({
+        buttons: [{
+            id: 'cardio',
+            title: 'Cardio',
+        }, {
+            id: 'hiit',
+            title: 'HIIT',
+        }, {
+            id: 'strength',
+            title: 'Strength',
+        }, {
+            id: 'stretch',
+            title: 'Stretch',
+        }]
+    })
+
+    const durationsMultipleSelect = useMultipleSelect({
+        buttons: [{
+            id: '5_10',
+            title: '5-10',
+        }, {
+            id: '10_20',
+            title: '10-20',
+        }, {
+            id: '20_30',
+            title: '20-30',
+        }, {
+            id: '30',
+            title: '30+',
+        }]
+    })
+
+    const goalMultipleSelect = useMultipleSelect({
+        buttons: [{
+            id: 'active',
+            title: 'Be More Active',
+        }, {
+            id: 'weight',
+            title: 'Lose Weight',
+        }, {
+            id: 'toned',
+            title: 'Stay Toned',
+        }, {
+            id: 'muscle',
+            title: 'Build Muscle',
+        }, {
+            id: 'stress',
+            title: 'Reduce Stress',
+        }, {
+            id: 'flex',
+            title: 'Improve Flexibility',
+        }]
+    })
+
+    const complatedMultipleSelect = useMultipleSelect({
+        buttons: [{
+            id: 'completed',
+            title: 'Completed',
+        }, {
+            id: 'not_completed',
+            title: 'Not Completed',
+        }]
+    })
+
+    const titleProps = {
+        weight: '500',
+        noMargin: false,
+    }
+
+    const multipleSelectTitleProps = {
+        size: '0.8rem'
+    }
+
     return (
         <StyledSearch style={style}>
             <SearchHeader>
                 <Title noMargin style={{ flex: 1 }}>Search</Title>
-                <CloseButton src={closeButton} alt="closeButton" />
+                <CloseButton src={closeButton} alt="closeButton" onClick={closeButtonClick} />
             </SearchHeader>
             <TabSwitcherContainer>
                 <TabSwitcher
@@ -35,12 +134,85 @@ export default function Search(props: SearchProps): JSX.Element {
                         <TabSwticherCustomTab id={tab.id + ''} onClick={onClick} active={active}>
                             <Title
                                 id={tab.id + ''}
-                                size={'0.8rem'}
+                                size={'1rem'}
                             >{tab.title}</Title>
                         </TabSwticherCustomTab>
                     )}
                 />
             </TabSwitcherContainer>
+            <Category
+                title="Durations"
+                noScroll
+                titleProps={titleProps}
+            >
+                <MultipleSelect
+                    {...durationsMultipleSelect}
+                    customStyledContainer={CustomMultipleSelectContainer}
+                    titleProps={multipleSelectTitleProps}
+                />
+            </Category>
+            <Category
+                title="Target Area"
+                noScroll
+                titleProps={titleProps}
+            >
+                <MultipleSelect
+                    {...targetAreaMultipleSelect}
+                    customStyledContainer={CustomMultipleSelectContainer}
+                    titleProps={multipleSelectTitleProps}
+                />
+            </Category>
+            <Category
+                title="Category"
+                noScroll
+                titleProps={titleProps}
+            >
+                <MultipleSelect
+                    {...categoryMultipleSelect}
+                    customStyledContainer={CustomMultipleSelectContainer}
+                    titleProps={multipleSelectTitleProps}
+                />
+            </Category>
+            <Category
+                title="Goal"
+                noScroll
+                titleProps={titleProps}
+            >
+                <MultipleSelect
+                    {...goalMultipleSelect}
+                    customStyledContainer={CustomMultipleSelectContainer}
+                    titleProps={multipleSelectTitleProps}
+                />
+            </Category>
+            <Category
+                title="Completed"
+                noScroll
+                titleProps={titleProps}
+            >
+                <MultipleSelect
+                    {...complatedMultipleSelect}
+                    customStyledContainer={CustomMultipleSelectContainer}
+                    titleProps={multipleSelectTitleProps}
+                />
+            </Category>
+            <Category
+                title="Trainers"
+                noScroll
+                titleProps={titleProps}
+                cardMinWidth={'6rem'}
+            >
+                {
+                    Array(8).fill(null).map(el =>
+                        <Coach
+                            avatarUrl={example_avatar_3}
+                            name="Coach"
+                        />
+                    )
+                }
+            </Category>
+            <SearchButtonContainer>
+                <Button primary width={'25rem'} noShadow>SEARCH</Button>
+            </SearchButtonContainer>
         </StyledSearch>
     )
 }
@@ -68,6 +240,7 @@ const TabSwitcherContainer = styled.div`
 const TabSwticherCustomTab = styled.div<{ active?: boolean }>`
     padding: 0.5rem 2rem;
     border-radius: 5rem;
+    cursor: pointer;
 
     ${p => p.active ? `
         background: rgba(48, 143, 171, 0.2);
@@ -77,3 +250,21 @@ const TabSwticherCustomTab = styled.div<{ active?: boolean }>`
 
 `
 
+const CustomMultipleSelectContainer = styled.div`
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    @media screen and (max-width: 600px) {
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    }
+`
+
+
+const SearchButtonContainer = styled.div`
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+`

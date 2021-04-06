@@ -26,7 +26,7 @@ const StyledTitle = styled.span<TitleProps>`
 `
 
 export interface TitleProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     center?: boolean;
     style?: React.CSSProperties;
     color?: string;

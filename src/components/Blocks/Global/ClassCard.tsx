@@ -197,7 +197,7 @@ function OnlyTitleInner(props: ClassCardProps) {
     return (
         <CardContainer {...props}>
             <Flex flex={'1'} jc={'center'} ai={'flex-center'} column>
-                <Title center noMargin>{cardTitle}</Title>
+                <Title color={'white'} center noMargin>{cardTitle}</Title>
             </Flex>
         </CardContainer>
     )

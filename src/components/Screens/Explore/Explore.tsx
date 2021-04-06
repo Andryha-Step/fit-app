@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import FullWidthCard from '../../Blocks/Global/FullWidthCard'
 import Category from '../../Blocks/Global/Category';
@@ -6,8 +6,10 @@ import ClassCard from '../../Blocks/Global/ClassCard';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { Coach } from '../../Atoms';
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
+import { useHeader } from '../../Blocks/Global/Header';
 
-function randomElFromArray<T>(arr:T[]): T {
+
+function randomElFromArray<T>(arr: T[]): T {
     return arr[~~(Math.random() * arr.length)]
 }
 
@@ -21,26 +23,30 @@ export default function Explore(props: ExploreProps): JSX.Element {
     const [upcomingTab, setUpcomingTab] = useState('900')
     const { style } = props
     const { width: screenWidth } = useWindowSize()
+    const { renderHeader } = useHeader({})
 
     return (
         <StyledExplore style={style}>
-            <FullWidthCard 
+            {
+                renderHeader()
+            }
+            <FullWidthCard
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"
                 buttonText="RESUME"
-            />  
-            <Category 
+            />
+            <Category
                 tabs={Array(20).fill(null).map((el, i) => ({
                     title: `${9 + i}:00`,
-                    id: `${9 + i}00` 
+                    id: `${9 + i}00`
                 }))}
                 currentTab={upcomingTab}
-                title={'Upcoming'} 
-                link={'View all'} 
+                title={'Upcoming'}
+                link={'View all'}
                 onSwitch={setUpcomingTab}
             >
                 {Array(20).fill(null).map((el, i) => (
-                    <ClassCard 
+                    <ClassCard
                         key={'upc' + i}
                         type='upcoming'
                         iconType={randomElFromArray(['remote', 'one_to_one', undefined])}
@@ -51,12 +57,12 @@ export default function Explore(props: ExploreProps): JSX.Element {
                 ))}
             </Category>
             <Category
-                title={'On-Demand'}  
-                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}  
-                noScroll  
+                title={'On-Demand'}
+                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}
+                noScroll
             >
                 {Array(8).fill(null).map((el, i) => (
-                    <ClassCard 
+                    <ClassCard
                         key={'ond' + i}
                         type='only_title'
                         cardTitle="Cardio Blast"
@@ -64,12 +70,12 @@ export default function Explore(props: ExploreProps): JSX.Element {
                 ))}
             </Category>
             <Category
-                title={'Duration'} 
-                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}  
-                noScroll  
+                title={'Duration'}
+                cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}
+                noScroll
             >
                 {Array(8).fill(null).map((el, i) => (
-                    <ClassCard 
+                    <ClassCard
                         key={'dur' + i}
                         type='duration'
                         cardTitle="5-10"
@@ -77,9 +83,9 @@ export default function Explore(props: ExploreProps): JSX.Element {
                 ))}
             </Category>
             <Category
-                title={'Trainers'} 
-                cardMinWidth={'6rem'}  
-                noScroll  
+                title={'Trainers'}
+                cardMinWidth={'6rem'}
+                noScroll
             >
                 {Array(8).fill(null).map((el, i) => (
                     <Coach

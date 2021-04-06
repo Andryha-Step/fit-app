@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
-import { Title, TabSwitcher, Text, useTabSwitcher } from '../../Atoms'
+import { Title, TabSwitcher, Text, useTabSwitcher, TitleProps } from '../../Atoms'
 // import arrow from '../../../assets/icons/arrow-right.svg'
 import useArrows from '../../../hooks/useArrows';
 
@@ -21,11 +21,12 @@ export interface CategoryProps {
     subtitle?: string | JSX.Element | (() => JSX.Element)
     noScroll?: boolean,
     cardMinWidth?: string;
+    titleProps?: TitleProps
 }
 
 export default function Category(props: CategoryProps): JSX.Element {
 
-    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth } = props
+    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth, titleProps } = props
     const scrollContainerRef: React.RefObject<HTMLDivElement> = useRef(null)
 
     const {
@@ -89,7 +90,7 @@ export default function Category(props: CategoryProps): JSX.Element {
         <StyledCatagory style={style}>
             <HeaderContainer tabs={props.tabs}>
                 <Header tabs={props.tabs}>
-                    <Title noMargin color='black'>{title}</Title>
+                    <Title noMargin color='black' {...titleProps}>{title}</Title>
                     {
                         link &&
                         <Title noWrap noMargin weight={"500"} size={'0.9rem'} color="#429FBA" clickable onClick={props.onLinkClick}>

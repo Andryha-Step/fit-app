@@ -10,11 +10,12 @@ import Tag, { TagProps } from './Tag';
 import ProgressBar, { ProgressBarProps } from './ProgressBar'
 import IconsRow, { IconsRowProps } from './IconsRow'
 import Coach, { CoachProps } from './Coach'
+import MultipleSelect, { useMultipleSelect, MultipleSelectHook } from './MultipleSelect'
 
 export {
-    Button, Input, Modal, Select, Text, Title, TabSwitcher, Logo, Tag, ProgressBar, IconsRow, Coach, useTabSwitcher
+    Button, Input, Modal, Select, Text, Title, TabSwitcher, Logo, Tag, ProgressBar, IconsRow, Coach, useTabSwitcher, MultipleSelect, useMultipleSelect
 }
 
 export type {
-    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps, IconsRowProps, CoachProps, Tab, TabSwitcherLayoutStyle, TabSwitcherVisualStyle, TabSwitcherHook
+    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps, IconsRowProps, CoachProps, Tab, TabSwitcherLayoutStyle, TabSwitcherVisualStyle, TabSwitcherHook, MultipleSelectHook
 }
