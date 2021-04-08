@@ -6,7 +6,7 @@ import ClassCard from '../../Blocks/Global/ClassCard';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { Coach } from '../../Atoms';
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
-import { useHeader } from '../../Blocks/Global/Header';
+// import Header from '../../Blocks/Global/Header';
 
 
 function randomElFromArray<T>(arr: T[]): T {
@@ -23,13 +23,9 @@ export default function Explore(props: ExploreProps): JSX.Element {
     const [upcomingTab, setUpcomingTab] = useState('900')
     const { style } = props
     const { width: screenWidth } = useWindowSize()
-    const { renderHeader } = useHeader({})
 
     return (
         <StyledExplore style={style}>
-            {
-                renderHeader()
-            }
             <FullWidthCard
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"
@@ -89,6 +85,7 @@ export default function Explore(props: ExploreProps): JSX.Element {
             >
                 {Array(8).fill(null).map((el, i) => (
                     <Coach
+                        key={'c' + i}
                         avatarUrl={example_avatar_3}
                         name="Coach"
                     />

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import FullWidthCard from '../../Blocks/Global/FullWidthCard';
 import ClassCard from '../../Blocks/Global/ClassCard';
 import Category from '../../Blocks/Global/Category';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import BottomTabNav from '../../Blocks/Global/BottomTabNav'
-import { useHeader } from '../../Blocks/Global/Header'
+// import Header from '../../Blocks/Global/Header'
 
 function randomElFromArray<T>(arr: T[]): T {
     return arr[~~(Math.random() * arr.length)]
@@ -18,11 +18,9 @@ interface ForYouScreenProps {
 export default function ForYou(props: ForYouScreenProps): JSX.Element {
 
     const [upcomingTab, setUpcomingTab] = useState('900')
-    const { renderHeader } = useHeader({})
 
     return (
         <div>
-            { renderHeader()}
             <BottomTabNav />
             <FullWidthCard
                 cardTitle="Cardio Blast"
@@ -73,6 +71,7 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
             <Category title={'Classes Based On Your Fitness Goal'} subtitle="Be More Active" link={'View all'}>
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
+                        key={i}
                         type="new"
                         cardTitle="Cardio Blast"
                         cardText='Cardio'
@@ -82,6 +81,7 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
             <Category title={'Favourites'} link={'View all'}>
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
+                        key={i}
                         liked
                         type="new"
                         cardTitle="Cardio Blast"

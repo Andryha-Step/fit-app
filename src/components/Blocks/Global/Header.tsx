@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Logo, TabSwitcher, useTabSwitcher, TabSwitcherHook } from '../../Atoms';
+import { Logo, TabSwitcher, useTabSwitcher } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
-import useWindowSize from '../../../hooks/useWindowSize';
+// import useWindowSize from '../../../hooks/useWindowSize';
 import Flex from '../Flex'
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export interface HeaderProps {
-    bottomTabSwitcher: TabSwitcherHook,
-    mainTabSwitcher: TabSwitcherHook
+
 }
 
 interface HeaderTab {
@@ -17,18 +17,18 @@ interface HeaderTab {
     link?: string;
 }
 
-interface RouteState {
-    route: string;
-    bottomTabs: HeaderTab[],
-}
+// interface RouteState {
+//     route: string;
+//     bottomTabs: HeaderTab[],
+// }
 
-interface HeaderHookArgs {
+// interface HeaderHookArgs {
 
-}
+// }
 
-interface HeaderHook {
-    renderHeader: Function
-}
+// interface HeaderHook {
+//     renderHeader: Function
+// }
 
 const tabs: HeaderTab[] = [{ // List of tabs for rendering in header
     id: 'for_you',
@@ -101,39 +101,36 @@ const bottomTabs = [ // List of header states for each route
 
 export default function Header(props: HeaderProps): JSX.Element {
 
-    const { bottomTabSwitcher, mainTabSwitcher } = props;
+    // const { bottomTabSwitcher, mainTabSwitcher } = props;
 
-    // const { width: screenWidth } = useWindowSize()
-    // const history = useHistory()
+    const history = useHistory()
 
-    // const [currentTab, setTab] = useState('')
-    // const [routeState, setRouteState] = useState({})
+    const onSwitch = (newTabId: string | number) => {
+        const tab = tabs.find(tab => tab.id === newTabId)
+        if (tab && tab.link) {
+            history.push(tab.link)
+        }
+    }
 
-    // useEffect(() => { // Switch tab when route change
-    //     tabs.forEach(tab => {
-    //         if (history.location.pathname.includes(tab.link)) {
-    //             setTab(tab.id)
-    //         }
-    //     })
-    // }, [history.location.pathname])
+    const mainTabSwitcher = useTabSwitcher({ // Main tabs
+        tabs: tabs || [],
+        layoutStyle: 'header',
+        onSwitch
+    })
 
-    // const onTabSwitch = (tab_id: string) => { // When tab pressed
-    //     tabs.forEach(tab => {
-    //         if (tab.id === tab_id) {
-    //             history.push(tab.link)
-    //         }
-    //     })
-    //     setTab(tab_id)
-    // }
+    const bottomTabSwitcher = useTabSwitcher({ // Bottom tabs
+        tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || [],
+        layoutStyle: 'header-bottom',
+        visualStyle: 'button'
+    })
 
-    // const { tabSwitcher: bottomTabSwitcher } = useTabSwitcher({ // Bottom tabs
-    //     tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.link))?.tabs || [],
-    //     tabSwitcherProps: {
-    //         activeTabStyle: {background: "rgba(48, 143, 171, 0.2)"},
-    //         style: {justifyContent: 'flex-start', alignItems: 'center', height: '100%'},
-    //         tabStyle: bottomTabStyle
+    // useEffect(() => {
+    //     console.log(mainTabSwitcher.currentTab)
+    //     const tab = tabs.find(tab => tab.id === mainTabSwitcher.currentTab)
+    //     if (tab && tab.link) {
+    //         history.push(tab.link)
     //     }
-    // })
+    // }, [mainTabSwitcher.currentTab, history])
 
     return (
         <>
@@ -156,7 +153,9 @@ export default function Header(props: HeaderProps): JSX.Element {
                     {...mainTabSwitcher.tabSwitcherProps}
                 />
                 <SearchContainer isVisable={true} >
-                    <img src={searchIcon} alt="searchIcon" />
+                    <Link to="/app/search">
+                        <img src={searchIcon} alt="searchIcon" />
+                    </Link>
                 </SearchContainer>
             </StyledHeader>
             {
@@ -173,7 +172,9 @@ export default function Header(props: HeaderProps): JSX.Element {
                         />
                     </StyledSwitcherContainer>
                     <SearchContainer headerBottom isVisable={true}>
-                        <img src={searchIcon} alt="searchIcon" />
+                        <Link to="/app/search">
+                            <img src={searchIcon} alt="searchIcon" />
+                        </Link>
                     </SearchContainer>
                 </HeaderBottom>
             }
@@ -181,39 +182,20 @@ export default function Header(props: HeaderProps): JSX.Element {
     )
 }
 
-export function useHeader(args: HeaderHookArgs): HeaderHook {
+// export function useHeader(args: HeaderHookArgs): HeaderHook {
 
-    const history = useHistory()
 
-    const mainTabSwitcher = useTabSwitcher({ // Main tabs
-        tabs: tabs || [],
-        layoutStyle: 'header'
-    })
+//     const renderHeader = () => (
+//         <Header
+//             bottomTabSwitcher={bottomTabSwitcher}
+//             mainTabSwitcher={mainTabSwitcher}
+//         />
+//     )
 
-    const bottomTabSwitcher = useTabSwitcher({ // Bottom tabs
-        tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || [],
-        layoutStyle: 'header-bottom',
-        visualStyle: 'button'
-    })
-
-    useEffect(() => {
-        const link = tabs.find(tab => tab.id === mainTabSwitcher.currentTab)?.link
-        if (link) {
-            history.push(link)
-        }
-    }, [mainTabSwitcher.currentTab, history])
-
-    const renderHeader = () => (
-        <Header
-            bottomTabSwitcher={bottomTabSwitcher}
-            mainTabSwitcher={mainTabSwitcher}
-        />
-    )
-
-    return {
-        renderHeader
-    }
-}
+//     return {
+//         renderHeader
+//     }
+// }
 
 const StyledHeader = styled.header`
     position: fixed;
@@ -243,7 +225,7 @@ const SearchContainer = styled.div<{ isVisable?: boolean, headerBottom?: boolean
     align-items: center;
     margin: 0 2rem;
 
-    & > img {
+    & img {
         height: 2rem;
         cursor: pointer;
 

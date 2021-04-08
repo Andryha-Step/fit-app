@@ -1,7 +1,7 @@
-import { findAllByDisplayValue } from '@testing-library/dom';
+// import { findAllByDisplayValue } from '@testing-library/dom';
 import React, { MouseEvent, RefObject, useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import styled, { StyledComponent } from 'styled-components';
+// import { useHistory } from 'react-router';
+import styled from 'styled-components';
 import Title from './Title';
 
 export interface Tab {
@@ -32,6 +32,7 @@ export interface TabSwitcherProps {
     fontWeight?: string
     fontSize?: string
     containerClassName?: string
+    width?: string
     containerRef?: RefObject<HTMLDivElement>
     customTab?: (args: { active: boolean, onClick: (event: MouseEvent) => void, tab: Tab }) => JSX.Element
 }
@@ -47,14 +48,14 @@ type TabSwitcherHookArgs = TabSwitcherProps
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
 
-    const { fontSize, fontWeight, borderIndicatior, showTitleOnlyWhenActive, layoutStyle, visualStyle, withScroll, customTab } = props
+    const { fontSize, fontWeight, borderIndicatior, showTitleOnlyWhenActive, layoutStyle, visualStyle, withScroll, customTab, width } = props
 
     const handleTabClick = (event: MouseEvent) => {
         const target = event.target as HTMLDivElement
         props.onSwitch && props.onSwitch(target.id);
     }
 
-    return <StyledTabSwitcher withScroll={props.withScroll} ref={props.containerRef} flex={props.flex}
+    return <StyledTabSwitcher withScroll={props.withScroll} ref={props.containerRef} flex={props.flex} width={width}
         // style={props.style} className={props.containerClassName || ''}
         layoutStyle={layoutStyle}
         visualStyle={visualStyle}
@@ -110,7 +111,7 @@ export function useTabSwitcher(tabSwitcherArgs: TabSwitcherHookArgs): TabSwitche
     const { tabs, visualStyle, layoutStyle, withScroll, borderIndicatior, showTitleOnlyWhenActive, fontWeight, fontSize } = tabSwitcherArgs
 
     const [currentTab, setTab] = useState<string | number>(tabs ? tabs[0]?.id : '')
-    const history = useHistory()
+    // const history = useHistory()
 
     useEffect(() => {
         if (!currentTab || !tabs.find(tab => tab.id === currentTab)) {
@@ -152,7 +153,7 @@ export function useTabSwitcher(tabSwitcherArgs: TabSwitcherHookArgs): TabSwitche
     }
 }
 
-const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layoutStyle?: TabSwitcherLayoutStyle, visualStyle?: TabSwitcherVisualStyle }>`
+const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layoutStyle?: TabSwitcherLayoutStyle, visualStyle?: TabSwitcherVisualStyle, width?: string }>`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -170,6 +171,10 @@ const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layo
 
     ${p => p.flex ? `
         flex: ${p.flex};
+    ` : ''}
+
+    ${p => p.width ? `
+        width: ${p.width};
     ` : ''}
 
     ${p => p.layoutStyle === 'header-bottom' ? `

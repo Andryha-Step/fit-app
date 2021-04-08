@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Flex from '../Blocks/Flex'
+// import Flex from '../Blocks/Flex'
 import Text from './Text'
 
 export interface CoachProps {
@@ -15,8 +15,8 @@ export default function Coach(props: CoachProps): JSX.Element {
     const { style, avatarUrl, name } = props
 
     return (
-        <StyledCoach>
-            <Avatar src={avatarUrl} alt="coach"/>
+        <StyledCoach style={style}>
+            <Avatar src={avatarUrl} alt="coach" />
             <Text weight={'600'} color={"black"} center>{name}</Text>
         </StyledCoach>
     )
@@ -30,7 +30,7 @@ const StyledCoach = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-`  
+`
 
 const Avatar = styled.img`
     border-radius: 5rem;

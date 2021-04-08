@@ -32,7 +32,7 @@ export default function ClassCard(props: ClassCardProps): JSX.Element {
     const { style, type } = props
 
     return (
-        <StyledClassCard {...props}>
+        <StyledClassCard style={style} type={type}>
             {
                 type === 'upcoming' &&
                 <UpcomingInner {...props} />
@@ -215,6 +215,7 @@ function DurationInner(props: ClassCardProps) {
         </CardContainer>
     )
 }
+
 
 const StyledClassCard = styled.div<ClassCardProps>`
     min-width: 20rem;

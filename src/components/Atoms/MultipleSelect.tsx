@@ -52,7 +52,7 @@ export default function MultipleSelect(props: MultipleSelectProps): JSX.Element 
         <StyledMultipleSelectContainer style={style}>
             {
                 buttons.map(button => customButton ? customButton({ active: isButtonActive(button), button, onClick: handleButtonClick }) :
-                    <StyledButton id={button.id} onClick={handleButtonClick} active={isButtonActive(button)}>
+                    <StyledButton key={button.id} id={button.id} onClick={handleButtonClick} active={isButtonActive(button)}>
                         <Title weight={'500'} size={'1rem'} id={button.id} noMargin center {...titleProps}>{button.title}</Title>
                     </StyledButton>
                 )

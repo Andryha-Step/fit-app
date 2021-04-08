@@ -127,11 +127,11 @@ export default function Search(props: SearchProps): JSX.Element {
                 <Title noMargin style={{ flex: 1 }}>Search</Title>
                 <CloseButton src={closeButton} alt="closeButton" onClick={closeButtonClick} />
             </SearchHeader>
-            <TabSwitcherContainer>
+            {/* <TabSwitcherContainer>
                 <TabSwitcher
                     {...searchTypeSwitcher.tabSwitcherProps}
                     customTab={({ tab, active, onClick }) => (
-                        <TabSwticherCustomTab id={tab.id + ''} onClick={onClick} active={active}>
+                        <TabSwticherCustomTab key={tab.id} id={tab.id + ''} onClick={onClick} active={active}>
                             <Title
                                 id={tab.id + ''}
                                 size={'1rem'}
@@ -139,7 +139,7 @@ export default function Search(props: SearchProps): JSX.Element {
                         </TabSwticherCustomTab>
                     )}
                 />
-            </TabSwitcherContainer>
+            </TabSwitcherContainer> */}
             <Category
                 title="Durations"
                 noScroll
@@ -202,8 +202,9 @@ export default function Search(props: SearchProps): JSX.Element {
                 cardMinWidth={'6rem'}
             >
                 {
-                    Array(8).fill(null).map(el =>
+                    Array(8).fill(null).map((el, i) =>
                         <Coach
+                            key={i}
                             avatarUrl={example_avatar_3}
                             name="Coach"
                         />
@@ -218,7 +219,7 @@ export default function Search(props: SearchProps): JSX.Element {
 }
 
 const StyledSearch = styled.div`
-    
+    padding-bottom: 5rem;
 `
 
 const SearchHeader = styled.div`
@@ -267,4 +268,10 @@ const SearchButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100vw;
+
+    @media screen and (max-width: 600px) {
+        background-color: white;
+        padding-top: 1rem;
+        border-top: 1px solid #EFEFEF;
+    }
 `

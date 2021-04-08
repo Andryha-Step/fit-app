@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import React, { useRef } from 'react'
+import styled from 'styled-components'
 import { Title, TabSwitcher, Text, useTabSwitcher, TitleProps } from '../../Atoms'
 // import arrow from '../../../assets/icons/arrow-right.svg'
 import useArrows from '../../../hooks/useArrows';
@@ -47,7 +47,7 @@ export default function Category(props: CategoryProps): JSX.Element {
 
     function onTabSwitch(id: string) {
 
-        const card = scrollContainerRef.current?.querySelector(`#${id}`)
+        // const card = scrollContainerRef.current?.querySelector(`#${id}`)
         // if (card) {
         //     const style = getComputedStyle(card);
         //     const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
@@ -59,7 +59,7 @@ export default function Category(props: CategoryProps): JSX.Element {
 
         // card?.scrollIntoView()
 
-        console.log(card)
+        // console.log(card)
 
         // scrollContainerRef.current?.scrollTo(card)
 
@@ -68,7 +68,7 @@ export default function Category(props: CategoryProps): JSX.Element {
 
     function onContainerScroll(e: React.UIEvent<HTMLDivElement>) {
 
-        const target = e.target as HTMLDivElement
+        // const target = e.target as HTMLDivElement
 
         // if (!scrollContainerRef) return;
         // // target.scrollWidth target.clientWidth target.scrollLeft
