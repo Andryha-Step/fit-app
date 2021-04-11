@@ -36,7 +36,7 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route path={["/app/forYou", '/app/explore']} render={() => (
+					<Route path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -56,7 +56,7 @@ function App(): JSX.Element {
 					<Route exact path='/app/book' component={Book} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route path={["/app/forYou", '/app/explore']} render={() => (
+					<Route path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

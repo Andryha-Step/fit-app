@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Logo, TabSwitcher, useTabSwitcher } from '../../Atoms';
 import searchIcon from '../../../assets/icons/search.svg'
+import calendarAdd from '../../../assets/icons/calendar-add.svg'
 // import useWindowSize from '../../../hooks/useWindowSize';
 import Flex from '../Flex'
-import { useHistory } from 'react-router';
+import { Route, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export interface HeaderProps {
@@ -118,8 +119,10 @@ export default function Header(props: HeaderProps): JSX.Element {
         onSwitch
     })
 
+    const currentBottomTabs = bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || []
+
     const bottomTabSwitcher = useTabSwitcher({ // Bottom tabs
-        tabs: bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || [],
+        tabs: currentBottomTabs,
         layoutStyle: 'header-bottom',
         visualStyle: 'button'
     })
@@ -135,7 +138,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     return (
         <>
             <StyledHeader>
-                <HeaderSpaceGlobalStyle />
+                <HeaderSpaceGlobalStyle isBottomTabs={currentBottomTabs.length > 0} />
                 <Logo style={{ justifyContent: 'flex-start', paddingLeft: '2rem', height: '100%' }} flex={'1'} dark />
                 {/* {
                     screenWidth > 600 && 
@@ -153,13 +156,24 @@ export default function Header(props: HeaderProps): JSX.Element {
                     {...mainTabSwitcher.tabSwitcherProps}
                 />
                 <SearchContainer isVisable={true} >
-                    <Link to="/app/search">
-                        <img src={searchIcon} alt="searchIcon" />
-                    </Link>
+                    <Route
+                        path={["/app/forYou", "/app/explore"]}
+                    >
+                        <Link to="/app/search">
+                            <img src={searchIcon} alt="searchIcon" />
+                        </Link>
+                    </Route>
+                    <Route
+                        path={["/app/book"]}
+                    >
+                        {/* <Link to="/app/search"> */}
+                        <img src={calendarAdd} alt="calendar add" />
+                        {/* </Link> */}
+                    </Route>
                 </SearchContainer>
             </StyledHeader>
             {
-                bottomTabs &&
+                currentBottomTabs.length > 0 &&
                 <HeaderBottom>
                     <StyledSwitcherContainer>
                         {/* <TabSwitcher 
@@ -182,20 +196,6 @@ export default function Header(props: HeaderProps): JSX.Element {
     )
 }
 
-// export function useHeader(args: HeaderHookArgs): HeaderHook {
-
-
-//     const renderHeader = () => (
-//         <Header
-//             bottomTabSwitcher={bottomTabSwitcher}
-//             mainTabSwitcher={mainTabSwitcher}
-//         />
-//     )
-
-//     return {
-//         renderHeader
-//     }
-// }
 
 const StyledHeader = styled.header`
     position: fixed;
@@ -287,9 +287,9 @@ const HeaderBottom = styled.div`
 `
 
 
-const HeaderSpaceGlobalStyle = createGlobalStyle`
+const HeaderSpaceGlobalStyle = createGlobalStyle<{ isBottomTabs?: boolean }>`
     body {
-        margin-top: calc(8.5rem + 1px);
+        margin-top: calc(${p => p.isBottomTabs ? "8.5rem" : '5rem'} + 1px);
     }
 `
 

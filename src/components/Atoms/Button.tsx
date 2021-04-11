@@ -14,6 +14,9 @@ export interface ButtonProps {
     color?: string
     background?: string
     noShadow?: boolean,
+    transparentDark?: boolean
+    padding?: string
+    noWrap?: boolean
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
@@ -49,42 +52,37 @@ const ButtonStyled = styled.button<ButtonProps>`
     ${p => p.width && `
         width: ${p.width};
     `}
+    background: #FFFFFF;
+    color: #308FAB;
+    border: 0;
+    cursor: pointer;
     ${p => p.primary ? `
         background: linear-gradient(122.49deg, #429FBA 0%, #217E9A 100%);
         color: #FFFFFF;
         border: 0;
         cursor: pointer;
-        // &:hover {
-        //     background: #FFFFFF;
-        //     color: #308FAB;
-        //     cursor: pointer;
-        // }
-    ` : (
-        p.transparent ? `
-            background: rgba(196, 196, 196, 0.05);
-            color: #FFFFFF;
-            border: 2px solid #F8F8F8;
-            padding: ${p.small ? 'calc(0.4rem - 4px);' : 'calc(0.9rem - 4px)'};
-            cursor: pointer;
-            // &:hover {
-            //     background: #FFFFFF;
-            //     color: #308FAB;
-            //     cursor: pointer;
-            // }
-        ` : `
-            background: #FFFFFF;
-            color: #308FAB;
-            border: 0;
-            cursor: pointer;
-            // &:hover {
-            //     background: #308FAB;
-            //     color: #FFFFFF;
-            //     cursor: pointer;
-            // }
-        `
-    )}
+    ` : ''}
+
+    ${p => p.transparent ? `
+        background: rgba(196, 196, 196, 0.05);
+        color: #FFFFFF;
+        border: 2px solid #F8F8F8;
+        padding: ${p.small ? 'calc(0.4rem - 4px);' : 'calc(0.9rem - 4px)'};
+        cursor: pointer;
+    ` : ''}
+
+    ${p => p.transparentDark ? `
+        background: transparent;
+        border: 1px solid #308FAB;
+        color: #308FAB;
+        padding: ${p.small ? 'calc(0.4rem - 4px);' : 'calc(0.9rem - 4px)'};
+    ` : ''}
 
     ${p => p.noMargin ? 'margin: 0;' : ''}
+    
+    ${p => p.padding ? `
+        padding: ${p.padding};
+    ` : ''}
 
     ${p => p.background ? `
         background: ${p.background}
@@ -92,5 +90,9 @@ const ButtonStyled = styled.button<ButtonProps>`
 
     ${p => p.color ? `
         color: ${p.color}
+    ` : ''}
+
+    ${p => p.noWrap ? `
+        white-space: nowrap;
     ` : ''}
 `

@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Text, Title } from '../../Atoms'
+import { Title } from '../../Atoms'
 import arrow_img from '../../../assets/icons/circle-arrow.svg'
 
 export interface CalendarProps {
@@ -44,9 +44,6 @@ export default function Calendar(props: CalendarProps): JSX.Element {
         console.log(newStartDate);
     }, [])
 
-    const startShift = currentStartDate.getDay() ? currentStartDate.getDay() - 1 : 6;
-    const calendarElements = [...Array(startShift).fill(null), ...Array(getMonthDayCount(currentStartDate)).fill(null).map((el, i) => i)]
-
     const hangleArrowClick: MouseEventHandler<HTMLImageElement> = (event) => {
         const target = event.target as HTMLImageElement
         console.log(target.id)
@@ -64,10 +61,13 @@ export default function Calendar(props: CalendarProps): JSX.Element {
         setCurrentStartDate(newStartDate)
     }
 
+    const startShift = currentStartDate.getDay() ? currentStartDate.getDay() - 1 : 6;
+    const calendarElements = [...Array(startShift).fill(null), ...Array(getMonthDayCount(currentStartDate)).fill(null).map((el, i) => i)];
+
     return (
         <StyledCalendar style={style}>
             <CalendarHeader>
-                <Title style={{ flex: 1 }} weight={'500'}>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
+                <Title style={{ flex: 1 }} weight={'500'} noMargin>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
                 <ArrowContainer>
                     <Arrow src={arrow_img} alt="arrow" id="left" onClick={hangleArrowClick} />
                     <Arrow src={arrow_img} alt="arrow" id="right" onClick={hangleArrowClick} right />
@@ -81,7 +81,9 @@ export default function Calendar(props: CalendarProps): JSX.Element {
                 }
                 {
                     calendarElements.map(day => (
-                        <Title center weight={'400'}>{day !== null ? day + 1 : ''}</Title>
+                        <CalendarDay selectable={day !== null}>
+                            <Title center weight={'400'}>{day !== null ? day + 1 : ''}</Title>
+                        </CalendarDay>
                     ))
                 }
             </CalendarGrid>
@@ -91,17 +93,25 @@ export default function Calendar(props: CalendarProps): JSX.Element {
 
 const StyledCalendar = styled.div`
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const CalendarHeader = styled.div`
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
+    width: calc(100% - 3rem);
 `
 
 const ArrowContainer = styled.div`
     display: flex;
     align-items: center;
+
+    && img {
+        height: 2.5rem;
+    }
 `
 const Arrow = styled.img<{ right?: boolean }>`
 
@@ -115,11 +125,31 @@ const Arrow = styled.img<{ right?: boolean }>`
 const CalendarGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    /* grid-template-rows: repeat(7, 1fr); */
+    grid-column-gap: .8rem;
     margin: 1rem;
 `
-// const CalendarHeader = styled.div`
 
-// `
+const CalendarDay = styled.div<{ selectable?: boolean }>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    && > span {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    ${p => p.selectable ? `
+        && > span:hover {
+            background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
+        } 
+    ` : ''}
+`
 // const CalendarHeader = styled.div`
 
 // `

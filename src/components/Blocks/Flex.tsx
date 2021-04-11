@@ -6,6 +6,7 @@ export interface FlexProps {
     flex?: string
     jc?: string
     ai?: string
+    width?: string
 }
 
 export default styled.div<FlexProps>`
@@ -31,6 +32,10 @@ export default styled.div<FlexProps>`
 
     ${p => p.ai ? `
         align-items: ${p.ai};
+    ` : ''}
+
+    ${p => p.width ? `
+        width: ${p.width};
     ` : ''}
 
     &::-webkit-scrollbar {
