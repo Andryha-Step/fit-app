@@ -27,10 +27,6 @@ export default function Book(props: BookProps): JSX.Element {
 
     return (
         <StyledBook style={style}>
-            {/* <BookHeader>
-                <Logo style={{ justifyContent: 'flex-start', paddingLeft: '1.5rem', height: '100%' }} flex={'1'} dark />
-                <CalendarAdd src={calendarAdd} alt="calendar add" />
-            </BookHeader> */}
             <OptionsContainer>
                 <TabSwitcher
                     {...calendarTypeSwitcher.tabSwitcherProps}
@@ -54,7 +50,7 @@ export default function Book(props: BookProps): JSX.Element {
                     >More Filtes</Title>
                 </TabSwticherCustomTab>
             </OptionsContainer>
-            <Calendar />
+            <Calendar weekMode={calendarTypeSwitcher.currentTab === 'week'} />
             <Flex>
                 <Title style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }}>Thursday 08, October 2021</Title>
             </Flex>
@@ -124,16 +120,6 @@ const StyledBook = styled.div`
     }
 `
 
-// const BookHeader = styled.div`
-//     height: 5rem;
-//     display: flex;
-//     justify-content: space-between;
-// `
-
-// const CalendarAdd = styled.img`
-//     height: calc(100% - 2rem);
-//     padding: 1rem;
-// `
 
 const OptionsContainer = styled.div`
     display: flex;
