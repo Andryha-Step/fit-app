@@ -166,9 +166,9 @@ export default function Header(props: HeaderProps): JSX.Element {
                     <Route
                         path={["/app/book"]}
                     >
-                        {/* <Link to="/app/search"> */}
-                        <img src={calendarAdd} alt="calendar add" />
-                        {/* </Link> */}
+                        <Link to="/app/book/book-appointment">
+                            <img src={calendarAdd} alt="calendar add" />
+                        </Link>
                     </Route>
                 </SearchContainer>
             </StyledHeader>

@@ -2,11 +2,13 @@ import React, { MouseEventHandler, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Title } from '../../Atoms'
 import arrow_img from '../../../assets/icons/circle-arrow.svg'
+import useWindowSize from '../../../hooks/useWindowSize'
 
 export interface CalendarProps {
     children?: React.ReactNode
     style?: React.CSSProperties
     weekMode?: boolean
+    onDateSelect?: (date: Date) => void
 }
 
 const daysOfWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
@@ -25,14 +27,14 @@ const months = [
     "December",
 ]
 
-const getThisWeekDays = (startDate: Date) => {
+const getThisWeekDays = (startDate: Date, days: number = 7) => {
     const date = new Date(startDate);
     const currentWeekDay = date.getDay() ? date.getDay() - 1 : 6;
     date.setDate(date.getDate() - currentWeekDay);
-    return Array(7).fill(0).map((el) => {
+    return Array(days).fill(0).map((el) => {
         const resDate = new Date(date);
         date.setDate(date.getDate() + 1);
-        return resDate;
+        return resDate.getTime();
     })
 }
 
@@ -52,9 +54,11 @@ const isToday = (date: Date) => {
 
 export default function Calendar(props: CalendarProps): JSX.Element {
 
-    const { style, weekMode } = props
+    const { style, weekMode, onDateSelect } = props
 
     const [currentStartDate, setCurrentStartDate] = useState<Date>(new Date())
+    const [selectedDate, setSelectedDate] = useState<Date | null | number>(null);
+    const { width: windowWidth } = useWindowSize()
 
     useEffect(() => { // Sets current month's start date
         if (!weekMode) {
@@ -99,11 +103,22 @@ export default function Calendar(props: CalendarProps): JSX.Element {
         setCurrentStartDate(newStartDate)
     }
 
+    const goToday = () => {
+        setCurrentStartDate(new Date())
+    }
+
+    const handleDateSelect = (date: Date) => {
+        const resDate = new Date(date);
+        resDate.setHours(0, 0, 0, 0)
+        onDateSelect && onDateSelect(resDate)
+        setSelectedDate(resDate);
+    }
+
 
     const startShift = currentStartDate.getDay() ? currentStartDate.getDay() - 1 : 6;
     let calendarElements;
     if (weekMode) {
-        calendarElements = getThisWeekDays(currentStartDate);
+        calendarElements = getThisWeekDays(currentStartDate, windowWidth > 1200 ? 14 : 7);
     } else {
         calendarElements = [...Array(startShift).fill(null), ...Array(getMonthDayCount(currentStartDate)).fill(currentStartDate).map((el, i) => new Date(el).setDate(i + 1))];
     }
@@ -113,11 +128,12 @@ export default function Calendar(props: CalendarProps): JSX.Element {
             <CalendarHeader>
                 <Title style={{ flex: 1 }} weight={'500'} noMargin>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
                 <ArrowContainer>
+                    <CutstomButton onClick={goToday}><Title size={'.8rem'}>Today</Title></CutstomButton>
                     <Arrow src={arrow_img} alt="arrow" id="left" onClick={hangleArrowClick} />
                     <Arrow src={arrow_img} alt="arrow" id="right" onClick={hangleArrowClick} right />
                 </ArrowContainer>
             </CalendarHeader>
-            <CalendarGrid>
+            <CalendarGrid columns={weekMode && windowWidth > 1200 ? '14' : '7'}>
                 {
                     !weekMode && daysOfWeek.map(day => (
                         <Title center weight={'500'} style={{ marginBottom: '2rem' }}>{day}</Title>
@@ -125,15 +141,27 @@ export default function Calendar(props: CalendarProps): JSX.Element {
                 }
                 {
                     !weekMode && calendarElements.map((date, i) => (
-                        <CalendarDay selectable={date !== null} key={i} today={isToday(date)}>
+                        <CalendarDay
+                            selected={new Date(selectedDate || 0).setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0)}
+                            selectable={date !== null}
+                            key={i}
+                            today={isToday(date)}
+                            onClick={() => date && handleDateSelect(date)}
+                        >
                             <Title center weight={'400'}>{date !== null ? new Date(date).getDate() : ''}</Title>
                         </CalendarDay>
                     ))
                 }
                 {
                     weekMode && calendarElements.map((date, i) => (
-                        <CalendarDay selectable={date !== null} key={i} today={isToday(date)} weekDay>
-                            <Title center weight={'500'} style={{ marginBottom: '.5rem' }}>{daysOfWeek[i]}</Title>
+                        <CalendarDay
+                            selected={(new Date(selectedDate || 0).setHours(0, 0, 0, 0)) === (new Date(date).setHours(0, 0, 0, 0))}
+                            selectable={date !== null}
+                            key={i}
+                            today={isToday(date)}
+                            onClick={() => date && handleDateSelect(date)}
+                            weekDay>
+                            <Title center weight={'500'} style={{ marginBottom: '.5rem' }}>{daysOfWeek[i % 7]}</Title>
                             <Title center weight={'400'}>{date !== null ? new Date(date).getDate() : ''}</Title>
                         </CalendarDay>
                     ))
@@ -153,8 +181,7 @@ const StyledCalendar = styled.div`
 const CalendarHeader = styled.div`
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
-    width: calc(100% - 3rem);
+    width: 100%;
 `
 
 const ArrowContainer = styled.div`
@@ -166,7 +193,7 @@ const ArrowContainer = styled.div`
     }
 `
 const Arrow = styled.img<{ right?: boolean }>`
-
+    cursor: pointer;
     ${p => p.right ? `
         transform: rotate(180deg);
     ` : `
@@ -174,15 +201,15 @@ const Arrow = styled.img<{ right?: boolean }>`
     `}
 
 `
-const CalendarGrid = styled.div`
+const CalendarGrid = styled.div<{ columns?: string }>`
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(${p => p.columns || '7'}, 1fr);
     /* grid-template-rows: repeat(7, 1fr); */
     grid-column-gap: .8rem;
     margin: 1rem;
 `
 
-const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?: boolean }>`
+const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?: boolean, selected?: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,6 +238,26 @@ const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?
         && > span:hover {
             background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
         } 
+        && > span:hover {
+            background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
+        } 
+    ` : ''}
+
+    ${p => p.selected && p.weekDay ? `
+        background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
+        border-radius: 2rem;
+        &&::after {
+            display: none;
+        }
+    ` : ''}
+
+    ${p => p.selected && !p.weekDay ? `
+        && > span {
+            background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
+        }
+        &&::after {
+            display: none;
+        }
     ` : ''}
 
     ${p => p.today ? `
@@ -222,10 +269,23 @@ const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?
             background-color: #B0B0B0;
             border-radius: 1rem;
             position: absolute;
-            bottom: ${p.weekDay ? '-1rem' : '0'};
+            bottom: ${p.weekDay ? '0' : '.5rem'};
+        }
+        &&:hover::after {
+            display: none;
         }
     ` : ''}
 `
-// const CalendarHeader = styled.div`
 
-// `
+const CutstomButton = styled.button`
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 5rem;
+    cursor: pointer;
+    /* background: rgba(48, 143, 171, 0.2); */
+    background: #F8F8F8;
+    margin-right: 1rem;
+    border: 0;
+    user-select: none;
+    outline: none;
+`

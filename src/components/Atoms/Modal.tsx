@@ -17,7 +17,7 @@ export default function Modal(props: ModalProps): JSX.Element {
     const ModalRef = useRef<HTMLDivElement>(null);
 
     if (!props.isOpen) return <></>;
-    
+
     const clickHandler = (e: MouseEvent) => {
 
         // Check if user clicked on container, not wrapper or content
@@ -29,10 +29,10 @@ export default function Modal(props: ModalProps): JSX.Element {
     return (
         <ModalContainer onClick={clickHandler} ref={ModalRef}>
             {
-                props.wrapperTemplate === 'white-box' && 
-                    <WhiteBoxWrapper width={props.wrapperWidth}>
-                        {props.children}
-                    </WhiteBoxWrapper>
+                props.wrapperTemplate === 'white-box' &&
+                <WhiteBoxWrapper width={props.wrapperWidth}>
+                    {props.children}
+                </WhiteBoxWrapper>
             }
             {
                 !props.wrapperTemplate && props.children
@@ -42,7 +42,7 @@ export default function Modal(props: ModalProps): JSX.Element {
 }
 
 const ModalContainer = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,.58);
@@ -55,7 +55,7 @@ const ModalContainer = styled.div`
     align-items: center;
 `
 
-const WhiteBoxWrapper = styled.div<{width?: string}>`
+const WhiteBoxWrapper = styled.div<{ width?: string }>`
     background: #F8F8F8;
     border-radius: 20px;
     padding: 1.5rem;

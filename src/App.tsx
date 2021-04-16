@@ -36,7 +36,7 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -54,9 +54,11 @@ function App(): JSX.Element {
 					<Route exact path='/app/explore' component={() => <Explore />} />
 					<Route exact path='/app/search' component={Search} />
 					<Route exact path='/app/book' component={Book} />
+					<Route exact path='/app/book/book-appointment' component={Book} />
+					<Route exact path='/app/book/filters' component={Book} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

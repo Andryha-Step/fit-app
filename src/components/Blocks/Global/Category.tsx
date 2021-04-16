@@ -153,7 +153,7 @@ const Header = styled.div<CategoryProps>`
 `
 
 const HeaderContainer = styled.div<CategoryProps>`
-    width: calc(100vw - 4rem);
+    width: calc(100% - 4rem);
     border-top: 1px solid #E6E5E5;
     ${p => p.tabs ? `
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
@@ -178,7 +178,7 @@ const ArrowsContainer = styled.div`
 
 const ClassesContainer = styled.div<CategoryProps>`
     display: flex;
-    width: calc(100vw - 3rem);
+    width: calc(100% - 3rem);
     padding: 0 1rem;
     margin-right: 1rem;
 
