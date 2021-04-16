@@ -186,7 +186,7 @@ const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layo
     ${p => p.layoutStyle === 'header' ? `
         @media screen and (max-width: 1000px) {
             & {
-                justify-content: center;
+                justify-content: space-evenly;
             }
         }
         @media screen and (max-width: 800px) {

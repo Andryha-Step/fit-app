@@ -157,7 +157,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                 />
                 <SearchContainer isVisable={true} >
                     <Route
-                        path={["/app/forYou", "/app/explore"]}
+                        path={["/app/forYou", "/app/explore", "/app/chat"]}
                     >
                         <Link to="/app/search">
                             <img src={searchIcon} alt="searchIcon" />

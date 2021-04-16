@@ -14,6 +14,7 @@ import AccountForm from './components/Screens/Onboarding/AccountForm';
 import ForYou from './components/Screens/ForYou/ForYou';
 import Explore from './components/Screens/Explore/Explore';
 import Search from './components/Screens/App/Search';
+import Chat from './components/Screens/Chat';
 import Book from './components/Screens/App/Book';
 import Header from './components/Blocks/Global/Header';
 import BottomTabNav from './components/Blocks/Global/BottomTabNav'
@@ -36,7 +37,7 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile']} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -56,9 +57,12 @@ function App(): JSX.Element {
 					<Route exact path='/app/book' component={Book} />
 					<Route exact path='/app/book/book-appointment' component={Book} />
 					<Route exact path='/app/book/filters' component={Book} />
+					<Route exact path='/app/chat' component={Chat} />
+					<Route exact path='/app/chat/dialog' component={Chat} />
+					<Route exact path='/app/chat/group' component={Chat} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>
