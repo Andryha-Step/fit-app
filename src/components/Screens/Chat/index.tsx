@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Contact from './Contact';
 import Header from './Header';
+import MessageInput from './MessageInput';
 import exampleAvatar from '../../../assets/images/example-avatar-5.png'
 import { Route, useHistory } from 'react-router';
 
@@ -60,7 +61,7 @@ function Dialog(props: ChatProps): JSX.Element {
                 imageAvatarSrc={exampleAvatar}
             />
             <StyledChat>
-
+                <MessageInput></MessageInput>
             </StyledChat>
         </div>
     )
@@ -68,19 +69,20 @@ function Dialog(props: ChatProps): JSX.Element {
 
 const StyledChat = styled.div`
     padding: 1.5rem;
+    max-width: calc(100vw - 1.5rem);
 
     @media screen and (min-width: 600px) and (max-width: 900px) {
         padding: 1.5rem 10vw;
-        width: 80vw;
+        max-width: 80vw;
     }
 
     @media screen and (min-width: 900px) and (max-width: 1200px) {
         padding: 1.5rem 15vw;
-        width: 70vw;
+        max-width: 70vw;
     }
 
     @media screen and (min-width: 1200px) {
         padding: 1.5rem 20vw;
-        width: 60vw;
+        max-width: 60vw;
     }
 `
