@@ -162,7 +162,7 @@ const StyledTabSwitcher = styled.div<{ flex?: string, withScroll?: boolean, layo
     /* margin-bottom: 1rem; */
 
     ${p => p.withScroll ? `
-        overflow-x: scroll;
+        // overflow-x: scroll;
         justify-content: flex-start;
 
         &::-webkit-scrollbar {
@@ -241,6 +241,9 @@ const StyledTitle = styled(Title) <{
 }>`
     ${p => p.visualStyle === 'text-vertical-padding' && `
         padding: 0.5rem 0;
+        margin-right: 2rem;
+        min-width: 3.5rem;
+        text-align: center;
     `}
 
     ${p => p.borderIndicatior && `

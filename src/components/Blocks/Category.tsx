@@ -28,6 +28,7 @@ export default function Category(props: CategoryProps): JSX.Element {
 
     const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth, titleProps } = props
     const scrollContainerRef: React.RefObject<HTMLDivElement> = useRef(null)
+    const tabSwitcherContainerRef: React.RefObject<HTMLDivElement & { cardNumber?: number }> = useRef(null);
 
     const {
         leftArrow,
@@ -67,21 +68,37 @@ export default function Category(props: CategoryProps): JSX.Element {
     }
 
     function onContainerScroll(e: React.UIEvent<HTMLDivElement>) {
-
-        // const target = e.target as HTMLDivElement
+        console.log(e);
+        const target = e.target as HTMLDivElement
 
         // if (!scrollContainerRef) return;
         // // target.scrollWidth target.clientWidth target.scrollLeft
 
-        // const card = scrollContainerRef.current?.getElementsByTagName('div')[0]
-        // if (card) {
-        //     const style = getComputedStyle(card);
-        //     const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
-        //     const cardWidth = card?.offsetWidth
-        //     const cardFullWidth = cardWidth + cardMarginHorizontal
+        const card = target.getElementsByTagName('div')[0]
+        if (card) {
+            const style = getComputedStyle(card);
+            const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
+            const cardWidth = card?.offsetWidth
+            const cardFullWidth = cardWidth + cardMarginHorizontal
+            if (tabs) {
+                // console.log(tabs, tabs[~~(target.scrollLeft / cardFullWidth)], ~~(target.scrollLeft / cardFullWidth))
+                tabSwitcher.setTab(tabs[~~(target.scrollLeft / cardFullWidth)].id)
+            }
 
-        //     scrollContainerRef.current?.scrollTo
-        // }
+            // scroll to right time
+            if (tabSwitcherContainerRef.current) {
+                const timeTab = tabSwitcherContainerRef.current.getElementsByTagName('div')[0].getElementsByTagName('div')[0]
+                const style = getComputedStyle(timeTab);
+                const timeMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
+                const timeWidth = timeTab.offsetWidth
+                const timeFullWidth = timeWidth + timeMarginHorizontal
+                console.log(timeWidth, timeMarginHorizontal, timeFullWidth);
+                if (tabSwitcherContainerRef.current.cardNumber !== ~~(target.scrollLeft / cardFullWidth)) {
+                    tabSwitcherContainerRef.current.cardNumber = ~~(target.scrollLeft / cardFullWidth)
+                    tabSwitcherContainerRef.current.scrollLeft = tabSwitcherContainerRef.current.cardNumber * timeFullWidth - 50;
+                }
+            }
+        }
 
         onContainerScrollArrows && onContainerScrollArrows(e)
     }
@@ -104,10 +121,14 @@ export default function Category(props: CategoryProps): JSX.Element {
                 }
                 {
                     tabs && currentTab &&
-                    <TabSwitcher
-                        {...tabSwitcher.tabSwitcherProps}
-                        fontSize={'0.9rem'}
-                    />
+                    <TabSwitcherContainer
+                        ref={tabSwitcherContainerRef}
+                    >
+                        <TabSwitcher
+                            {...tabSwitcher.tabSwitcherProps}
+                            fontSize={'0.9rem'}
+                        />
+                    </TabSwitcherContainer>
                     // <TabSwitcher
                     //     containerRef={SwitcherContainerRef}
                     //     tabs={tabs}
@@ -227,28 +248,13 @@ const ArrowContainer = styled.div<{ hide?: boolean, left?: boolean }>`
     }
 `
 
-// const CategorySwitcherStyle = createGlobalStyle`
-//     .category-switcher {
-//         height: 100%;
-//     }
+const TabSwitcherContainer = styled.div`
+    max-width: 100%;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
 
-//     .category-switcher-tab {
-//         margin: 0 1.5rem;
-//         font-size: 0.9rem;
-//         font-weight: 400;
-//     }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`
 
-//     .category-switcher-tab > span {
-//         padding: 0.5rem 0;
-//     }
-
-//     .category-switcher::-webkit-scrollbar {
-//         display: none;
-//     }
-
-//     @media screen and (min-width: 900px) {
-//         .category-switcher-tab {
-//             margin: 0 4rem;
-//         }
-//     }
-// `
