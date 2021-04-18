@@ -136,13 +136,13 @@ export default function Calendar(props: CalendarProps): JSX.Element {
             <CalendarGrid columns={weekMode && windowWidth > 1200 ? '14' : '7'}>
                 {
                     !weekMode && daysOfWeek.map(day => (
-                        <Title center weight={'500'} style={{ marginBottom: '2rem' }}>{day}</Title>
+                        <Title center weight={'500'} mb={'2rem'}>{day}</Title>
                     ))
                 }
                 {
                     !weekMode && calendarElements.map((date, i) => (
                         <CalendarDay
-                            selected={new Date(selectedDate || 0).setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0)}
+                            selected={new Date(selectedDate || 0).setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0) && date !== null}
                             selectable={date !== null}
                             key={i}
                             today={isToday(date)}
@@ -155,14 +155,14 @@ export default function Calendar(props: CalendarProps): JSX.Element {
                 {
                     weekMode && calendarElements.map((date, i) => (
                         <CalendarDay
-                            selected={(new Date(selectedDate || 0).setHours(0, 0, 0, 0)) === (new Date(date).setHours(0, 0, 0, 0))}
+                            selected={new Date(selectedDate || 0).setHours(0, 0, 0, 0) === new Date(date).setHours(0, 0, 0, 0) && date !== null}
                             selectable={date !== null}
                             key={i}
                             today={isToday(date)}
                             onClick={() => date && handleDateSelect(date)}
                             weekDay>
-                            <Title center weight={'500'} style={{ marginBottom: '.5rem' }}>{daysOfWeek[i % 7]}</Title>
-                            <Title center weight={'400'}>{date !== null ? new Date(date).getDate() : ''}</Title>
+                            <Title center weight={'500'} mb={'.5rem'}>{daysOfWeek[i % 7]}</Title>
+                            <Title center weight={'400'} mb={'1rem'}>{date !== null ? new Date(date).getDate() : ''}</Title>
                         </CalendarDay>
                     ))
                 }
