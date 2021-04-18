@@ -133,7 +133,7 @@ export default function Appointment() {
             </StyledBlock>
             <StyledTextarea placeholder={'What is this appointment about?'} />
             <ConfirmButton>
-                <Button noMargin primary width={'20rem'} onClick={handleSubmit}>BOOK</Button>
+                <Button primary width={'20rem'} onClick={handleSubmit}>BOOK</Button>
             </ConfirmButton>
         </StyledBook>
     )

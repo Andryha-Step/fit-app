@@ -51,7 +51,7 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 							<img src={props.linkSent ? success : (props.loginLink ? lock : '')} style={{ height: '2.5rem' }} alt='success' />
 						</SuccessImg>
 					}
-					<Title center color={'white'} >
+					<Title center color={'white'} mb={'0.8rem'}>
 						{props.login && 'Log In'}
 						{props.registration && 'Create Account'}
 						{props.linkSent && 'Login link sent'}
@@ -59,11 +59,11 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 					</Title>
 					{
 						props.linkSent &&
-						<Text color={'white'} center>Please check your email inbox for your <br /> login link.</Text>
+						<Text color={'white'} center mb={'1rem'}>Please check your email inbox for your <br /> login link.</Text>
 					}
 					{
 						props.loginLink &&
-						<Text color={'white'} center>Tap below to get started</Text>
+						<Text color={'white'} center mb={'1rem'}>Tap below to get started</Text>
 					}
 					{
 						(props.login || props.registration) &&

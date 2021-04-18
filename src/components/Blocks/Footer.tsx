@@ -12,7 +12,7 @@ export default function Footer(props: FooterProps) {
 		<Text color="black" center style={{ marginBottom: '0.2rem' }}>Powered by</Text>
 		<img style={{ marginBottom: '1rem', filter: 'invert(1)', width: '10rem' }} src={secondary_logo} alt='Moove logo' />
 		{props.terms &&
-			<Text noMargin color="black"><StyledA href="#">Terms and Conditions</StyledA> | <StyledA href="#">Privacy Policy</StyledA></Text>
+			<Text color="black"><StyledA href="#">Terms and Conditions</StyledA> | <StyledA href="#">Privacy Policy</StyledA></Text>
 		}
 	</StyledFooter>)
 }

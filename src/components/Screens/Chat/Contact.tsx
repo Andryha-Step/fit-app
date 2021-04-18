@@ -35,10 +35,10 @@ export default function Contact(props: ChatContact & ContactProps): JSX.Element 
             />
             <InfoContainer>
                 <Header>
-                    <Title noMargin size={'1.2rem'} weight={'600'}>{title}</Title>
+                    <Title size={'1.2rem'} weight={'600'}>{title}</Title>
                     {
                         lastMessage && (
-                            <Text noMargin color={'#B0B0B0'}>
+                            <Text color={'#B0B0B0'}>
                                 {new Date(lastMessage.time || 0).toLocaleTimeString('en', { hour12: true, hour: '2-digit', minute: '2-digit' })}
                             </Text>
                         )
@@ -49,14 +49,14 @@ export default function Contact(props: ChatContact & ContactProps): JSX.Element 
                         lastMessage && (
                             <LastMessage>
                                 <img src={read} alt="read" />
-                                <Text noMargin size={'.9rem'} color={'#636363'}>{lastMessage.text}</Text>
+                                <Text size={'.9rem'} color={'#636363'}>{lastMessage.text}</Text>
                             </LastMessage>
                         )
                     }
                     {
                         participants && (
                             <LastMessage>
-                                <Title noMargin size={'1rem'} color={'#429FBA'} weight={'500'}>{participants} Participants</Title>
+                                <Title size={'1rem'} color={'#429FBA'} weight={'500'}>{participants} Participants</Title>
                             </LastMessage>
                         )
                     }

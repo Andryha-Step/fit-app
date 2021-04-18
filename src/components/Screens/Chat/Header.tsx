@@ -32,8 +32,8 @@ export default function Header(props: HeaderProps): JSX.Element {
                     size={'3rem'}
                 />
                 <Contact>
-                    <Title noMargin weight={'500'} size={'1.4rem'}>Coach</Title>
-                    <Text color={'#B0B0B0'} noMargin>last seen 18 min ago</Text>
+                    <Title weight={'500'} size={'1.4rem'}>Coach</Title>
+                    <Text color={'#B0B0B0'}>last seen 18 min ago</Text>
                 </Contact>
             </Flex>
             <NotificationButton

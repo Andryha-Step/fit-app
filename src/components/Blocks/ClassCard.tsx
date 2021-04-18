@@ -73,13 +73,13 @@ function UpcomingInner(props: ClassCardProps): JSX.Element {
                         style={{ marginRight: '0.5rem', height: '1.1rem' }}
                         src={clock} alt="clock"
                     />
-                    <Text noWrap noMargin color={'white'}>{duration}</Text>
+                    <Text noWrap color={'white'}>{duration}</Text>
                 </Flex>
                 <Avatars>
                     <img style={{ zIndex: 1, left: '0.9rem' }} src={example_avatar_1} alt="avatar" />
                     <img style={{ zIndex: 2, left: '0.6rem' }} src={example_avatar_2} alt="avatar" />
                     <img style={{ zIndex: 3, left: '0.3rem' }} src={example_avatar_3} alt="avatar" />
-                    <div style={{ zIndex: 4, left: '0rem' }}><Text noMargin color={'white'}>+200</Text></div>
+                    <div style={{ zIndex: 4, left: '0rem' }}><Text color={'white'}>+200</Text></div>
                 </Avatars>
             </Control>
             <MiddleText>
@@ -97,10 +97,10 @@ function UpcomingInner(props: ClassCardProps): JSX.Element {
                 !iconType && <ClassIcon style={{ opacity: 0 }} />
             }
             <Control>
-                <Text noMargin size={'1.1rem'} color={'white'}>
+                <Text size={'1.1rem'} color={'white'}>
                     {cardTitle}
                 </Text>
-                <Button noShadow noMargin fontSize={'0.8rem'} small width={'6rem'}>JOINED</Button>
+                <Button noShadow fontSize={'0.8rem'} small width={'6rem'}>JOINED</Button>
             </Control>
         </CardContainer>
     )
@@ -137,7 +137,7 @@ function ChallengeInner(props: ClassCardProps) {
             <Flex flex={'1'} jc={'flex-end'} ai={'flex-start'} column>
                 <Tag>CHALLENGE</Tag>
                 <Title color={'white'}>{cardTitle}</Title>
-                <Text color={'white'}>{cardText}</Text>
+                <Text color={'white'} mb={'1rem'}>{cardText}</Text>
             </Flex>
             <ProgressBar progress={Math.random()} withText textColor={'white'} />
         </CardContainer>
@@ -177,14 +177,14 @@ function NewInner(props: ClassCardProps) {
             </Flex>
             <Flex style={{ margin: '0.8rem' }} flex="1" column ai={'flex-start'} jc={'flex-end'}>
                 <Tag>NEW</Tag>
-                <Title noMargin color={'white'}>{cardTitle}</Title>
+                <Title color={'white'}>{cardTitle}</Title>
             </Flex>
             <BottomFilledControl>
                 <Flex column>
-                    <Text style={{ marginBottom: '0.2rem' }} noMargin color="#636363">{cardText}</Text>
+                    <Text style={{ marginBottom: '0.2rem' }} color="#636363">{cardText}</Text>
                     <IconsRow icons={icons} iconSize='1rem' fontSize="0.7rem" />
                 </Flex>
-                <Button noShadow style={{ padding: '0.3rem 1rem' }} fontSize="0.7rem" primary small noMargin>START</Button>
+                <Button noShadow style={{ padding: '0.3rem 1rem' }} fontSize="0.7rem" primary small>START</Button>
             </BottomFilledControl>
         </CardContainer>
     )
@@ -197,7 +197,7 @@ function OnlyTitleInner(props: ClassCardProps) {
     return (
         <CardContainer {...props}>
             <Flex flex={'1'} jc={'center'} ai={'flex-center'} column>
-                <Title color={'white'} center noMargin>{cardTitle}</Title>
+                <Title color={'white'} center>{cardTitle}</Title>
             </Flex>
         </CardContainer>
     )
@@ -210,7 +210,7 @@ function DurationInner(props: ClassCardProps) {
     return (
         <CardContainer {...props}>
             <Flex flex={'1'} jc={'center'} ai={'flex-center'} column>
-                <Title color={'#217E9A'} center noMargin>{cardTitle}</Title>
+                <Title color={'#217E9A'} center>{cardTitle}</Title>
             </Flex>
         </CardContainer>
     )
@@ -297,6 +297,7 @@ const CardContainer = styled.div<ClassCardProps>`
 const Control = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 `
 
 const MiddleText = styled.div`

@@ -41,22 +41,22 @@ export default function BookClassCard(props: BookClassCardProps): JSX.Element {
                 }
                 <InfoContainer>
                     <Flex jc={'space-between'}>
-                        <Title size={'1rem'} color={'#429FBA'} noMargin weight={'500'}>{title}</Title>
+                        <Title size={'1rem'} color={'#429FBA'} weight={'500'}>{title}</Title>
                         {
                             iconType && <ClassIcon src={classIcon} alt="class type" />
                         }
                     </Flex>
-                    <Title size={'1rem'} color={'#636363'} noMargin weight={'500'} style={{ marginBottom: '0.3rem' }}>{subTitle}</Title>
+                    <Title size={'1rem'} color={'#636363'} weight={'500'} style={{ marginBottom: '0.3rem' }}>{subTitle}</Title>
                     <Flex ai={'center'}>
                         <img
                             style={{ marginRight: '0.5rem', marginBottom: '0px', height: '1rem' }}
                             src={clock} alt="clock"
                         />
-                        <Text size={'.8rem'} noWrap noMargin>{duration}</Text>
+                        <Text size={'.8rem'} noWrap>{duration}</Text>
                     </Flex>
                     <Flex jc={'flex-end'} ai={'center'} style={{ marginBottom: '.5rem', marginTop: '.7rem', width: '100%', position: 'relative' }}>
                         <PeopleIn size={'1.4rem'} style={{ position: 'absolute', left: 0 }} />
-                        <Button transparentDark={joined} primary={!joined} noShadow noMargin noWrap fontSize={'.7rem'} width={'6rem'}
+                        <Button transparentDark={joined} primary={!joined} noShadow noWrap fontSize={'.7rem'} width={'6rem'}
                             padding={joined ? 'calc(.6rem - 2px) 0.7rem calc(.5rem - 2px) 0.7rem' : '.6rem  0.7rem .55rem 0.7rem'}
                         >
                             {joined ? "JOINED" : 'COUNT ME IN'}

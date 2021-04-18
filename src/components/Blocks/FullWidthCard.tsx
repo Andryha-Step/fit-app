@@ -56,7 +56,7 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
                         <IconsRow icons={icons} />
                     </ContentContainer>
                     <ButtonContainer>
-                        <Button style={{ marginLeft: '0' }} width={'7rem'} onClick={onButtonClick} primary small noShadow>
+                        <Button width={'7rem'} onClick={onButtonClick} primary small noShadow mb={'1rem'} mh={'1rem'}>
                             {buttonText}
                         </Button>
                     </ButtonContainer>

@@ -22,7 +22,7 @@ export default function ProgressBar(props: ProgressBarProps): JSX.Element {
             </ProgressBarOuter>
             {
                 withText &&
-                <Text style={{ marginLeft: '1rem' }} size={'.6rem'} noMargin color={textColor}>
+                <Text style={{ marginLeft: '1rem' }} size={'.6rem'} color={textColor}>
                     {~~(progress * 100)} %
                 </Text>
             }

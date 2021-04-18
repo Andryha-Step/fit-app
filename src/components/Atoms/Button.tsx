@@ -9,7 +9,6 @@ export interface ButtonProps {
     transparent?: boolean
     width?: string
     small?: boolean
-    noMargin?: boolean
     fontSize?: string
     color?: string
     background?: string
@@ -17,6 +16,8 @@ export interface ButtonProps {
     transparentDark?: boolean
     padding?: string
     noWrap?: boolean
+    mb?: string,
+    mh?: string
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
@@ -34,8 +35,6 @@ export default function Button(props: ButtonProps): JSX.Element {
 
 const ButtonStyled = styled.button<ButtonProps>`
     padding: ${p => p.small ? '0.4rem' : '0.9rem'};
-    margin: 0 1rem;
-    margin-bottom: 1rem;
     ${p => !p.noShadow ? `
         box-shadow: 0px 4px 20px rgba(59, 152, 179, 0.3);
     ` : ''}
@@ -77,8 +76,6 @@ const ButtonStyled = styled.button<ButtonProps>`
         color: #308FAB;
         padding: ${p.small ? 'calc(0.4rem - 4px);' : 'calc(0.9rem - 4px)'};
     ` : ''}
-
-    ${p => p.noMargin ? 'margin: 0;' : ''}
     
     ${p => p.padding ? `
         padding: ${p.padding};
@@ -94,5 +91,13 @@ const ButtonStyled = styled.button<ButtonProps>`
 
     ${p => p.noWrap ? `
         white-space: nowrap;
+    ` : ''}
+
+    ${p => p.mh ? `
+        margin: 0 ${p.mh};
+    ` : ''}
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
     ` : ''}
 `

@@ -90,7 +90,6 @@ export default function Filters() {
 
     const categoryTitleProps = {
         weight: '500',
-        noMargin: false,
     }
 
     const multipleSelectTitleProps = {

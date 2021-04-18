@@ -35,6 +35,7 @@ export interface TabSwitcherProps {
     width?: string
     containerRef?: RefObject<HTMLDivElement>
     customTab?: (args: { active: boolean, onClick: (event: MouseEvent) => void, tab: Tab }) => JSX.Element
+    mb?: string
 }
 
 export interface TabSwitcherHook {
@@ -48,7 +49,7 @@ type TabSwitcherHookArgs = TabSwitcherProps
 
 export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
 
-    const { fontSize, fontWeight, borderIndicatior, showTitleOnlyWhenActive, layoutStyle, visualStyle, withScroll, customTab, width } = props
+    const { fontSize, fontWeight, borderIndicatior, showTitleOnlyWhenActive, layoutStyle, visualStyle, withScroll, customTab, width, mb } = props
 
     const handleTabClick = (event: MouseEvent) => {
         const target = event.target as HTMLDivElement
@@ -88,7 +89,6 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
                 {
                     <StyledTitle
                         id={tab.id + ''}
-                        noMargin
                         size={fontSize || '1rem'}
                         weight={fontWeight || 'bold'}
                         color={'#B0B0B0'}
@@ -97,6 +97,7 @@ export default function TabSwitcher(props: TabSwitcherProps): JSX.Element {
                         showTitleOnlyWhenActive={showTitleOnlyWhenActive}
                         layoutStyle={layoutStyle}
                         visualStyle={visualStyle}
+                        mb={mb}
                     >
                         {tab.title}
                     </StyledTitle>

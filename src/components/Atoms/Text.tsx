@@ -7,7 +7,6 @@ const StyledText = styled.span<TextProps>`
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: ${(p) => p.weight || '400'};
-    margin-bottom: 1rem;
 
     ${p => p.center ? `
         text-align: center;
@@ -17,12 +16,12 @@ const StyledText = styled.span<TextProps>`
         color: ${p.color};
     ` : ''}
 
-    ${p => p.noMargin ? `
-        margin: 0;
-    ` : ''}
-
     ${p => p.noWrap ? `
         white-space: nowrap;
+    ` : ''}
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
     ` : ''}
 `
 
@@ -32,9 +31,9 @@ export interface TextProps {
     style?: React.CSSProperties
     color?: string
     weight?: string;
-    noMargin?: boolean,
     size?: string
     noWrap?: boolean
+    mb?: string
 }
 
 export default function Text(props: TextProps): JSX.Element {

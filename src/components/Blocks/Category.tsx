@@ -90,10 +90,10 @@ export default function Category(props: CategoryProps): JSX.Element {
         <StyledCatagory style={style}>
             <HeaderContainer tabs={props.tabs}>
                 <Header tabs={props.tabs}>
-                    <Title noMargin color='black' {...titleProps}>{title}</Title>
+                    <Title color='black' {...titleProps}>{title}</Title>
                     {
                         link &&
-                        <Title noWrap noMargin weight={"500"} size={'0.9rem'} color="#429FBA" clickable onClick={props.onLinkClick}>
+                        <Title noWrap weight={"500"} size={'0.9rem'} color="#429FBA" clickable onClick={props.onLinkClick}>
                             {link}
                         </Title>
                     }

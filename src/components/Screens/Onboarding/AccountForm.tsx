@@ -106,6 +106,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                         modalOpen === 'height' &&
                         <>
                             <TabSwitcher
+                                mb={'1rem'}
                                 currentTab={heightUnit}
                                 onSwitch={(id: 'cm' | 'ft') => {
                                     setHeightUnit(id);
@@ -152,6 +153,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                         modalOpen === 'weight' &&
                         <>
                             <TabSwitcher
+                                mb={'1rem'}
                                 currentTab={weightUnit}
                                 onSwitch={(id: 'kg' | 'lbs') => {
                                     setWeightUnit(id);
@@ -177,7 +179,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
             </Modal>
             <VerticalContainer>
                 <Header>
-                    <Title color={'white'}>Let’s get to know you</Title>
+                    <Title mb={'0.8rem'} color={'white'}>Let’s get to know you</Title>
                     <Text color={'white'}>Share your details to setup a personalised experience.</Text>
                 </Header>
                 <FormContainer onSubmit={handleSubmit}>
@@ -206,7 +208,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
                     >
                         What is your fitness goal?
                     </Select>
-                    <Button primary>save</Button>
+                    <Button primary mh={'1rem'}>save</Button>
                 </FormContainer>
             </VerticalContainer>
         </Backdrop>

@@ -126,7 +126,7 @@ export default function Calendar(props: CalendarProps): JSX.Element {
     return (
         <StyledCalendar style={style}>
             <CalendarHeader>
-                <Title style={{ flex: 1 }} weight={'500'} noMargin>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
+                <Title style={{ flex: 1 }} weight={'500'}>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
                 <ArrowContainer>
                     <CutstomButton onClick={goToday}><Title size={'.8rem'}>Today</Title></CutstomButton>
                     <Arrow src={arrow_img} alt="arrow" id="left" onClick={hangleArrowClick} />

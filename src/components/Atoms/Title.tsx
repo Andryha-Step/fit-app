@@ -7,21 +7,20 @@ const StyledTitle = styled.span<TitleProps>`
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: ${p => p.weight || 'bold'};
-    margin-bottom: 0.8rem;
     ${p => p.center ? `
         text-align: center;
     ` : ''}
     ${p => p.color ? `
         color: ${p.color};
     ` : ''}
-    ${p => p.noMargin ? `
-        margin: 0;
-    ` : ''}
     ${p => p.clickable ? `
         cursor: pointer;
     ` : ''}
     ${p => p.noWrap ? `
         white-space: nowrap;
+    ` : ''}
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
     ` : ''}
 `
 
@@ -32,11 +31,11 @@ export interface TitleProps {
     color?: string;
     size?: string;
     weight?: string;
-    noMargin?: boolean
     clickable?: boolean;
     onClick?: React.MouseEventHandler<HTMLSpanElement>;
     noWrap?: boolean,
     id?: string,
+    mb?: string,
 }
 
 export default function Title(props: TitleProps): JSX.Element {

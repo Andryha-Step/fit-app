@@ -42,19 +42,19 @@ function Onboarding(): JSX.Element {
           >
             <SwiperSlide>
               <Slide>
-                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Title color={'white'} center mb={'0.8rem'}>ON-DEMAND AND LIVE CLASSES</Title>
                 <Text color={'white'} center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
             <SwiperSlide>
               <Slide>
-                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Title color={'white'} center mb={'0.8rem'}>ON-DEMAND AND LIVE CLASSES</Title>
                 <Text color={'white'} center>Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
             <SwiperSlide>
               <Slide>
-                <Title color={'white'} center>ON-DEMAND AND LIVE CLASSES</Title>
+                <Title color={'white'} center mb={'0.8rem'}>ON-DEMAND AND LIVE CLASSES</Title>
                 <Text color={'white'} center weight="500">Get access to unlimited on-demand and live classes tailored to your goals. <br />Take individual classes at your convenience or schedule classes with your friends.</Text>
               </Slide>
             </SwiperSlide>
@@ -62,7 +62,7 @@ function Onboarding(): JSX.Element {
         </Slider>
         <ButtonGroup>
           <Link to='/registration' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
-            <Button primary>get started</Button>
+            <Button primary mb={'1rem'}>get started</Button>
           </Link>
           <Link to='/login' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
             <Button transparent>log in</Button>

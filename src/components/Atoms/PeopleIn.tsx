@@ -20,7 +20,7 @@ export default function PeopleIn(props: PeopleInProps): JSX.Element {
                 <img style={{ zIndex: 1, right: (parseInt(size || '1.3') / 2) * 0 + 'rem' }} src={example_avatar_1} alt="avatar" />
                 <img style={{ zIndex: 2, right: (parseInt(size || '1.3') / 2) * 1 + 'rem' }} src={example_avatar_2} alt="avatar" />
                 <img style={{ zIndex: 3, right: (parseInt(size || '1.3') / 2) * 2 + 'rem' }} src={example_avatar_3} alt="avatar" />
-                <div style={{ zIndex: 4, right: (parseInt(size || '1.3') / 2) * 3 + 'rem' }}><Text noMargin color={'white'}>+200</Text></div>
+                <div style={{ zIndex: 4, right: (parseInt(size || '1.3') / 2) * 3 + 'rem' }}><Text color={'white'}>+200</Text></div>
             </Avatars>
         </StyledPeopleIn>
     )

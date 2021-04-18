@@ -38,14 +38,14 @@ export default function Message(props: MessageProps): JSX.Element {
             }
             <MessageBubble my={my} endOfGroup={endOfGroup}>
                 {
-                    !my && <Title noMargin color={titleColor} size={'1rem'}>{contactTitle}</Title>
+                    !my && <Title color={titleColor} size={'1rem'}>{contactTitle}</Title>
                 }
                 <MessageText>
                     {children}
                     <MessageStatusSpacer />
                 </MessageText>
                 <MessageStatusContainer>
-                    <Text noMargin style={{ marginRight: '.2rem' }} color={my ? 'white' : '#C6C6C6'}>11:45 PM</Text>
+                    <Text style={{ marginRight: '.2rem' }} color={my ? 'white' : '#C6C6C6'}>11:45 PM</Text>
                     <img src={readStatus} alt="message read" style={my ? { filter: 'brightness(4)' } : {}} />
                 </MessageStatusContainer>
             </MessageBubble>

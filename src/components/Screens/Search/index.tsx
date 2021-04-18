@@ -104,7 +104,6 @@ export default function Search(props: SearchProps): JSX.Element {
 
     const titleProps = {
         weight: '500',
-        noMargin: false,
     }
 
     const multipleSelectTitleProps = {
@@ -114,7 +113,7 @@ export default function Search(props: SearchProps): JSX.Element {
     return (
         <StyledSearch style={style}>
             <SearchHeader>
-                <Title noMargin style={{ flex: 1 }}>Search</Title>
+                <Title style={{ flex: 1 }}>Search</Title>
                 <img src={closeButton} alt="closeButton" onClick={closeButtonClick} />
             </SearchHeader>
             <Category
