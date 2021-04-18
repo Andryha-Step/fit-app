@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react"
 import exampleAvatar1 from '../../assets/images/example-avatar-5.png'
-import exampleAvatar2 from '../../assets/images/example-avatar-6.png'
-import exampleAvatar3 from '../../assets/images/example-avatar-7.png'
 import { ChatContact } from "../../types/Chat"
 
-interface useChatContactsHook {
-    loading?: boolean
-}
 
 export default function useChatContacts(): ChatContact[] | null {
 

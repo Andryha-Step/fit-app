@@ -1,13 +1,13 @@
 import React, { FormEvent } from 'react';
 import styled from 'styled-components';
-import VerticalContainer from '../../VerticalContainer'
+import VerticalContainer from './VerticalContainer'
 import success from '../../../assets/images/success.svg'
 import lock from '../../../assets/images/lock.svg'
 import { Title, Text, Input, Button } from '../../Atoms';
 import { useHistory } from "react-router-dom";
-import Footer from '../../Blocks/Onboarding/Footer'
-import Backdrop from '../../Blocks/Onboarding/Backdrop'
-import Header from '../../Blocks/Onboarding/Header'
+import Footer from './Footer'
+import Backdrop from './Backdrop'
+import Header from './Header'
 
 export interface CreateAccountScreenProps {
 	login?: boolean;
@@ -23,21 +23,20 @@ export default function CreateAccount(props: CreateAccountScreenProps): JSX.Elem
 	const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
 		event.preventDefault();
 
-		// Nav just for demo
 		if (props.login) {
-			history.push('/suc')
+			history.push('/success')
 		}
 
 		if (props.registration) {
-			history.push('/link')
+			history.push('/create-account')
 		}
 
 		if (props.linkSent) {
-			history.push('/forYou')
+			history.push('/link')
 		}
 
 		if (props.loginLink) {
-			history.push('/forYou')
+			history.push('/app/forYou')
 		}
 	}
 

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import FullWidthCard from '../../Blocks/Global/FullWidthCard'
-import Category from '../../Blocks/Global/Category';
-import ClassCard from '../../Blocks/Global/ClassCard';
+import FullWidthCard from '../../Blocks/FullWidthCard'
+import Category from '../../Blocks/Category';
+import ClassCard from '../../Blocks/ClassCard';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { Coach } from '../../Atoms';
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
-// import Header from '../../Blocks/Global/Header';
 
 
 function randomElFromArray<T>(arr: T[]): T {

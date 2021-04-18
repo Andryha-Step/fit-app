@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Text, Title } from '../../Atoms'
-import Flex from '../../Blocks/Flex'
 import Avatar from './Avatar'
 import readStatus from '../../../assets/icons/read.svg'
-import { ChatMessage } from '../../../types/Chat'
 
 export interface MessageProps {
     children?: React.ReactNode

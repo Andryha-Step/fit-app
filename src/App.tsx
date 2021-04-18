@@ -8,17 +8,16 @@ import {
 import styled from 'styled-components';
 import background from './assets/backgrounds/onboarding.svg';
 
-import Onboarding from './components/Screens/Onboarding/Onboarding'
+import Onboarding from './components/Screens/Onboarding'
 import Auth from './components/Screens/Onboarding/Auth';
 import AccountForm from './components/Screens/Onboarding/AccountForm';
-import ForYou from './components/Screens/ForYou/ForYou';
-import Explore from './components/Screens/Explore/Explore';
-import Search from './components/Screens/App/Search';
+import ForYou from './components/Screens/ForYou';
+import Explore from './components/Screens/Explore';
+import Search from './components/Screens/Search';
 import Chat from './components/Screens/Chat';
-import Book from './components/Screens/App/Book';
-import Header from './components/Blocks/Global/Header';
-import BottomTabNav from './components/Blocks/Global/BottomTabNav'
-import Footer from './components/Blocks/Global/Footer';
+import Book from './components/Screens/Book';
+import Header from './components/Blocks/Header';
+import Footer from './components/Blocks/Footer';
 
 const AppContainer = styled.div`
 	width: 100%;
@@ -40,14 +39,14 @@ function App(): JSX.Element {
 					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile']} render={() => (
 						<>
 							<Header />
-							<BottomTabNav />
+							{/* <BottomTabNav /> */}
 						</>
 					)} />
 					<OnboardingBackground>
 						<Route exact path="/login" component={() => <Auth login />} />
-						<Route exact path="/reg" component={() => <Auth registration />} />
-						<Route exact path="/suc" component={() => <Auth linkSent />} />
-						<Route exact path="/ac" component={() => <AccountForm />} />
+						<Route exact path="/registration" component={() => <Auth registration />} />
+						<Route exact path="/success" component={() => <Auth linkSent />} />
+						<Route exact path="/create-account" component={() => <AccountForm />} />
 						<Route exact path="/" component={Onboarding} />
 					</OnboardingBackground>
 					<Route exact path="/link" component={() => <Auth loginLink />} />

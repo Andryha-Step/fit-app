@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 
-import Header, { HeaderProps } from '../components/Blocks/Global/Header';
+import Header, { HeaderProps } from '../components/Blocks/Header';
 import { Text } from '../components/Atoms'
 import { createGlobalStyle } from 'styled-components';
 
@@ -14,10 +14,10 @@ export default {
 type TemplateArgsType = HeaderProps
 
 const Template: Story<TemplateArgsType> = args => (
-    <div style={{height: '90vh', display: 'flex', flexDirection: 'column'}}>
+    <div style={{ height: '90vh', display: 'flex', flexDirection: 'column' }}>
         <MarginDisable />
         <Header {...args} />
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
             <Text color={'black'}>Here will be page</Text>
         </div>
     </div>

@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import closeButton from '../../../assets/icons/closeButton.svg'
-import { Title, TabSwitcher, useTabSwitcher, MultipleSelect, useMultipleSelect, Button, Coach } from '../../Atoms'
-import Category from '../../Blocks/Global/Category'
+import { Title, MultipleSelect, useMultipleSelect, Button, Coach } from '../../Atoms'
+import Category from '../../Blocks/Category'
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
 import { useHistory } from 'react-router'
 
@@ -21,16 +21,6 @@ export default function Search(props: SearchProps): JSX.Element {
     const closeButtonClick = () => {
         history.goBack()
     }
-
-    const searchTypeSwitcher = useTabSwitcher({
-        tabs: [{
-            id: 'fitness',
-            title: 'Fitness'
-        }, {
-            id: 'experiences',
-            title: 'Experiences'
-        }]
-    })
 
     const targetAreaMultipleSelect = useMultipleSelect({
         buttons: [{
@@ -125,21 +115,8 @@ export default function Search(props: SearchProps): JSX.Element {
         <StyledSearch style={style}>
             <SearchHeader>
                 <Title noMargin style={{ flex: 1 }}>Search</Title>
-                <CloseButton src={closeButton} alt="closeButton" onClick={closeButtonClick} />
+                <img src={closeButton} alt="closeButton" onClick={closeButtonClick} />
             </SearchHeader>
-            {/* <TabSwitcherContainer>
-                <TabSwitcher
-                    {...searchTypeSwitcher.tabSwitcherProps}
-                    customTab={({ tab, active, onClick }) => (
-                        <TabSwticherCustomTab key={tab.id} id={tab.id + ''} onClick={onClick} active={active}>
-                            <Title
-                                id={tab.id + ''}
-                                size={'1rem'}
-                            >{tab.title}</Title>
-                        </TabSwticherCustomTab>
-                    )}
-                />
-            </TabSwitcherContainer> */}
             <Category
                 title="Durations"
                 noScroll
@@ -230,27 +207,6 @@ const SearchHeader = styled.div`
     height: 5rem;
 `
 
-const CloseButton = styled.img`
-
-`
-
-const TabSwitcherContainer = styled.div`
-
-`
-
-const TabSwticherCustomTab = styled.div<{ active?: boolean }>`
-    padding: 0.5rem 2rem;
-    border-radius: 5rem;
-    cursor: pointer;
-
-    ${p => p.active ? `
-        background: rgba(48, 143, 171, 0.2);
-    ` : `
-        background: #F8F8F8;
-    `}
-
-`
-
 const CustomMultipleSelectContainer = styled.div`
     display: grid;
 
@@ -259,7 +215,6 @@ const CustomMultipleSelectContainer = styled.div`
         grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
     }
 `
-
 
 const SearchButtonContainer = styled.div`
     position: fixed;

@@ -26,11 +26,11 @@ const CenterContainer = styled.div`
   justify-content: center;
 `
 
-export default function VerticalContainer(props: {children: React.ReactNode}): JSX.Element {
+export default function VerticalContainer(props: { children: React.ReactNode }): JSX.Element {
   return (
     <CenterContainer>
-      <WidthConatiner> 
-        { props.children }
+      <WidthConatiner>
+        {props.children}
       </WidthConatiner>
     </CenterContainer>
   )

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Logo, TabSwitcher, useTabSwitcher } from '../../Atoms';
-import searchIcon from '../../../assets/icons/search.svg'
-import calendarAdd from '../../../assets/icons/calendar-add.svg'
+import { Logo, TabSwitcher, useTabSwitcher } from '../Atoms';
+import searchIcon from '../../assets/icons/search.svg'
+import calendarAdd from '../../assets/icons/calendar-add.svg'
 // import useWindowSize from '../../../hooks/useWindowSize';
-import Flex from '../Flex'
+import Flex from './Flex'
 import { Route, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -78,13 +78,13 @@ const bottomTabs = [ // List of header states for each route
     },
     {
         route: '/app/forYou',
-        bottomTabs: [{
-            id: 'fitness',
-            title: 'Fitness'
-        }, {
-            id: 'experiences',
-            title: 'Experiences'
-        }]
+        // bottomTabs: [{
+        //     id: 'fitness',
+        //     title: 'Fitness'
+        // }, {
+        //     id: 'experiences',
+        //     title: 'Experiences'
+        // }]
     },
     {
         route: '/app/search',

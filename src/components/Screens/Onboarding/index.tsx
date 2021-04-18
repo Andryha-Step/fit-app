@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import swiper_arrow from '../../../assets/icons/swiper_arrow.svg'
 import { Title, Text, Button } from '../../Atoms';
-import Footer from '../../Blocks/Onboarding/Footer'
-import Backdrop from '../../Blocks/Onboarding/Backdrop'
-import Header from '../../Blocks/Onboarding/Header'
+import Footer from './Footer'
+import Backdrop from './Backdrop'
+import Header from './Header'
 import SwiperCore, { Pagination, Navigation, Controller } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass from 'swiper/types/swiper-class';
@@ -12,7 +12,7 @@ import SwiperClass from 'swiper/types/swiper-class';
 import 'swiper/swiper-bundle.min.css';
 import { Link } from 'react-router-dom';
 
-import VerticalContainer from '../../VerticalContainer'
+import VerticalContainer from './VerticalContainer'
 
 SwiperCore.use([Pagination, Navigation, Controller]);
 
@@ -61,7 +61,7 @@ function Onboarding(): JSX.Element {
           </Swiper>
         </Slider>
         <ButtonGroup>
-          <Link to='/reg' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
+          <Link to='/registration' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>
             <Button primary>get started</Button>
           </Link>
           <Link to='/login' style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}>

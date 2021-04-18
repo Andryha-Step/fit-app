@@ -1,19 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-import forYouBackground from '../../../assets/backgrounds/forYouBackground.png'
-import clock from '../../../assets/icons/clockWhite.svg'
-import clockBlack from '../../../assets/icons/clock.svg'
-import { Text, Title, Button, Tag, ProgressBar, IconsRow } from '../../Atoms';
-import Flex from '../Flex';
-import example_avatar_1 from '../../../assets/images/example-avatar-1.png'
-import example_avatar_2 from '../../../assets/images/example-avatar-2.png'
-import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
-import one_to_one from '../../../assets/icons/one-to-one.svg'
-import remote from '../../../assets/icons/remote.svg'
-import eye from '../../../assets/icons/eye.svg'
-import star from '../../../assets/icons/filledStar.svg'
-import like from '../../../assets/icons/like.svg'
-import likeFilled from '../../../assets/icons/likeFilled.svg'
+import forYouBackground from '../../assets/backgrounds/forYouBackground.png'
+import clock from '../../assets/icons/clockWhite.svg'
+import clockBlack from '../../assets/icons/clock.svg'
+import { Text, Title, Button, Tag, ProgressBar, IconsRow } from '../Atoms';
+import Flex from './Flex';
+import example_avatar_1 from '../../assets/images/example-avatar-1.png'
+import example_avatar_2 from '../../assets/images/example-avatar-2.png'
+import example_avatar_3 from '../../assets/images/example-avatar-3.png'
+import one_to_one from '../../assets/icons/one-to-one.svg'
+import remote from '../../assets/icons/remote.svg'
+import eye from '../../assets/icons/eye.svg'
+import star from '../../assets/icons/filledStar.svg'
+import like from '../../assets/icons/like.svg'
+import likeFilled from '../../assets/icons/likeFilled.svg'
 
 export interface ClassCardProps {
     children?: React.ReactNode

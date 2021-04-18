@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 // import styled from 'styled-components'
-import FullWidthCard from '../../Blocks/Global/FullWidthCard';
-import ClassCard from '../../Blocks/Global/ClassCard';
-import Category from '../../Blocks/Global/Category';
-// import { Link } from 'react-router-dom';
-import BottomTabNav from '../../Blocks/Global/BottomTabNav'
-// import Header from '../../Blocks/Global/Header'
+import FullWidthCard from '../../Blocks/FullWidthCard';
+import ClassCard from '../../Blocks/ClassCard';
+import Category from '../../Blocks/Category';
 
 function randomElFromArray<T>(arr: T[]): T {
     return arr[~~(Math.random() * arr.length)]
@@ -21,7 +18,6 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
 
     return (
         <div>
-            <BottomTabNav />
             <FullWidthCard
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"

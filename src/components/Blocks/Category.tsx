@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
-import { Title, TabSwitcher, Text, useTabSwitcher, TitleProps } from '../../Atoms'
+import { Title, TabSwitcher, Text, useTabSwitcher, TitleProps } from '../Atoms'
 // import arrow from '../../../assets/icons/arrow-right.svg'
-import useArrows from '../../../hooks/useArrows';
+import useArrows from '../../hooks/useArrows';
 
 interface Tab {
     title: string

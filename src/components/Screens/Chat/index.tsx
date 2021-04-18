@@ -7,7 +7,7 @@ import Message from './Message';
 import exampleAvatar1 from '../../../assets/images/example-avatar-5.png'
 import exampleAvatar2 from '../../../assets/images/example-avatar-6.png'
 import exampleAvatar3 from '../../../assets/images/example-avatar-7.png'
-import { Route, useHistory } from 'react-router';
+import { Route } from 'react-router';
 import useChatContacts from '../../../hooks/API/useChatContacts';
 
 export interface ChatProps {

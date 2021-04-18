@@ -1,20 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text } from '../../Atoms'
-import secondary_logo from '../../../assets/images/logo.png'
+import { Text } from '../Atoms'
+import secondary_logo from '../../assets/images/logo.png'
 
 interface FooterProps {
-    terms?: boolean;
+	terms?: boolean;
 }
 
 export default function Footer(props: FooterProps) {
-    return (<StyledFooter>
-        <Text color="black" center style={{marginBottom: '0.2rem'}}>Powered by</Text>
-		<img style={{marginBottom: '1rem', filter: 'invert(1)', width: '10rem'}} src={secondary_logo} alt='Moove logo' />
-        {props.terms &&
-            <Text noMargin color="black"><StyledA href="#">Terms and Conditions</StyledA> | <StyledA href="#">Privacy Policy</StyledA></Text>
-        }
-    </StyledFooter>)
+	return (<StyledFooter>
+		<Text color="black" center style={{ marginBottom: '0.2rem' }}>Powered by</Text>
+		<img style={{ marginBottom: '1rem', filter: 'invert(1)', width: '10rem' }} src={secondary_logo} alt='Moove logo' />
+		{props.terms &&
+			<Text noMargin color="black"><StyledA href="#">Terms and Conditions</StyledA> | <StyledA href="#">Privacy Policy</StyledA></Text>
+		}
+	</StyledFooter>)
 }
 
 const StyledFooter = styled.footer`

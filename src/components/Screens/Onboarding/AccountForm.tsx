@@ -1,10 +1,10 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import VerticalContainer from '../../VerticalContainer'
+import VerticalContainer from './VerticalContainer'
 import { Title, Text, Input, Button, Select, Modal, TabSwitcher } from '../../Atoms';
 import { InputProps } from '../../Atoms/Input'
 import Flex from '../../Blocks/Flex'
-import Backdrop from '../../Blocks/Onboarding/Backdrop'
+import Backdrop from './Backdrop'
 import { useHistory } from 'react-router-dom'
 
 export interface AccountFormScreenProps {
@@ -36,7 +36,7 @@ export default function AccountForm(props: AccountFormScreenProps): JSX.Element 
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        history.push('/suc')
+        history.push('/app/forYou')
     }
 
     const handleNumberInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>) => {

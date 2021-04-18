@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Tag, Title, Text, IconsRow } from '../../Atoms'
-import forYouBackground from '../../../assets/backgrounds/forYouBackground.png'
-import clock from '../../../assets/icons/clock.svg'
-import eye from '../../../assets/icons/eye.svg'
-import star from '../../../assets/icons/filledStar.svg'
-import useWindowSize from '../../../hooks/useWindowSize'
+import { Button, Tag, Title, Text, IconsRow } from '../Atoms'
+import forYouBackground from '../../assets/backgrounds/forYouBackground.png'
+import clock from '../../assets/icons/clock.svg'
+import eye from '../../assets/icons/eye.svg'
+import star from '../../assets/icons/filledStar.svg'
+import useWindowSize from '../../hooks/useWindowSize'
 
 export interface FullWidthCardProps {
     children?: React.ReactNode
@@ -26,7 +26,7 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
 
     const { style, cardTitle, cardText, buttonText, onButtonClick } = props
     const { width: windowWidth } = useWindowSize()
-    
+
     const icons = [
         {
             src: eye,
@@ -38,7 +38,7 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
             alt: 'time',
             title: '45 min',
         },
-        { 
+        {
             src: star,
             alt: 'rating',
             title: '4.9',
@@ -56,7 +56,7 @@ export default function FullWidthCard(props: FullWidthCardProps): JSX.Element {
                         <IconsRow icons={icons} />
                     </ContentContainer>
                     <ButtonContainer>
-                        <Button style={{marginLeft: '0'}} width={'7rem'} onClick={onButtonClick} primary small noShadow>
+                        <Button style={{ marginLeft: '0' }} width={'7rem'} onClick={onButtonClick} primary small noShadow>
                             {buttonText}
                         </Button>
                     </ButtonContainer>
