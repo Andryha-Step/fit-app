@@ -3,8 +3,12 @@ import styled from 'styled-components'
 import Contact from './Contact';
 import Header from './Header';
 import MessageInput from './MessageInput';
-import exampleAvatar from '../../../assets/images/example-avatar-5.png'
+import Message from './Message';
+import exampleAvatar1 from '../../../assets/images/example-avatar-5.png'
+import exampleAvatar2 from '../../../assets/images/example-avatar-6.png'
+import exampleAvatar3 from '../../../assets/images/example-avatar-7.png'
 import { Route, useHistory } from 'react-router';
+import useChatContacts from '../../../hooks/API/useChatContacts';
 
 export interface ChatProps {
     children?: React.ReactNode
@@ -21,6 +25,9 @@ export default function Chat(props: ChatProps): JSX.Element {
             <Route exact path="/app/chat/dialog">
                 <Dialog />
             </Route>
+            <Route exact path="/app/chat/group">
+                <Group />
+            </Route>
         </div>
     )
 }
@@ -28,27 +35,20 @@ export default function Chat(props: ChatProps): JSX.Element {
 function Contacts(props: ChatProps): JSX.Element {
     const { style } = props
 
+    const contacts = useChatContacts()
+
     return (
         <StyledChat style={style}>
-            <Contact
-                title="Coach"
-                unread={'2'}
-                time="11:17 PM"
-                lastMessage="Hello!"
-                imageAvatarSrc={exampleAvatar}
-            />
-            <Contact
-                title="Nutrition 101 by Coach"
-                unread={'147'}
-                participants="20 Participants"
-                avatarColor={'linear-gradient(135deg, #9BFFB1 0%, #7BFF88 100%);'}
-            />
-            <Contact
-                title="General Group Chat"
-                unread={'147'}
-                participants="20 Participants"
-                avatarColor={'#F2994A'}
-            />
+            {
+                contacts?.map(el => (
+                    <Contact
+                        {...el}
+                    />
+                ))
+            }
+            {
+                !contacts && 'loading' // TODO
+            }
         </StyledChat>
     )
 
@@ -58,9 +58,48 @@ function Dialog(props: ChatProps): JSX.Element {
     return (
         <div>
             <Header
-                imageAvatarSrc={exampleAvatar}
+                imageAvatarSrc={exampleAvatar1}
             />
             <StyledChat>
+                <Message>Lorem ipsum dolor sit amet</Message>
+                <Message endOfGroup>Lorem ipsum</Message>
+                <Message my>Lorem ipsum </Message>
+                <MessageInput></MessageInput>
+            </StyledChat>
+        </div>
+    )
+}
+
+function Group(props: ChatProps): JSX.Element {
+    return (
+        <div>
+            <Header
+                imageAvatarSrc={exampleAvatar1}
+            />
+            <StyledChat>
+                <Message
+                    contactTitle="John Kennedy"
+                    imageAvatarSrc={exampleAvatar2}
+                    withAvatar
+                    endOfGroup
+                    titleColor={'#429FBA'}
+                >Lorem ipsum dolor sit amet, consectetur</Message>
+                <Message
+                    titleColor={'#BA4242'}
+                    contactTitle="Sara Kross"
+                    imageAvatarSrc={exampleAvatar3}
+                >Lorem ipsum dolor sit amet</Message>
+                <Message
+                    withAvatar
+                    endOfGroup
+                    imageAvatarSrc={exampleAvatar3}
+                >Lorem ipsum </Message>
+                <Message
+                    contactTitle="Ilya"
+                    imageAvatarSrc={exampleAvatar3}
+                    my
+                    endOfGroup
+                >Lorem ipsumamet, consectetur</Message>
                 <MessageInput></MessageInput>
             </StyledChat>
         </div>

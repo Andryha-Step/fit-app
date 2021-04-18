@@ -127,13 +127,12 @@ export default function Header(props: HeaderProps): JSX.Element {
         visualStyle: 'button'
     })
 
-    // useEffect(() => {
-    //     console.log(mainTabSwitcher.currentTab)
-    //     const tab = tabs.find(tab => tab.id === mainTabSwitcher.currentTab)
-    //     if (tab && tab.link) {
-    //         history.push(tab.link)
-    //     }
-    // }, [mainTabSwitcher.currentTab, history])
+    useEffect(() => {
+        const tab = tabs.find(tab => tab.link === history.location.pathname)
+        if (tab) {
+            mainTabSwitcher.setTab(tab.id || mainTabSwitcher.currentTab)
+        }
+    }, [history, mainTabSwitcher])
 
     return (
         <>
@@ -185,7 +184,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                             {...bottomTabSwitcher.tabSwitcherProps}
                         />
                     </StyledSwitcherContainer>
-                    <SearchContainer headerBottom isVisable={true}>
+                    <SearchContainer headerBottom isVisable={false}>
                         <Link to="/app/search">
                             <img src={searchIcon} alt="searchIcon" />
                         </Link>
@@ -252,11 +251,11 @@ const SearchContainer = styled.div<{ isVisable?: boolean, headerBottom?: boolean
         }
     ` : `
         display: flex;
-        @media screen and (max-width: 1000px) and (min-width: 600px) {
-            & {
-                display: none;
-            }
-        }
+        // @media screen and (max-width: 1000px) and (min-width: 600px) {
+        //     & {
+        //         display: none;
+        //     }
+        // }
     `}
 `
 

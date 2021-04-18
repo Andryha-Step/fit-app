@@ -2,53 +2,61 @@ import React from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import read from '../../../assets/icons/read.svg'
+import { ChatContact } from '../../../types/Chat'
 import { Text, Title } from '../../Atoms'
 import Avatar from './Avatar'
 
 export interface ContactProps {
     children?: React.ReactNode
     style?: React.CSSProperties
-    title: string,
-    lastMessage?: string
-    unread?: string,
-    time?: string,
-    participants?: string
-    imageAvatarSrc?: string
-    avatarColor?: string
+    // title: string,
+    // lastMessage?: string
+    // unread?: string,
+    // time?: string,
+    // participants?: string
+    // imageAvatarSrc?: string
+    // avatarColor?: string
 }
 
-export default function Contact(props: ContactProps): JSX.Element {
 
-    const { style, title, lastMessage, unread, time, participants, imageAvatarSrc, avatarColor } = props
+export default function Contact(props: ChatContact & ContactProps): JSX.Element {
+
+    const { style, title, lastMessage, unread, participants, avatarUrl, contactColor, type } = props
 
     const history = useHistory()
 
     return (
-        <StyledContact style={style} onClick={() => history.push('/app/chat/dialog')}>
+        <StyledContact style={style} onClick={() => history.push(`/app/chat/${type}`)}>
             <Avatar
-                imageAvatarSrc={imageAvatarSrc}
-                avatarColor={avatarColor}
+                imageAvatarSrc={avatarUrl}
+                avatarColor={contactColor}
                 title={title}
                 size={'3rem'}
             />
             <InfoContainer>
                 <Header>
                     <Title noMargin size={'1.2rem'} weight={'600'}>{title}</Title>
-                    <Text noMargin color={'#B0B0B0'}>{time}</Text>
+                    {
+                        lastMessage && (
+                            <Text noMargin color={'#B0B0B0'}>
+                                {new Date(lastMessage.time || 0).toLocaleTimeString('en', { hour12: true, hour: '2-digit', minute: '2-digit' })}
+                            </Text>
+                        )
+                    }
                 </Header>
                 <SubInfo>
                     {
                         lastMessage && (
                             <LastMessage>
                                 <img src={read} alt="read" />
-                                <Text noMargin size={'.9rem'} color={'#636363'}>{lastMessage}</Text>
+                                <Text noMargin size={'.9rem'} color={'#636363'}>{lastMessage.text}</Text>
                             </LastMessage>
                         )
                     }
                     {
                         participants && (
                             <LastMessage>
-                                <Title noMargin size={'1rem'} color={'#429FBA'} weight={'500'}>{participants}</Title>
+                                <Title noMargin size={'1rem'} color={'#429FBA'} weight={'500'}>{participants} Participants</Title>
                             </LastMessage>
                         )
                     }
