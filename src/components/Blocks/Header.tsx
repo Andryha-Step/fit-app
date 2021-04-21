@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Logo, TabSwitcher, useTabSwitcher } from '../Atoms';
+import { Logo, TabSwitcher, useTabSwitcher, Text } from '../Atoms';
 import searchIcon from '../../assets/icons/search.svg'
 import calendarAdd from '../../assets/icons/calendar-add.svg'
 // import useWindowSize from '../../../hooks/useWindowSize';
@@ -51,6 +51,16 @@ const tabs: HeaderTab[] = [{ // List of tabs for rendering in header
     id: 'profile',
     title: 'Profile',
     link: '/app/profile',
+}]
+
+const noAuthTabs: HeaderTab[] = [{
+    id: 'explore',
+    title: 'Explore',
+    link: '/app/explore',
+}, {
+    id: 'book',
+    title: 'Book',
+    link: '/app/book',
 }]
 
 const bottomTabs = [ // List of header states for each route
@@ -114,7 +124,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     }
 
     const mainTabSwitcher = useTabSwitcher({ // Main tabs
-        tabs: tabs || [],
+        tabs: history.location.pathname === '/landing' ? noAuthTabs : tabs,
         layoutStyle: 'header',
         onSwitch
     })
@@ -167,6 +177,13 @@ export default function Header(props: HeaderProps): JSX.Element {
                     >
                         <Link to="/app/book/book-appointment">
                             <img src={calendarAdd} alt="calendar add" />
+                        </Link>
+                    </Route>
+                    <Route
+                        path={["/landing"]}
+                    >
+                        <Link to="/" style={{ textDecoration: 'none' }}>
+                            <Text noWrap size={'1rem'} color={'#B0B0B0'} weight={'700'}>Sign In</Text>
                         </Link>
                     </Route>
                 </SearchContainer>

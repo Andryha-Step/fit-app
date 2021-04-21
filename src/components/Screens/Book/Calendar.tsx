@@ -148,7 +148,7 @@ export default function Calendar(props: CalendarProps): JSX.Element {
                             today={isToday(date)}
                             onClick={() => date && handleDateSelect(date)}
                         >
-                            <Title center weight={'400'}>{date !== null ? new Date(date).getDate() : ''}</Title>
+                            <Title center weight={'400'} mb={'1rem'}>{date !== null ? new Date(date).getDate() : ''}</Title>
                         </CalendarDay>
                     ))
                 }

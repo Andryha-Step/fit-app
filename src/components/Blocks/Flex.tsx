@@ -7,6 +7,8 @@ export interface FlexProps {
     jc?: string
     ai?: string
     width?: string
+    mb?: string
+    horizontalScroll?: boolean
 }
 
 export default styled.div<FlexProps>`
@@ -36,6 +38,14 @@ export default styled.div<FlexProps>`
 
     ${p => p.width ? `
         width: ${p.width};
+    ` : ''}
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
+    ` : ''}
+
+    ${p => p.horizontalScroll ? `
+        overflow-x: scroll;
     ` : ''}
 
     &::-webkit-scrollbar {

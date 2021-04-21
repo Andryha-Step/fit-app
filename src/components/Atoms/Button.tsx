@@ -18,6 +18,8 @@ export interface ButtonProps {
     noWrap?: boolean
     mb?: string,
     mh?: string
+    mr?: string
+    height?: string
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
@@ -99,5 +101,13 @@ const ButtonStyled = styled.button<ButtonProps>`
 
     ${p => p.mb ? `
         margin-bottom: ${p.mb};
+    ` : ''}
+
+    ${p => p.mr ? `
+        margin-right: ${p.mr};
+    ` : ''}
+
+    ${p => p.height ? `
+        height: ${p.height};
     ` : ''}
 `

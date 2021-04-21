@@ -26,7 +26,6 @@ const StyledFooter = styled.footer`
 	}
 
 	height: 10rem;
-	margin-top: 1rem;
 	display: flex;
     flex-direction: column;
 	justify-content: center;

@@ -95,7 +95,7 @@ export default function Category(props: CategoryProps): JSX.Element {
                 console.log(timeWidth, timeMarginHorizontal, timeFullWidth);
                 if (tabSwitcherContainerRef.current.cardNumber !== ~~(target.scrollLeft / cardFullWidth)) {
                     tabSwitcherContainerRef.current.cardNumber = ~~(target.scrollLeft / cardFullWidth)
-                    tabSwitcherContainerRef.current.scrollLeft = tabSwitcherContainerRef.current.cardNumber * timeFullWidth - 50;
+                    tabSwitcherContainerRef.current.scrollLeft = tabSwitcherContainerRef.current.cardNumber * timeFullWidth;
                 }
             }
         }

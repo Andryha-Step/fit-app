@@ -74,7 +74,7 @@ function Main(props: BookProps) {
                     </TabSwticherCustomTab>
                 </Link>
             </OptionsContainer>
-            <Calendar weekMode={calendarTypeSwitcher.currentTab === 'week'} />
+            <Calendar weekMode={calendarTypeSwitcher.currentTab === 'week'} style={{ margin: "1.5rem" }} />
             <Flex>
                 <Title style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }}>Thursday 08, October 2021</Title>
             </Flex>
