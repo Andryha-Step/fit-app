@@ -11,28 +11,29 @@ export interface SelectProps {
     options: Option[];
     children?: React.ReactNode;
     style?: React.CSSProperties
+    theme?: 'white' | 'gray';
 }
 
 export default function Select(props: SelectProps): JSX.Element {
     return (
-        <StyledLabel style={props.style}>
+        <StyledLabel style={props.style} theme={props.theme}>
             {
-                props.children && 
-                    <StyledLabelText>{props.children}</StyledLabelText>
+                props.children &&
+                <StyledLabelText>{props.children}</StyledLabelText>
             }
-            <StyledSelect>
+            <StyledSelect style={props.style} theme={props.theme}>
                 {props.options.map(opt => (
                     <option>{opt.title}</option>
                 ))}
             </StyledSelect>
-            <StyledArrow src={select_arrow}/>
+            <StyledArrow src={select_arrow} isLabel={!!props.children} theme={props.theme} />
         </StyledLabel>
     )
 }
 
 const StyledSelect = styled.select`
     margin: 0 1rem;
-    margin-bottom: 0.7rem;
+    /* margin-bottom: 0.7rem; */
     border: 0.6px solid #F8F8F8;
     border-radius: 2rem;
     background-color: rgba(0,0,0,0);
@@ -46,7 +47,11 @@ const StyledSelect = styled.select`
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
-    text-overflow: '';
+
+    ${p => p.theme === 'gray' ? `
+        color: black;
+        background: #F8F8F8;
+    ` : ''}
 `
 
 const StyledLabel = styled.label`
@@ -65,9 +70,18 @@ const StyledLabelText = styled.span`
     margin-bottom: 0.7rem;
 `
 
-const StyledArrow = styled.img`
-    top: 2.6rem;
+const StyledArrow = styled.img<{ isLabel?: boolean }>`
+    top: .7rem;
     height: 2rem;
     position: absolute;
-    right: 1.5rem;
+    right: 1.8rem;
+    z-index: 5;
+
+    ${p => p.isLabel ? `
+        top: 2.6rem;
+    ` : ''}
+
+    ${p => p.theme === 'gray' ? `
+        filter: invert(1);
+    ` : ''}
 `

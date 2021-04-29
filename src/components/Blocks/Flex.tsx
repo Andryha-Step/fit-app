@@ -8,6 +8,7 @@ export interface FlexProps {
     ai?: string
     width?: string
     mb?: string
+    mt?: string
     horizontalScroll?: boolean
 }
 
@@ -42,6 +43,10 @@ export default styled.div<FlexProps>`
 
     ${p => p.mb ? `
         margin-bottom: ${p.mb};
+    ` : ''}
+
+    ${p => p.mt ? `
+        margin-top: ${p.mt};
     ` : ''}
 
     ${p => p.horizontalScroll ? `

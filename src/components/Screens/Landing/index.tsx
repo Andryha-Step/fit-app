@@ -133,12 +133,6 @@ const Block = styled(Flex) <{ gray?: boolean, first?: boolean }>`
         }
     }
 
-    @media only screen and (min-width: 992px) {
-        && {
-            padding: 2rem 5rem;
-        }
-    }
-
     @media only screen and (min-width: 1200px) {
         && {
             padding: 2rem 20vw;

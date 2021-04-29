@@ -20,6 +20,7 @@ import Landing from './components/Screens/Landing';
 import Header from './components/Blocks/Header';
 import Footer from './components/Blocks/Footer';
 import BottomTabNav from './components/Blocks/BottomTabNav';
+import Community from './components/Screens/Community';
 
 const AppContainer = styled.div`
 	width: 100%;
@@ -38,7 +39,7 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile', '/landing']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile', '/app/community', '/landing']} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -54,6 +55,7 @@ function App(): JSX.Element {
 					<Route exact path="/link" component={() => <Auth loginLink />} />
 					<Route exact path='/app/forYou' component={() => <ForYou />} />
 					<Route exact path='/app/explore' component={() => <Explore />} />
+					<Route exact path='/app/community' component={() => <Community />} />
 					<Route exact path='/app/search' component={Search} />
 					<Route exact path='/app/book' component={Book} />
 					<Route exact path='/app/book/book-appointment' component={Book} />
@@ -64,7 +66,7 @@ function App(): JSX.Element {
 					<Route exact path='/landing' component={Landing} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/landing']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

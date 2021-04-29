@@ -16,6 +16,11 @@ interface HeaderTab {
     id: string;
     title: string;
     link?: string;
+    bottomTabs?: {
+        id: string;
+        title: string;
+        link?: string;
+    }[];
 }
 
 // interface RouteState {
@@ -39,6 +44,27 @@ const tabs: HeaderTab[] = [{ // List of tabs for rendering in header
     id: 'explore',
     title: 'Explore',
     link: '/app/explore',
+    bottomTabs: [{
+        id: 'workouts',
+        title: 'Workouts',
+        link: '/app/explore',
+    }, {
+        id: 'Community',
+        title: 'Community',
+        link: '/app/community'
+    }, {
+        id: 'Plans',
+        title: 'Plans',
+    }, {
+        id: 'Challenges',
+        title: 'Challenges',
+    }, {
+        id: 'Experiences',
+        title: 'Experiences',
+    }, {
+        id: 'Shop',
+        title: 'Shop',
+    }],
 }, {
     id: 'book',
     title: 'Book',
@@ -63,51 +89,6 @@ const noAuthTabs: HeaderTab[] = [{
     link: '/app/book',
 }]
 
-const bottomTabs = [ // List of header states for each route
-    {
-        route: '/app/explore',
-        bottomTabs: [{
-            id: 'workouts',
-            title: 'Workouts',
-        }, {
-            id: 'Community',
-            title: 'Community',
-        }, {
-            id: 'Plans',
-            title: 'Plans',
-        }, {
-            id: 'Challenges',
-            title: 'Challenges',
-        }, {
-            id: 'Experiences',
-            title: 'Experiences',
-        }, {
-            id: 'Shop',
-            title: 'Shop',
-        }],
-    },
-    {
-        route: '/app/forYou',
-        // bottomTabs: [{
-        //     id: 'fitness',
-        //     title: 'Fitness'
-        // }, {
-        //     id: 'experiences',
-        //     title: 'Experiences'
-        // }]
-    },
-    {
-        route: '/app/search',
-        bottomTabs: [{
-            id: 'fitness',
-            title: 'Fitness'
-        }, {
-            id: 'experiences',
-            title: 'Experiences'
-        }]
-    },
-]
-
 
 
 export default function Header(props: HeaderProps): JSX.Element {
@@ -117,7 +98,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     const history = useHistory()
 
     const onSwitch = (newTabId: string | number) => {
-        const tab = tabs.find(tab => tab.id === newTabId)
+        const tab = tabs.find(tab => tab.id === newTabId) || currentBottomTabs?.find(t => t.id === newTabId)
         if (tab && tab.link) {
             history.push(tab.link)
         }
@@ -129,18 +110,23 @@ export default function Header(props: HeaderProps): JSX.Element {
         onSwitch
     })
 
-    const currentBottomTabs = bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || []
+    // const currentBottomTabs = bottomTabs.find(tab => history.location.pathname.includes(tab.route))?.bottomTabs || []
+    const currentBottomTabs = tabs.find(t => t.id === mainTabSwitcher.currentTab)?.bottomTabs || []
 
     const bottomTabSwitcher = useTabSwitcher({ // Bottom tabs
         tabs: currentBottomTabs,
         layoutStyle: 'header-bottom',
-        visualStyle: 'button'
+        visualStyle: 'button',
+        onSwitch
     })
 
     useEffect(() => {
-        const tab = tabs.find(tab => tab.link === history.location.pathname)
+        const tab = tabs.find(tab => tab.link === history.location.pathname || tab.bottomTabs?.find(t => t.link === history.location.pathname))
         if (tab) {
             mainTabSwitcher.setTab(tab.id || mainTabSwitcher.currentTab)
+            if (tab.bottomTabs) {
+                bottomTabSwitcher.setTab(tab.bottomTabs.find(t => t.link === history.location.pathname)?.id || bottomTabSwitcher.currentTab)
+            }
         }
     }, [history, mainTabSwitcher])
 

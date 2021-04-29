@@ -9,18 +9,23 @@ export interface PeopleInProps {
     children?: React.ReactNode
     style?: React.CSSProperties
     size?: string;
+    count?: number;
 }
 
 export default function PeopleIn(props: PeopleInProps): JSX.Element {
 
-    const { style, size } = props
+    const { style, size, count } = props
     return (
         <StyledPeopleIn style={style}>
             <Avatars size={size}>
-                <img style={{ zIndex: 1, right: (parseInt(size || '1.3') / 2) * 0 + 'rem' }} src={example_avatar_1} alt="avatar" />
-                <img style={{ zIndex: 2, right: (parseInt(size || '1.3') / 2) * 1 + 'rem' }} src={example_avatar_2} alt="avatar" />
-                <img style={{ zIndex: 3, right: (parseInt(size || '1.3') / 2) * 2 + 'rem' }} src={example_avatar_3} alt="avatar" />
-                <div style={{ zIndex: 4, right: (parseInt(size || '1.3') / 2) * 3 + 'rem' }}><Text color={'white'}>+200</Text></div>
+                {
+                    Array(count || 3).fill(null).map((el, i) => {
+                        return (
+                            <img style={{ zIndex: i + 1, right: (parseInt(size || '1.3') / 2.5) * i + 'rem' }} src={[example_avatar_1, example_avatar_2, example_avatar_3][i]} alt="avatar" />
+                        )
+                    })
+                }
+                <div style={{ zIndex: (count || 3) + 1, right: (parseInt(size || '1.3') / 2.5) * (count || 3) + 'rem' }}><Text color={'white'}>+200</Text></div>
             </Avatars>
         </StyledPeopleIn>
     )
@@ -51,7 +56,7 @@ const Avatars = styled.div<{ size?: string }>`
     & > div > span {
         display: flex;
         align-items: center;
-        font-size: 0.45rem;
+        font-size: ${p => parseInt(p.size || '') / 2.5 || '.45'}rem;
         margin-top: 0.1rem;
     }
 `
