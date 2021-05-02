@@ -22,6 +22,9 @@ const StyledTitle = styled.span<TitleProps>`
     ${p => p.mb ? `
         margin-bottom: ${p.mb};
     ` : ''}
+    ${p => p.pb ? `
+        padding-bottom: ${p.pb};
+    ` : ''}
     ${p => p.mr ? `
         margin-right: ${p.mr};
     ` : ''}
@@ -39,6 +42,7 @@ export interface TitleProps {
     noWrap?: boolean,
     id?: string,
     mb?: string,
+    pb?: string,
     mr?: string,
 }
 

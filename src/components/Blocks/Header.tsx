@@ -65,9 +65,9 @@ const tabs: HeaderTab[] = [{ // List of tabs for rendering in header
         title: 'Experiences',
         link: '/app/experiences'
     }, {
-        id: 'Shop',
-        title: 'Shop',
-        link: '/app/shop'
+        id: 'Members',
+        title: 'Members',
+        link: '/app/members'
     }],
 }, {
     id: 'book',

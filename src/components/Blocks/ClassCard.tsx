@@ -366,9 +366,9 @@ const ProgressBarContainer = styled.div` // This container don't use flex becaus
 const BottomFilledControl = styled.div`
     display: flex;
     align-items: flex-end;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: white;
     border-bottom-left-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
-    padding: 0.5rem;
+    padding: 0.5rem .8rem;
 `

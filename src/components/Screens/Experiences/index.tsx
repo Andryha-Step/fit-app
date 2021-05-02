@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Category from '../../Blocks/Category'
 import ClassCard from '../../Blocks/ClassCard'
 
 export interface ExperiencesProps {
@@ -14,13 +13,15 @@ export default function Experiences(props: ExperiencesProps): JSX.Element {
 
     return (
         <StyledExperiences style={style}>
-            <ClassCard
-                buttonText='WATCH'
-                liked
-                type='new'
-                cardTitle='Staying motivated'
-                cardText='Talk'
-            />
+            {
+                Array(10).fill(<ClassCard
+                    buttonText='WATCH'
+                    liked
+                    type='new'
+                    cardTitle='Staying motivated'
+                    cardText='Talk'
+                />)
+            }
         </StyledExperiences>
     )
 }
@@ -37,12 +38,15 @@ const StyledExperiences = styled.div`
     }
 
     @media screen and (min-width: 1200px) {
-        padding: 1.5rem 30vw;
-        max-width: 40vw;
+        padding: 1.5rem 20vw;
+        max-width: 60vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 
     @media screen and (min-width: 1600px) {
-        padding: 1.5rem 35vw;
-        max-width: 30vw;
+        padding: 1.5rem 10vw;
+        max-width: 80vw;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 `
