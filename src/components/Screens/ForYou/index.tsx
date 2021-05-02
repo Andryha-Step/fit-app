@@ -24,6 +24,7 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
                 buttonText="RESUME"
             />
             <Category
+                withBorder
                 tabs={Array(20).fill(null).map((el, i) => ({
                     title: `${9 + i}:00`,
                     id: `upcoming${9 + i}00`
@@ -45,14 +46,15 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
                     />
                 ))}
             </Category>
-            <Category title={'Your plan'} link={'View all'}>
+            <Category withBorder title={'Your plan'} link={'View all'}>
                 <ClassCard
                     type='plan'
                     cardTitle={<>Get Ready For<br /> Summer</>}
                     cardText='8 Weeks | 20 Workouts'
+                    progress
                 />
             </Category>
-            <Category title={'Your Challenges'} link={'View all'}>
+            <Category withBorder title={'Your Challenges'} link={'View all'}>
                 <ClassCard
                     type="challenge"
                     cardTitle="April Challenge"
@@ -64,7 +66,7 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
                     cardText='2 Weeks | 10 Workouts'
                 />
             </Category>
-            <Category title={'Classes Based On Your Fitness Goal'} subtitle="Be More Active" link={'View all'}>
+            <Category withBorder title={'Classes Based On Your Fitness Goal'} subtitle="Be More Active" link={'View all'}>
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
                         key={i}
@@ -74,7 +76,7 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
                     />
                 ))}
             </Category>
-            <Category title={'Favourites'} link={'View all'}>
+            <Category withBorder title={'Favourites'} link={'View all'}>
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
                         key={i}

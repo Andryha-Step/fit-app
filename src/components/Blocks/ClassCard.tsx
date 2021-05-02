@@ -22,17 +22,20 @@ export interface ClassCardProps {
     duration?: string
     cardText?: string | JSX.Element
     cardTitle?: string | JSX.Element
+    timer?: string | JSX.Element
     type: 'upcoming' | 'plan' | 'challenge' | 'new' | 'only_title' | 'duration'
+    buttonText?: string
     liked?: boolean,
-    id?: string
+    id?: string,
+    progress?: boolean
 }
 
 export default function ClassCard(props: ClassCardProps): JSX.Element {
 
-    const { style, type } = props
+    const { style, type, progress } = props
 
     return (
-        <StyledClassCard style={style} type={type}>
+        <StyledClassCard style={style} type={type} progress={progress}>
             {
                 type === 'upcoming' &&
                 <UpcomingInner {...props} />
@@ -108,10 +111,10 @@ function UpcomingInner(props: ClassCardProps): JSX.Element {
 
 function PlanInner(props: ClassCardProps): JSX.Element {
 
-    const { cardText, cardTitle } = props
+    const { cardText, cardTitle, progress } = props
 
     return (<CardContainer {...props}>
-        <MiddleText style={{ marginTop: '3rem' }}>
+        <MiddleText style={{ marginTop: progress ? '3rem' : '0' }}>
             <Tag>
                 PLAN
             </Tag>
@@ -122,31 +125,47 @@ function PlanInner(props: ClassCardProps): JSX.Element {
                 {cardText}
             </Text>
         </MiddleText>
-        <ProgressBarContainer>
-            <ProgressBar progress={Math.random()} withText />
-        </ProgressBarContainer>
+        {
+            progress ? (
+                <ProgressBarContainer>
+                    <ProgressBar progress={Math.random()} withText textColor={'white'} />
+                </ProgressBarContainer>
+            ) : (
+                <Flex jc="center">
+                    <Button padding=".5rem 2rem" primary fontSize=".8rem">START</Button>
+                </Flex>
+            )
+        }
     </CardContainer>)
 }
 
 function ChallengeInner(props: ClassCardProps) {
 
-    const { cardText, cardTitle } = props
+    const { cardText, cardTitle, progress, timer } = props
 
     return (
         <CardContainer {...props}>
+            {
+                timer && <Text center color="white" size="1rem">{timer}</Text>
+            }
             <Flex flex={'1'} jc={'flex-end'} ai={'flex-start'} column>
                 <Tag>CHALLENGE</Tag>
                 <Title color={'white'}>{cardTitle}</Title>
-                <Text color={'white'} mb={'1rem'}>{cardText}</Text>
+                <Flex ai='flex-end' jc='space-between' style={{ width: '100%' }}>
+                    <Text color={'white'} mb={progress ? '1rem' : ''} style={!progress ? { marginRight: '1rem' } : {}}>{cardText}</Text>
+                    <Button padding=".3rem 1.5rem" primary fontSize=".7rem">JOIN</Button>
+                </Flex>
             </Flex>
-            <ProgressBar progress={Math.random()} withText textColor={'white'} />
+            {
+                progress && <ProgressBar progress={Math.random()} withText textColor={'white'} />
+            }
         </CardContainer>
     )
 }
 
 function NewInner(props: ClassCardProps) {
 
-    const { cardText, cardTitle, liked } = props
+    const { cardText, cardTitle, liked, buttonText } = props
 
     const icons = [
         {
@@ -184,7 +203,7 @@ function NewInner(props: ClassCardProps) {
                     <Text style={{ marginBottom: '0.2rem' }} color="#636363">{cardText}</Text>
                     <IconsRow icons={icons} iconSize='1rem' fontSize="0.7rem" />
                 </Flex>
-                <Button noShadow style={{ padding: '0.3rem 1rem' }} fontSize="0.7rem" primary small>START</Button>
+                <Button noShadow style={{ padding: '0.3rem 1rem' }} fontSize="0.7rem" primary small>{buttonText || 'START'}</Button>
             </BottomFilledControl>
         </CardContainer>
     )
@@ -233,7 +252,7 @@ const StyledClassCard = styled.div<ClassCardProps>`
         background-size: 66rem;
     }
 
-    ${p => p.type === 'challenge' ? `
+    ${p => p.type === 'challenge' || (p.type === 'plan' && !p.progress) ? `
         min-width: 18rem;
         height: 14rem;
     ` : ''}

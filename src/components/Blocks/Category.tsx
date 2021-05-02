@@ -22,6 +22,7 @@ export interface CategoryProps {
     noScroll?: boolean,
     cardMinWidth?: string;
     titleProps?: TitleProps
+    withBorder?: boolean
 }
 
 export default function Category(props: CategoryProps): JSX.Element {
@@ -47,23 +48,6 @@ export default function Category(props: CategoryProps): JSX.Element {
     })
 
     function onTabSwitch(id: string) {
-
-        // const card = scrollContainerRef.current?.querySelector(`#${id}`)
-        // if (card) {
-        //     const style = getComputedStyle(card);
-        //     const cardMarginHorizontal = parseInt(style.marginLeft) + parseInt(style.marginRight);
-        //     const cardWidth = card?.offsetWidth
-        //     const cardFullWidth = cardWidth + cardMarginHorizontal
-
-        //     scrollContainerRef.current?.scrollTo(id)
-        // }
-
-        // card?.scrollIntoView()
-
-        // console.log(card)
-
-        // scrollContainerRef.current?.scrollTo(card)
-
         onSwitch && onSwitch(id)
     }
 
@@ -105,7 +89,7 @@ export default function Category(props: CategoryProps): JSX.Element {
 
     return (
         <StyledCatagory style={style}>
-            <HeaderContainer tabs={props.tabs}>
+            <HeaderContainer tabs={props.tabs} withBorder={props.withBorder}>
                 <Header tabs={props.tabs}>
                     <Title color='black' {...titleProps}>{title}</Title>
                     {
@@ -175,7 +159,9 @@ const Header = styled.div<CategoryProps>`
 
 const HeaderContainer = styled.div<CategoryProps>`
     width: calc(100% - 4rem);
-    border-top: 1px solid #E6E5E5;
+    ${p => p.withBorder ? `
+        border-top: 1px solid #E6E5E5;
+    ` : ''}
     ${p => p.tabs ? `
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
     ` : ''}
