@@ -8,14 +8,15 @@ export interface AvatarProps {
     avatarColor?: string
     title?: string
     size?: string
+    mr?: string
 }
 
 export default function Avatar(props: AvatarProps): JSX.Element {
 
-    const { style, imageAvatarSrc, avatarColor, title, size } = props
+    const { style, imageAvatarSrc, avatarColor, title, size, mr } = props
 
     return (
-        <AvatarContainer style={style}>
+        <AvatarContainer style={style} mr={mr}>
             {
                 imageAvatarSrc && (
                     <ImageAvatar size={size} src={imageAvatarSrc} alt="avatar" />
@@ -34,14 +35,12 @@ const ImageAvatar = styled.img<{ size?: string }>`
     height: ${p => p.size || '3.5rem'};
     width: ${p => p.size || '3.5rem'};
     border-radius: 10rem;
-    margin-right: 1rem;
 `
 
 const ColorAvatar = styled.div<{ color?: string, size?: string }>`
     height: ${p => p.size || '3.5rem'};
     width: ${p => p.size || '3.5rem'};
     border-radius: 10rem;
-    margin-right: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,8 +51,12 @@ const ColorAvatar = styled.div<{ color?: string, size?: string }>`
     font-weight: 500;
 `
 
-const AvatarContainer = styled.div`
+const AvatarContainer = styled.div<{ mr?: string }>`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ${p => p.mr ? `
+        margin-right: ${p.mr};
+    ` : ''}
 `

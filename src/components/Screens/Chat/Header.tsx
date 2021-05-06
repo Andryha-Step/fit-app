@@ -59,6 +59,7 @@ const BackButton = styled.img`
 const Contact = styled.div`
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
 `
 
 const NotificationButton = styled.img`

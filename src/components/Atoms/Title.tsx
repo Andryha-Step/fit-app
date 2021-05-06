@@ -28,6 +28,12 @@ const StyledTitle = styled.span<TitleProps>`
     ${p => p.mr ? `
         margin-right: ${p.mr};
     ` : ''}
+    ${p => p.mt ? `
+        margin-top: ${p.mt};
+    ` : ''}
+    ${p => p.lh ? `
+        line-height: ${p.lh};
+    ` : ''}
 `
 
 export interface TitleProps {
@@ -44,6 +50,8 @@ export interface TitleProps {
     mb?: string,
     pb?: string,
     mr?: string,
+    mt?: string,
+    lh?: string
 }
 
 export default function Title(props: TitleProps): JSX.Element {

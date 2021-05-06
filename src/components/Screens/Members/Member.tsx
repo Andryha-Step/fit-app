@@ -22,6 +22,7 @@ export default function Member(props: MemberProps): JSX.Element {
             <Flex ai='center' flex={'1'}>
                 <Avatar
                     imageAvatarSrc={avatarSrc || exampleAvatar}
+                    mr='1rem'
                 />
                 <Title weight="600">{name || 'Marho'}</Title>
             </Flex>
