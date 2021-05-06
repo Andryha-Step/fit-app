@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import FullWidthCard from '../../Blocks/FullWidthCard';
 import ClassCard from '../../Blocks/ClassCard';
 import Category from '../../Blocks/Category';
+import { useHistory } from 'react-router';
 
 function randomElFromArray<T>(arr: T[]): T {
     return arr[~~(Math.random() * arr.length)]
@@ -15,6 +16,7 @@ interface ForYouScreenProps {
 export default function ForYou(props: ForYouScreenProps): JSX.Element {
 
     const [upcomingTab, setUpcomingTab] = useState('900')
+    const history = useHistory()
 
     return (
         <div>
@@ -70,18 +72,18 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
                         key={i}
-                        type="new"
+                        type="withBottom"
                         cardTitle="Cardio Blast"
                         cardText='Cardio'
                     />
                 ))}
             </Category>
-            <Category withBorder title={'Favourites'} link={'View all'}>
+            <Category withBorder title={'Favourites'} link={'View all'} onLinkClick={() => history.push('/app/favourites')}>
                 {Array(5).fill(null).map((el, i) => (
                     <ClassCard
                         key={i}
                         liked
-                        type="new"
+                        type="withBottom"
                         cardTitle="Cardio Blast"
                         cardText='Cardio'
                     />

@@ -26,6 +26,7 @@ import Plans from './components/Screens/Plans';
 import Challenges from './components/Screens/Challenges';
 import Experiences from './components/Screens/Experiences';
 import Members from './components/Screens/Members';
+import Favourites from './components/Screens/Favourites';
 
 const AppContainer = styled.div`
 	width: 100%;
@@ -44,7 +45,7 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites']} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -68,6 +69,7 @@ function App(): JSX.Element {
 					<Route exact path='/app/challenges' component={() => <Challenges />} />
 					<Route exact path='/app/experiences' component={() => <Experiences />} />
 					<Route exact path='/app/members' component={() => <Members />} />
+					<Route exact path='/app/favourites' component={() => <Favourites />} />
 					<Route exact path='/app/search' component={Search} />
 					<Route exact path='/app/book' component={Book} />
 					<Route exact path='/app/book/book-appointment' component={Book} />
@@ -78,7 +80,7 @@ function App(): JSX.Element {
 					<Route exact path='/landing' component={Landing} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

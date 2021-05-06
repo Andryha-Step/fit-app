@@ -17,7 +17,7 @@ export default function Experiences(props: ExperiencesProps): JSX.Element {
                 Array(10).fill(<ClassCard
                     buttonText='WATCH'
                     liked
-                    type='new'
+                    type='withBottom'
                     cardTitle='Staying motivated'
                     cardText='Talk'
                 />)
@@ -32,21 +32,22 @@ const StyledExperiences = styled.div`
         max-width: 60vw;
     }
 
-    @media screen and (min-width: 900px) and (max-width: 1200px) {
-        padding: 1.5rem 25vw;
-        max-width: 50vw;
-    }
-
-    @media screen and (min-width: 1200px) {
-        padding: 1.5rem 20vw;
-        max-width: 60vw;
+    @media screen and (min-width: 900px) {
+        padding: 1.5rem 15vw;
+        max-width: 70vw;
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (min-width: 1600px) {
-        padding: 1.5rem 10vw;
-        max-width: 80vw;
+    @media screen and (min-width: 1200px) {
+        padding: 1.5rem 5vw;
+        max-width: 90vw;
         grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media screen and (min-width: 1600px) {
+        padding: 1.5rem 5vw;
+        max-width: 90vw;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 `

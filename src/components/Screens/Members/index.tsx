@@ -18,9 +18,9 @@ export default function Members(props: MembersProps): JSX.Element {
 
     return (
         <StyledMembers style={style}>
-            <div style={{ marginBottom: '1rem' }}>
+            {/* <div style={{ marginBottom: '1rem' }}>
                 <Title weight='600'>250 members</Title>
-            </div>
+            </div> */}
             <TextInput
                 placeholder='Search members'
                 leftInner={<img src={searchGray} alt='search' />}

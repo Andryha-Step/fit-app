@@ -10,7 +10,7 @@ import bookFilled from '../../assets/icons/bookFilled.svg'
 import chat from '../../assets/icons/chat.png'
 import chatFilled from '../../assets/icons/chatFilled.svg'
 import exampleAvatar from '../../assets/images/example-avatar-4.png'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 
 export interface BottomTabNavProps {
     children?: React.ReactNode
@@ -22,14 +22,15 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
     const { style } = props
     const [currentTab, setTab] = useState('forYou')
     const [isHidden, setIsHidden] = useState(false)
-    const history = useHistory()
+    const location = useLocation();
+    const history = useHistory();
 
-    const tabs = history.location.pathname === '/landing' ? noAuthTabs : authTabs;
+    const tabs = location.pathname === '/landing' ? noAuthTabs : authTabs;
 
     useEffect(() => {
         let found = false;
         tabs.forEach(tab => {
-            if (history.location.pathname.includes(tab.link)) {
+            if (tab.links.find(l => location.pathname.includes(l))) {
                 setTab(tab.id)
                 found = true;
             }
@@ -37,14 +38,16 @@ export default function BottomTabNav(props: BottomTabNavProps): JSX.Element {
 
         if (!found) {
             setIsHidden(true)
+        } else {
+            setIsHidden(false)
         }
 
-    }, [history.location.pathname, tabs])
+    }, [location.pathname, tabs])
 
     const onTabSwitch = (tab_id: string) => {
         tabs.forEach(tab => {
             if (tab.id === tab_id) {
-                history.push(tab.link)
+                history.push(tab.links[0])
             }
         })
         setTab(tab_id)
@@ -71,7 +74,7 @@ const authTabs = [
         icon: home,
         iconActive: homeFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/forYou',
+        links: ['/app/forYou'],
     },
     {
         id: 'exp',
@@ -79,7 +82,7 @@ const authTabs = [
         icon: expolore,
         iconActive: exploreFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/explore',
+        links: ['/app/explore', '/app/community', '/app/plans', '/app/challenges', '/app/experiences', '/app/members'],
     },
     {
         id: 'book',
@@ -87,7 +90,7 @@ const authTabs = [
         icon: book,
         iconActive: bookFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/book',
+        links: ['/app/book'],
     },
     {
         id: 'chat',
@@ -95,7 +98,7 @@ const authTabs = [
         icon: chat,
         iconActive: chatFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/chat',
+        links: ['/app/chat'],
     },
     {
         id: 'profile',
@@ -103,7 +106,7 @@ const authTabs = [
         icon: exampleAvatar,
         iconActive: exampleAvatar,
         imgStyle: { height: '1.5rem', borderRadius: '1rem' },
-        link: '/app/profile',
+        links: ['/app/profile'],
     }
 ]
 
@@ -114,7 +117,7 @@ const noAuthTabs = [
         icon: home,
         iconActive: homeFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/landing',
+        links: ['/landing'],
     },
     {
         id: 'exp',
@@ -122,7 +125,7 @@ const noAuthTabs = [
         icon: expolore,
         iconActive: exploreFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/explore',
+        links: ['/app/explore'],
     },
     {
         id: 'book',
@@ -130,7 +133,7 @@ const noAuthTabs = [
         icon: book,
         iconActive: bookFilled,
         imgStyle: { height: '1.5rem' },
-        link: '/app/book',
+        links: ['/app/book'],
     }
 ]
 

@@ -22,8 +22,9 @@ export interface ClassCardProps {
     duration?: string
     cardText?: string | JSX.Element
     cardTitle?: string | JSX.Element
+    tag?: string
     timer?: string | JSX.Element
-    type: 'upcoming' | 'plan' | 'challenge' | 'new' | 'only_title' | 'duration'
+    type: 'upcoming' | 'plan' | 'challenge' | 'withBottom' | 'only_title' | 'duration'
     buttonText?: string
     liked?: boolean,
     id?: string,
@@ -49,8 +50,8 @@ export default function ClassCard(props: ClassCardProps): JSX.Element {
                 <ChallengeInner {...props} />
             }
             {
-                type === 'new' &&
-                <NewInner {...props} />
+                type === 'withBottom' &&
+                <WithBottomInner {...props} />
             }
             {
                 type === 'only_title' &&
@@ -163,9 +164,9 @@ function ChallengeInner(props: ClassCardProps) {
     )
 }
 
-function NewInner(props: ClassCardProps) {
+function WithBottomInner(props: ClassCardProps) {
 
-    const { cardText, cardTitle, liked, buttonText } = props
+    const { cardText, cardTitle, liked, buttonText, tag } = props
 
     const icons = [
         {
@@ -195,7 +196,7 @@ function NewInner(props: ClassCardProps) {
                 }
             </Flex>
             <Flex style={{ margin: '0.8rem' }} flex="1" column ai={'flex-start'} jc={'flex-end'}>
-                <Tag>NEW</Tag>
+                {tag && <Tag>{tag || 'NEW'}</Tag>}
                 <Title color={'white'}>{cardTitle}</Title>
             </Flex>
             <BottomFilledControl>
@@ -257,7 +258,7 @@ const StyledClassCard = styled.div<ClassCardProps>`
         height: 14rem;
     ` : ''}
 
-    ${p => p.type === 'new' ? `
+    ${p => p.type === 'withBottom' ? `
         min-width: 18rem;
         height: 12rem;
     ` : ''}
@@ -297,7 +298,7 @@ const CardContainer = styled.div<ClassCardProps>`
     /* transition: backdrop-filter 0.4s; */
     /* backdrop-filter: brightness(90%); */
 
-    ${p => p.type === 'new' ? `
+    ${p => p.type === 'withBottom' ? `
         padding: 0;
         width: 100%;
         height: 100%;

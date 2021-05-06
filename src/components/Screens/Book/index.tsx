@@ -70,6 +70,7 @@ function Main(props: BookProps) {
                             size={'1rem'}
                             style={{ flex: 1 }}
                             weight={'600'}
+                            noWrap
                         >More Filtes</Title>
                     </TabSwticherCustomTab>
                 </Link>
@@ -165,6 +166,7 @@ const TabSwticherCustomTab = styled.div<{ active?: boolean }>`
     margin: 0 0.5rem;
     border-radius: 5rem;
     cursor: pointer;
+    display: flex;
 
     & > img {
         vertical-align: middle;
