@@ -7,6 +7,7 @@ const StyledTitle = styled.span<TitleProps>`
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: ${p => p.weight || 'bold'};
+    text-decoration: none;
     ${p => p.center ? `
         text-align: center;
     ` : ''}

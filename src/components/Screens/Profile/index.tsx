@@ -5,6 +5,7 @@ import Avatar from '../Chat/Avatar'
 import avatar from '../../../assets/images/example-avatar-4.png'
 import { TabSwitcher, Title, useTabSwitcher } from '../../Atoms'
 import Stats from './Stats'
+import Activity from './Activity'
 
 export interface ProfileProps {
     children?: React.ReactNode
@@ -50,15 +51,29 @@ export default function Profile(props: ProfileProps): JSX.Element {
             {
                 PageSwitcher.currentTab === 'stats' && <Stats />
             }
-            {/* {
-                PageSwitcher.currentTab === 'activity' && <Stats />
-            } */}
+            {
+                PageSwitcher.currentTab === 'activity' && <Activity />
+            }
         </StyledProfile>
     )
 }
 
 const StyledProfile = styled.div`
     padding: 0 1.5rem;
+    @media screen and (min-width: 600px) and (max-width: 900px) {
+        padding: 0 20vw;
+        width: 60vw;
+    }
+
+    @media screen and (min-width: 900px) and (max-width: 1200px) {
+        padding: 0 25vw;
+        width: 50vw;
+    }
+
+    @media screen and (min-width: 1200px) {
+        padding: 0 35vw;
+        width: 30vw;
+    }
 `
 
 const Header = styled(Flex)`

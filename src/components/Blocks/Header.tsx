@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Logo, TabSwitcher, useTabSwitcher, Text } from '../Atoms';
 import searchIcon from '../../assets/icons/search.svg'
 import calendarAdd from '../../assets/icons/calendar-add.svg'
+import settings from '../../assets/icons/header-settings-icon.svg'
 // import useWindowSize from '../../../hooks/useWindowSize';
 import Flex from './Flex'
 import { Route, useHistory } from 'react-router';
@@ -167,6 +168,13 @@ export default function Header(props: HeaderProps): JSX.Element {
                     >
                         <Link to="/app/book/book-appointment">
                             <img src={calendarAdd} alt="calendar add" />
+                        </Link>
+                    </Route>
+                    <Route
+                        path={["/app/profile"]}
+                    >
+                        <Link to="/app/profile/settings">
+                            <img src={settings} alt="settings" />
                         </Link>
                     </Route>
                     <Route

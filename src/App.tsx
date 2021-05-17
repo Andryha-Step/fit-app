@@ -28,6 +28,12 @@ import Experiences from './components/Screens/Experiences';
 import Members from './components/Screens/Members';
 import Favourites from './components/Screens/Favourites';
 import Profile from './components/Screens/Profile';
+import Settings from './components/Screens/Profile/Settings';
+import EditProfile from './components/Screens/Profile/Settings/EditProfile';
+import Membership from './components/Screens/Profile/Settings/Membership';
+import Notifications from './components/Screens/Profile/Settings/Notifications';
+import Faqs from './components/Screens/Profile/Settings/Faqs';
+import Privacy from './components/Screens/Profile/Settings/Privacy';
 
 const AppContainer = styled.div`
 	width: 100%;
@@ -46,7 +52,21 @@ function App(): JSX.Element {
 		<Router>
 			<Switch>
 				<AppContainer>
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/chat', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites']} render={() => (
+					<Route exact path={[
+						"/app/forYou",
+						'/app/explore',
+						'/app/book',
+						'/app/chat',
+						'/app/profile',
+						'/app/community',
+						'/landing',
+						'/app/plans',
+						'/app/challenges',
+						'/app/experiences',
+						'/app/members',
+						'/app/favourites',
+						'/app/profile/*',
+					]} render={() => (
 						<>
 							<Header />
 							<BottomTabNav />
@@ -79,10 +99,16 @@ function App(): JSX.Element {
 					<Route exact path='/app/chat/dialog' component={() => <Chat />} />
 					<Route exact path='/app/chat/group' component={() => <Chat />} />
 					<Route exact path='/app/profile' component={() => <Profile />} />
+					<Route exact path='/app/profile/settings' component={() => <Settings />} />
+					<Route exact path='/app/profile/settings/edit-profile' component={() => <EditProfile />} />
+					<Route exact path='/app/profile/settings/membership' component={() => <Membership />} />
+					<Route exact path='/app/profile/settings/notifications' component={() => <Notifications />} />
+					<Route exact path='/app/profile/settings/faqs' component={() => <Faqs />} />
+					<Route exact path='/app/profile/settings/privacy-policy' component={() => <Privacy />} />
 					<Route exact path='/landing' component={() => <Landing />} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites']} render={() => (
+					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites', '/app/profile/*']} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

@@ -9,6 +9,7 @@ export interface CalendarProps {
     style?: React.CSSProperties
     weekMode?: boolean
     onDateSelect?: (date: Date) => void
+    hideToday?: boolean
 }
 
 const daysOfWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
@@ -54,7 +55,7 @@ const isToday = (date: Date) => {
 
 export default function Calendar(props: CalendarProps): JSX.Element {
 
-    const { style, weekMode, onDateSelect } = props
+    const { style, weekMode, onDateSelect, hideToday } = props
 
     const [currentStartDate, setCurrentStartDate] = useState<Date>(new Date())
     const [selectedDate, setSelectedDate] = useState<Date | null | number>(null);
@@ -128,15 +129,17 @@ export default function Calendar(props: CalendarProps): JSX.Element {
             <CalendarHeader>
                 <Title style={{ flex: 1 }} weight={'500'}>{months[currentStartDate.getMonth()]} {currentStartDate.getFullYear()}</Title>
                 <ArrowContainer>
-                    <CutstomButton onClick={goToday}><Title size={'.8rem'}>Today</Title></CutstomButton>
+                    {
+                        !hideToday && <CutstomButton onClick={goToday}><Title size={'.8rem'}>Today</Title></CutstomButton>
+                    }
                     <Arrow src={arrow_img} alt="arrow" id="left" onClick={hangleArrowClick} />
                     <Arrow src={arrow_img} alt="arrow" id="right" onClick={hangleArrowClick} right />
                 </ArrowContainer>
             </CalendarHeader>
-            <CalendarGrid columns={weekMode && windowWidth > 1200 ? '14' : '7'}>
+            <CalendarGrid weekMode={weekMode} columns={weekMode && windowWidth > 1200 ? '14' : '7'}>
                 {
                     !weekMode && daysOfWeek.map(day => (
-                        <Title center weight={'500'} mb={'2rem'}>{day}</Title>
+                        <Title center weight={'500'} style={{ minHeight: '3rem' }}>{day}</Title>
                     ))
                 }
                 {
@@ -201,12 +204,15 @@ const Arrow = styled.img<{ right?: boolean }>`
     `}
 
 `
-const CalendarGrid = styled.div<{ columns?: string }>`
+const CalendarGrid = styled.div<{ columns?: string, weekMode?: boolean }>`
     display: grid;
     grid-template-columns: repeat(${p => p.columns || '7'}, 1fr);
     /* grid-template-rows: repeat(7, 1fr); */
     grid-column-gap: .8rem;
     margin: 1rem;
+    ${p => !p.weekMode ? `
+        min-height: 28rem;
+    ` : ''}
 `
 
 const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?: boolean, selected?: boolean }>`

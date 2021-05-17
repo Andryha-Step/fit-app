@@ -10,6 +10,7 @@ export interface FlexProps {
     mb?: string
     mt?: string
     horizontalScroll?: boolean
+    gap?: string
 }
 
 export default styled.div<FlexProps>`
@@ -51,6 +52,10 @@ export default styled.div<FlexProps>`
 
     ${p => p.horizontalScroll ? `
         overflow-x: scroll;
+    ` : ''}
+
+    ${p => p.gap ? `
+        gap: ${p.gap};
     ` : ''}
 
     &::-webkit-scrollbar {

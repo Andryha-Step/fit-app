@@ -8,11 +8,12 @@ export interface BackHeaderProps {
     style?: React.CSSProperties
     backLink?: string
     onClick?: () => void
+    mb?: string
 }
 
 export default function BackHeader(props: BackHeaderProps): JSX.Element {
 
-    const { style, children, backLink, onClick } = props
+    const { style, children, backLink, onClick, mb } = props
     const history = useHistory()
 
     const handleClick = () => {
@@ -29,23 +30,26 @@ export default function BackHeader(props: BackHeaderProps): JSX.Element {
     }
 
     return (
-        <StyledBackHeader style={style}>
+        <StyledBackHeader style={style} mb={mb}>
             <Back src={back} alt="" onClick={handleClick} />
             {children}
         </StyledBackHeader>
     )
 }
 
-const StyledBackHeader = styled.div`
+const StyledBackHeader = styled.div<{ mb?: string }>`
     width: 100%;
     display: flex;
     align-items: center;
     padding: 1rem 0;
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
+    ` : ''}
 `
 
 const Back = styled.img`
     height: 3rem;
-    margin-left: 2rem;
     margin-right: 1rem;
     cursor: pointer;
 `

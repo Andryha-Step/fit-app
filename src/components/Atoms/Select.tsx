@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { MutableRefObject, Ref, RefObject, useRef } from 'react';
 import styled from 'styled-components';
-import select_arrow from '../../assets/images/select_arrow.svg';
+import select_arrow from '../../assets/icons/arrow-down-black.svg';
 
 interface Option {
     title: string;
@@ -12,32 +12,34 @@ export interface SelectProps {
     children?: React.ReactNode;
     style?: React.CSSProperties
     theme?: 'white' | 'gray';
+    mb?: string
 }
 
 export default function Select(props: SelectProps): JSX.Element {
+
+    const selectRef = useRef<HTMLSelectElement>(null);
     return (
-        <StyledLabel style={props.style} theme={props.theme}>
+        <StyledLabel mb={props.mb} style={props.style} theme={props.theme}>
             {
                 props.children &&
                 <StyledLabelText>{props.children}</StyledLabelText>
             }
-            <StyledSelect style={props.style} theme={props.theme}>
+            <StyledSelect ref={selectRef} style={props.style} theme={props.theme}>
                 {props.options.map(opt => (
                     <option>{opt.title}</option>
                 ))}
             </StyledSelect>
-            <StyledArrow src={select_arrow} isLabel={!!props.children} theme={props.theme} />
         </StyledLabel>
     )
 }
 
 const StyledSelect = styled.select`
-    margin: 0 1rem;
     /* margin-bottom: 0.7rem; */
     border: 0.6px solid #F8F8F8;
-    border-radius: 2rem;
+    border-radius: 1rem;
     background-color: rgba(0,0,0,0);
-    padding: .8rem 1.3rem;
+    padding: 0 1rem;
+    min-height: 3.5rem;
     color: white;
     font-family: Poppins, sans-serif;
     font-style: normal;
@@ -52,9 +54,16 @@ const StyledSelect = styled.select`
         color: black;
         background: #F8F8F8;
     ` : ''}
+
+    background-image: url(${select_arrow});
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: 95% center;
+    padding-right: 1rem;
+
 `
 
-const StyledLabel = styled.label`
+const StyledLabel = styled.label<{ mb?: string }>`
     display: flex;
     flex-direction: column;
     position: relative;
@@ -63,22 +72,25 @@ const StyledLabel = styled.label`
     font-style: normal;
     font-weight: 300;
     font-size: 0.8rem;
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
+    ` : ''}    
 `
 
 const StyledLabelText = styled.span`
-    margin: 0 1rem;
     margin-bottom: 0.7rem;
 `
 
 const StyledArrow = styled.img<{ isLabel?: boolean }>`
-    top: .7rem;
+    top: .6rem;
     height: 2rem;
     position: absolute;
     right: 1.8rem;
     z-index: 5;
 
     ${p => p.isLabel ? `
-        top: 2.6rem;
+        top: 2.95rem;
     ` : ''}
 
     ${p => p.theme === 'gray' ? `

@@ -12,12 +12,52 @@ import IconsRow, { IconsRowProps } from './IconsRow'
 import Coach, { CoachProps } from './Coach'
 import PeopleIn, { PeopleInProps } from './PeopleIn'
 import TextInput, { TextInputProps } from './TextInput'
+import FileInput, { FileInputProps } from './FileInput'
+import SlideToggle, { SlideToggleProps } from './SlideToggle'
 import MultipleSelect, { useMultipleSelect, MultipleSelectHook } from './MultipleSelect'
 
 export {
-    Button, Input, Modal, Select, Text, Title, TabSwitcher, Logo, Tag, ProgressBar, IconsRow, Coach, useTabSwitcher, MultipleSelect, useMultipleSelect, PeopleIn, TextInput
+    Button,
+    Input,
+    Modal,
+    Select,
+    Text,
+    Title,
+    TabSwitcher,
+    Logo,
+    Tag,
+    ProgressBar,
+    IconsRow,
+    Coach,
+    useTabSwitcher,
+    MultipleSelect,
+    useMultipleSelect,
+    PeopleIn,
+    TextInput,
+    FileInput,
+    SlideToggle
 }
 
 export type {
-    TitleProps, ButtonProps, InputProps, ModalProps, SelectProps, TextProps, TabSwitcherProps, LogoProps, TagProps, ProgressBarProps, IconsRowProps, CoachProps, Tab, TabSwitcherLayoutStyle, TabSwitcherVisualStyle, TabSwitcherHook, MultipleSelectHook, PeopleInProps, TextInputProps
+    TitleProps,
+    ButtonProps,
+    InputProps,
+    ModalProps,
+    SelectProps,
+    TextProps,
+    TabSwitcherProps,
+    LogoProps,
+    TagProps,
+    ProgressBarProps,
+    IconsRowProps,
+    CoachProps,
+    Tab,
+    TabSwitcherLayoutStyle,
+    TabSwitcherVisualStyle,
+    TabSwitcherHook,
+    MultipleSelectHook,
+    PeopleInProps,
+    TextInputProps,
+    FileInputProps,
+    SlideToggleProps
 }

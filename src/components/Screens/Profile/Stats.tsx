@@ -4,6 +4,7 @@ import { Text, Title } from '../../Atoms'
 import clock from '../../../assets/icons/clock.svg'
 import classes from '../../../assets/icons/fire-1.png'
 import challanges from '../../../assets/icons/fire-2.png'
+import Flex from '../../Blocks/Flex'
 
 export interface StatsProps {
     children?: React.ReactNode
@@ -31,6 +32,28 @@ export default function Stats(props: StatsProps): JSX.Element {
                     <Text color='#B0B0B0' weight='600'>Challanges</Text>
                 </StatsElement>
             </StatsList>
+            <Flex column mt="1rem">
+                <Streak>
+                    <Flex jc="space-between">
+                        <Text size='1rem' weight='500'>Current daily streak</Text>
+                        <Text size='1rem' weight='500'>0</Text>
+                    </Flex>
+                    <Flex jc="space-between">
+                        <Text size='1rem' weight='500' color='#B0B0B0'>Longest</Text>
+                        <Text size='1rem' weight='500' color='#B0B0B0'>0</Text>
+                    </Flex>
+                </Streak>
+                <Streak>
+                    <Flex jc="space-between">
+                        <Text size='1rem' weight='500'>Current weekly streak</Text>
+                        <Text size='1rem' weight='500'>0</Text>
+                    </Flex>
+                    <Flex jc="space-between">
+                        <Text size='1rem' weight='500' color='#B0B0B0'>Longest</Text>
+                        <Text size='1rem' weight='500' color='#B0B0B0'>0</Text>
+                    </Flex>
+                </Streak>
+            </Flex>
         </StyledStats>
     )
 }
@@ -61,4 +84,14 @@ const StatsElement = styled.div<{ src: string, bigger?: boolean }>`
     ${p => p.bigger ? `
         background-size: 1.7rem;
     ` : ''}
+`
+
+const Streak = styled.div`
+    border-bottom: 1px solid #F6F6F6;
+    padding-bottom: .2rem;
+    margin-bottom: .5rem;
+
+    &&:last-child {
+        border: 0;
+    }
 `

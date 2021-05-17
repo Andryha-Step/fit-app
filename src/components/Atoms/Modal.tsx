@@ -48,7 +48,7 @@ const ModalContainer = styled.div`
     background-color: rgba(0,0,0,.58);
     width: calc(100vw - 1.2rem * 2);
     height: calc(100vh - 1.2rem * 2);
-    z-index: 10;
+    z-index: 30;
     padding: 1.2rem;
     display: flex;
     justify-content: center;
@@ -56,7 +56,7 @@ const ModalContainer = styled.div`
 `
 
 const WhiteBoxWrapper = styled.div<{ width?: string }>`
-    background: #F8F8F8;
+    background: white;
     border-radius: 20px;
     padding: 1.5rem;
     font-size: 1.3rem;
