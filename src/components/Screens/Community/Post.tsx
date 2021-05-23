@@ -88,7 +88,7 @@ export default function Post(props: PostProps): JSX.Element {
                     <PostComments>
                         <PostComment>
                             <Flex ai='flex-start'>
-                                <Avatar imageAvatarSrc={c.avatarUrl} size={"3.2rem"} />
+                                <Avatar imageAvatarSrc={c.avatarUrl} size={"3.2rem"} mr='1rem' />
                             </Flex>
                             <Flex column flex="1">
                                 <Flex>

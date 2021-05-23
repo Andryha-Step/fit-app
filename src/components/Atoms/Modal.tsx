@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export interface ModalProps {
     children?: React.ReactNode | React.ReactNode[];
+    style?: React.CSSProperties
 
     // Describes a type of wrapper for Modal
     wrapperTemplate?: 'white-box';
@@ -27,7 +28,7 @@ export default function Modal(props: ModalProps): JSX.Element {
     }
 
     return (
-        <ModalContainer onClick={clickHandler} ref={ModalRef}>
+        <ModalContainer onClick={clickHandler} ref={ModalRef} style={props.style}>
             {
                 props.wrapperTemplate === 'white-box' &&
                 <WhiteBoxWrapper width={props.wrapperWidth}>
@@ -65,6 +66,5 @@ const WhiteBoxWrapper = styled.div<{ width?: string }>`
     font-style: normal;
     font-weight: bold;
     margin-bottom: 0.8rem;
-    text-transform: uppercase;
     ${p => p.width && `width: ${p.width};`}
 `

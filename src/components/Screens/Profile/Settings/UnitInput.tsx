@@ -88,7 +88,7 @@ export default function UnitInput(props: UnitInputProps): JSX.Element {
     }
 
     return (
-        <Flex style={style} gap='1rem' mb='1rem'>
+        <Flex style={style} mb='1rem'>
             <Modal
                 isOpen={modalOpen !== null}
                 wrapperTemplate='white-box'
@@ -171,10 +171,10 @@ export default function UnitInput(props: UnitInputProps): JSX.Element {
                     }
                 </form>
             </Modal>
-            <TextInput placeholder="60" id="weight" onFocus={onNumberFocus} value={weightInput === '0.0' ? '' : weightInput} style={{ flex: 1 }}>
+            <TextInput style={{ marginRight: '1rem' }} inputStyle={{ maxWidth: '20vw' }} placeholder="60" id="weight" onFocus={onNumberFocus} value={weightInput === '0.0' ? '' : weightInput} flex='1'>
                 <Title weight='400' size='1.1rem' color="#636363">Weight ({weightUnit})</Title>
             </TextInput>
-            <TextInput placeholder="169" id="height" onFocus={onNumberFocus} value={heightInput === '0.0' ? '' : heightInput} style={{ flex: 1 }}>
+            <TextInput inputStyle={{ maxWidth: '20vw' }} placeholder="169" id="height" onFocus={onNumberFocus} value={heightInput === '0.0' ? '' : heightInput} flex='1'>
                 <Title weight='400' size='1.1rem' color="#636363">Height ({heightUnit})</Title>
             </TextInput>
         </Flex>

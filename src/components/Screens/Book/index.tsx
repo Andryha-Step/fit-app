@@ -138,18 +138,23 @@ const StyledBook = styled.div<{ mobilePadding?: boolean }>`
         padding: 0 1rem;
     ` : ''}
     @media screen and (min-width: 600px) and (max-width: 900px) {
-        padding: 0 10vw;
-        width: 80vw;
+        padding: 1.5rem 10vw;
+        max-width: 80vw;
     }
 
     @media screen and (min-width: 900px) and (max-width: 1200px) {
-        padding: 0 15vw;
-        width: 70vw;
+        padding: 1.5rem 20vw;
+        max-width: 60vw;
     }
 
     @media screen and (min-width: 1200px) {
-        padding: 0 20vw;
-        width: 60vw;
+        padding: 1.5rem 25vw;
+        max-width: 50vw;
+    }
+
+    @media screen and (min-width: 1600px) {
+        padding: 1.5rem 30vw;
+        max-width: 40vw;
     }
 `
 

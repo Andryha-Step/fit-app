@@ -195,13 +195,29 @@ export default function Search(props: SearchProps): JSX.Element {
 }
 
 const StyledSearch = styled.div`
-    padding-bottom: 5rem;
+
+    @media screen and (min-width: 600px) and (max-width: 900px) {
+        padding: 0 10vw;
+        width: 80vw;
+    }
+
+    @media screen and (min-width: 900px) and (max-width: 1200px) {
+        padding: 0 15vw;
+        width: 70vw;
+    }
+
+    @media screen and (min-width: 1200px) {
+        padding: 0 20vw;
+        width: 60vw;
+    }
+
+    padding-bottom: 5rem!important;
 `
 
 const SearchHeader = styled.div`
     display: flex;
     padding: 0 2rem;
-    width: calc(100vw - 4rem);
+    width: 100%;
     align-items: center;
     height: 5rem;
 `
@@ -218,7 +234,8 @@ const CustomMultipleSelectContainer = styled.div`
 const SearchButtonContainer = styled.div`
     position: fixed;
     z-index: 10;
-    bottom: 0;
+    bottom: .5rem;
+    left: 0;
     display: flex;
     justify-content: center;
     width: 100vw;

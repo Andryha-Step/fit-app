@@ -1,10 +1,11 @@
-import React, { FocusEventHandler, useState } from 'react'
+import React, { FocusEventHandler, KeyboardEventHandler, useState } from 'react'
 import styled from 'styled-components'
 import { Title } from '.'
 
 export interface TextInputProps {
     children?: React.ReactNode
     style?: React.CSSProperties
+    inputStyle?: React.CSSProperties
     placeholder?: string
     leftInner?: React.ReactNode
     rightInner?: React.ReactNode
@@ -12,23 +13,26 @@ export interface TextInputProps {
     readOnly?: boolean,
     onClick?: () => void,
     onFocus?: FocusEventHandler<HTMLInputElement>,
+    onKeyDown?: KeyboardEventHandler<HTMLInputElement>,
     value?: string,
     id?: string
+    onChange?: React.ChangeEventHandler<HTMLInputElement>,
 
     mb?: string
     weight?: string
     fontSize?: string
     title?: string
+    flex?: string
 }
 
 export default function TextInput(props: TextInputProps): JSX.Element {
 
-    const { style, placeholder, leftInner, rightInner, mb, fontSize, weight, children, title, disabled, readOnly, onClick, onFocus, value, id } = props
+    const { style, placeholder, leftInner, rightInner, mb, fontSize, weight, children, title, disabled, readOnly, onClick, onFocus, value, id, flex, inputStyle, onChange, onKeyDown } = props
 
     const [inputValue, setValue] = useState('');
 
     return (
-        <Label style={style}>
+        <Label style={style} flex={flex}>
             {
                 children ||
                 (
@@ -57,8 +61,10 @@ export default function TextInput(props: TextInputProps): JSX.Element {
                     isLeftInner={!!leftInner}
                     isRightInner={!!rightInner}
                     value={inputValue || value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => onChange ? onChange(e) : setValue(e.target.value)}
+                    onKeyDown={onKeyDown}
                     onFocus={onFocus}
+                    style={inputStyle}
                 />
                 {
                     rightInner || <></>
@@ -97,7 +103,7 @@ const StyledContainer = styled.div<TextInputProps & { isLabel: boolean }>`
     background: #F8F8F8;
     border-radius: 1rem;
     padding: 0 1rem;
-    min-height: 3.5rem;
+    min-height: 3rem;
     display: flex;
     align-items: center;
 
@@ -110,6 +116,8 @@ const StyledContainer = styled.div<TextInputProps & { isLabel: boolean }>`
     ` : ''}
 `
 
-const Label = styled.label`
-
+const Label = styled.label<{ flex?: string }>`
+    ${p => p.flex ? `
+        flex: ${p.flex}
+    ` : ''}
 `

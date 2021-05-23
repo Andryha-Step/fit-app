@@ -23,11 +23,12 @@ export interface CategoryProps {
     cardMinWidth?: string;
     titleProps?: TitleProps
     withBorder?: boolean
+    mb?: string
 }
 
 export default function Category(props: CategoryProps): JSX.Element {
 
-    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth, titleProps } = props
+    const { children, link, title, tabs, currentTab, onSwitch, style, subtitle, noScroll, cardMinWidth, titleProps, mb } = props
     const scrollContainerRef: React.RefObject<HTMLDivElement> = useRef(null)
     const tabSwitcherContainerRef: React.RefObject<HTMLDivElement & { cardNumber?: number }> = useRef(null);
 
@@ -88,7 +89,7 @@ export default function Category(props: CategoryProps): JSX.Element {
     }
 
     return (
-        <StyledCatagory style={style}>
+        <StyledCatagory style={style} mb={mb}>
             <HeaderContainer tabs={props.tabs} withBorder={props.withBorder}>
                 <Header tabs={props.tabs}>
                     <Title color='black' {...titleProps}>{title}</Title>
@@ -146,8 +147,12 @@ export default function Category(props: CategoryProps): JSX.Element {
     )
 }
 
-const StyledCatagory = styled.div`
+const StyledCatagory = styled.div<{ mb?: string }>`
     position: relative;
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
+    ` : ''}
 `
 
 const Header = styled.div<CategoryProps>`

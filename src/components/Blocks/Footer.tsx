@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text } from '../Atoms'
 import secondary_logo from '../../assets/images/logo.png'
+import { Route } from 'react-router';
 
 interface FooterProps {
 	terms?: boolean;
@@ -14,6 +15,9 @@ export default function Footer(props: FooterProps) {
 		{props.terms &&
 			<Text color="black"><StyledA href="#">Terms and Conditions</StyledA> | <StyledA href="#">Privacy Policy</StyledA></Text>
 		}
+		<Route exact path="/app/profile/settings/edit-profile">
+			<ButtonSpacer></ButtonSpacer>
+		</Route>
 	</StyledFooter>)
 }
 
@@ -25,7 +29,8 @@ const StyledFooter = styled.footer`
 		}
 	}
 
-	height: 10rem;
+	/* min-height: 10rem; */
+	padding: 2rem 0;
 	display: flex;
     flex-direction: column;
 	justify-content: center;
@@ -39,5 +44,13 @@ const StyledA = styled.a`
 
 	&:active {
 		color: black;
+	}
+`
+
+const ButtonSpacer = styled.div`
+	@media only screen and (min-width: 600px) {
+		& {
+			height: 3rem;
+		}
 	}
 `

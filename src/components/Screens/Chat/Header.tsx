@@ -49,6 +49,21 @@ const StyledHeader = styled.div`
     justify-content: space-between;
     padding: 1rem;
     border-bottom: 1px solid #F7F7F7;
+
+    @media screen and (min-width: 600px) and (max-width: 900px) {
+        padding: 1rem 10vw;
+        max-width: 80vw;
+    }
+
+    @media screen and (min-width: 900px) and (max-width: 1200px) {
+        padding: 1rem 15vw;
+        max-width: 70vw;
+    }
+
+    @media screen and (min-width: 1200px) {
+        padding: 1rem 20vw;
+        max-width: 60vw;
+    }
 `
 
 const BackButton = styled.img`

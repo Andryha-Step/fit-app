@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button, PeopleIn, Select } from '../../Atoms'
 import Post from './Post'
 import exampleAvatar7 from '../../../assets/images/example-avatar-7.png';
 import Avatar from '../Chat/Avatar';
+import PostModal from './PostModal';
 
 export interface CommunityProps {
     children?: React.ReactNode
@@ -13,16 +14,18 @@ export interface CommunityProps {
 export default function Community(props: CommunityProps): JSX.Element {
 
     const { style } = props
+    const [isModalOpen, setModalOpen] = useState(true);
 
     return (
         <StyledCommunity style={style}>
+            <PostModal isModalOpen={isModalOpen} onClose={() => setModalOpen(false)} />
             <CommunityHeader>
                 <Select
                     theme='gray'
                     options={[{ title: "Announcement", value: '1' }]}
                     style={{ margin: 0, width: '15rem' }}
                 />
-                <Button primary padding=".6rem 3rem" noShadow>Post</Button>
+                <Button primary padding=".6rem 3rem" noShadow onClick={() => setModalOpen(true)}>Post</Button>
             </CommunityHeader>
             <Post
                 type='completed-card'
@@ -47,7 +50,7 @@ export default function Community(props: CommunityProps): JSX.Element {
                         avatarUrl: exampleAvatar7
                     }
                 ]}
-                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.2rem"} />}
+                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.2rem"} mr='1rem' />}
             />
             <Post
                 type='vote'
@@ -55,7 +58,7 @@ export default function Community(props: CommunityProps): JSX.Element {
                 comments={72}
                 contact='Sansa Indira'
                 time='4 hours ago'
-                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.2rem"} />}
+                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.2rem"} mr='1rem' />}
             />
             <Post
                 type='text'
@@ -64,7 +67,7 @@ export default function Community(props: CommunityProps): JSX.Element {
                 contact='Sansa Indira'
                 time='4 hours ago'
                 text='Hello squad!'
-                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.5rem"} />}
+                avatar={<Avatar imageAvatarSrc={exampleAvatar7} size={"3.5rem"} mr='1rem' />}
             />
         </StyledCommunity>
     )

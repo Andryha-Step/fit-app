@@ -1,22 +1,23 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
-import back from '../../assets/icons/arrow-back.svg'
+import closeButton from '../../assets/icons/closeButton.svg'
 import Flex from './Flex'
 
-export interface BackHeaderProps {
+export interface CloseHeaderProps {
     children?: React.ReactNode
     style?: React.CSSProperties
     backLink?: string
     onClick?: () => void
     mb?: string
+    pb?: string
 }
 
-// A header component with back button
+// A header component with close button
 
-export default function BackHeader(props: BackHeaderProps): JSX.Element {
+export default function CloseHeader(props: CloseHeaderProps): JSX.Element {
 
-    const { style, children, backLink, onClick, mb } = props
+    const { style, children, backLink, onClick, mb, pb } = props
     const history = useHistory()
 
     const handleClick = () => {
@@ -33,28 +34,30 @@ export default function BackHeader(props: BackHeaderProps): JSX.Element {
     }
 
     return (
-        <StyledBackHeader style={style} mb={mb}>
-            <Back src={back} alt="" onClick={handleClick} />
+        <StyledCloseHeader style={style} mb={mb} pb={pb}>
             <Flex ai="center">
                 {children}
             </Flex>
-        </StyledBackHeader>
+            <Close src={closeButton} alt="close button" onClick={handleClick} />
+        </StyledCloseHeader>
     )
 }
 
-const StyledBackHeader = styled.header<{ mb?: string }>`
+const StyledCloseHeader = styled.header<{ mb?: string, pb?: string }>`
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 1rem 0;
+    justify-content: space-between;
 
     ${p => p.mb ? `
         margin-bottom: ${p.mb};
     ` : ''}
+    ${p => p.pb ? `
+        padding-bottom: ${p.pb};
+    ` : ''}
 `
 
-const Back = styled.img`
+const Close = styled.img`
     height: 3rem;
-    margin-right: 1rem;
     cursor: pointer;
 `

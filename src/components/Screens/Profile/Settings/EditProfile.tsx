@@ -46,6 +46,11 @@ export default function EditProfile(props: EditProfileProps): JSX.Element {
                 onClick={() => setModalOpen(true)}
                 value={dob ? new Date(dob).toLocaleDateString('en-EN') : ''}
             />
+            <TextInput
+                placeholder="email@example.com"
+                title='Email'
+                mb='1rem'
+            />
             <UnitInput />
             <Select
                 options={[{
@@ -77,9 +82,12 @@ export default function EditProfile(props: EditProfileProps): JSX.Element {
                 </Title>
             </FileInput>
             <Flex jc='space-between' mb='1rem'>
-                <Title weight='400' size='1.1rem' color="#636363">Private</Title>
+                <Title weight='400' size='1.1rem' color="#636363">Receive workout requests</Title>
                 <SlideToggle />
             </Flex>
+            <SearchButtonContainer>
+                <Button primary width={'25rem'} noShadow>SEARCH</Button>
+            </SearchButtonContainer>
         </StyledEditProfile>
     )
 }
@@ -105,5 +113,21 @@ const StyledEditProfile = styled.div`
     @media screen and (min-width: 1600px) {
         padding: 1.5rem 30vw;
         max-width: 40vw;
+    }
+`
+
+const SearchButtonContainer = styled.div`
+    position: fixed;
+    z-index: 10;
+    bottom: .5rem;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+
+    @media screen and (max-width: 600px) {
+        background-color: white;
+        padding-top: 1rem;
+        border-top: 1px solid #EFEFEF;
     }
 `

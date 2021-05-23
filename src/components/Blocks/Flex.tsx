@@ -11,6 +11,7 @@ export interface FlexProps {
     mt?: string
     horizontalScroll?: boolean
     gap?: string
+    pointer?: boolean
 }
 
 export default styled.div<FlexProps>`
@@ -56,6 +57,10 @@ export default styled.div<FlexProps>`
 
     ${p => p.gap ? `
         gap: ${p.gap};
+    ` : ''}
+
+    ${p => p.pointer ? `
+        cursor: pointer;
     ` : ''}
 
     &::-webkit-scrollbar {

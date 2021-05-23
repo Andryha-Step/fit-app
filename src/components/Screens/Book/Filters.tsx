@@ -5,6 +5,7 @@ import closeButton from '../../../assets/icons/closeButton.svg'
 import { Link } from 'react-router-dom'
 import Category from '../../Blocks/Category'
 import example_avatar_3 from '../../../assets/images/example-avatar-3.png'
+import CloseHeader from '../../Blocks/CloseHeader'
 
 export default function Filters() {
 
@@ -99,12 +100,9 @@ export default function Filters() {
     return (
         <StyledBook>
             <AppointmentHeader>
-                <Title style={{ marginLeft: '2rem' }}>Filters</Title>
-                <Link to="/app/book">
-                    <CloseButton>
-                        <img src={closeButton} alt="" />
-                    </CloseButton>
-                </Link>
+                <CloseHeader backLink='/app/book'>
+                    <Title style={{ marginLeft: '2rem' }}>Filters</Title>
+                </CloseHeader>
             </AppointmentHeader>
             <Category
                 title="Durations"

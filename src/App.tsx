@@ -66,12 +66,22 @@ function App(): JSX.Element {
 						'/app/members',
 						'/app/favourites',
 						'/app/profile/*',
-					]} render={() => (
-						<>
-							<Header />
-							<BottomTabNav />
-						</>
-					)} />
+					]} render={() => <Header />} />
+					<Route exact path={[
+						"/app/forYou",
+						'/app/explore',
+						'/app/book',
+						'/app/chat',
+						'/app/profile',
+						'/app/community',
+						'/landing',
+						'/app/plans',
+						'/app/challenges',
+						'/app/experiences',
+						'/app/members',
+						'/app/favourites',
+						'/app/profile/',
+					]} render={() => <BottomTabNav />} />
 					<OnboardingBackground>
 						<Route exact path="/login" component={() => <Auth login />} />
 						<Route exact path="/registration" component={() => <Auth registration />} />

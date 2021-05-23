@@ -19,12 +19,12 @@ export default function Select(props: SelectProps): JSX.Element {
 
     const selectRef = useRef<HTMLSelectElement>(null);
     return (
-        <StyledLabel mb={props.mb} style={props.style} theme={props.theme}>
+        <StyledLabel mb={props.mb} style={props.style} theme={props.theme} onClick={e => e.preventDefault()}>
             {
                 props.children &&
                 <StyledLabelText>{props.children}</StyledLabelText>
             }
-            <StyledSelect ref={selectRef} style={props.style} theme={props.theme}>
+            <StyledSelect ref={selectRef} style={props.style} theme={props.theme} onClick={e => e.preventDefault()}>
                 {props.options.map(opt => (
                     <option>{opt.title}</option>
                 ))}
@@ -39,7 +39,7 @@ const StyledSelect = styled.select`
     border-radius: 1rem;
     background-color: rgba(0,0,0,0);
     padding: 0 1rem;
-    min-height: 3.5rem;
+    min-height: 3rem;
     color: white;
     font-family: Poppins, sans-serif;
     font-style: normal;

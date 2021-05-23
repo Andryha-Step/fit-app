@@ -28,10 +28,14 @@ export default function Profile(props: ProfileProps): JSX.Element {
         ]
     })
 
+    const handleAvatarEdit = () => {
+
+    }
+
     return (
         <StyledProfile style={style}>
             <Header jc='center' ai='center' column>
-                <Avatar imageAvatarSrc={avatar} size={'8rem'} />
+                <Avatar imageAvatarSrc={avatar} size={'8rem'} onEditClick={handleAvatarEdit} />
                 <Title mt='1rem' mb='2rem' size='1.5rem' weight='600'>Marho Gere</Title>
                 <Flex>
                     <TabSwitcher
@@ -61,18 +65,23 @@ export default function Profile(props: ProfileProps): JSX.Element {
 const StyledProfile = styled.div`
     padding: 0 1.5rem;
     @media screen and (min-width: 600px) and (max-width: 900px) {
-        padding: 0 20vw;
-        width: 60vw;
+        padding: 1.5rem 10vw;
+        max-width: 80vw;
     }
 
     @media screen and (min-width: 900px) and (max-width: 1200px) {
-        padding: 0 25vw;
-        width: 50vw;
+        padding: 1.5rem 20vw;
+        max-width: 60vw;
     }
 
     @media screen and (min-width: 1200px) {
-        padding: 0 35vw;
-        width: 30vw;
+        padding: 1.5rem 25vw;
+        max-width: 50vw;
+    }
+
+    @media screen and (min-width: 1600px) {
+        padding: 1.5rem 30vw;
+        max-width: 40vw;
     }
 `
 

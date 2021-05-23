@@ -33,6 +33,7 @@ export default function Message(props: MessageProps): JSX.Element {
                         title={contactTitle}
                         size={'2.8rem'}
                         style={!withAvatar ? { opacity: 0 } : {}}
+                        mr='1rem'
                     />
                 )
             }

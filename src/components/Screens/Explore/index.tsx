@@ -69,7 +69,7 @@ export default function Explore(props: ExploreProps): JSX.Element {
                 cardMinWidth={screenWidth > 680 ? '18rem' : '10rem'}
                 noScroll
             >
-                {Array(8).fill(null).map((el, i) => (
+                {Array(4).fill(null).map((el, i) => (
                     <ClassCard
                         key={'dur' + i}
                         type='duration'
@@ -80,6 +80,7 @@ export default function Explore(props: ExploreProps): JSX.Element {
             <Category
                 title={'Trainers'}
                 cardMinWidth={'6rem'}
+                mb='2rem'
                 noScroll
             >
                 {Array(8).fill(null).map((el, i) => (

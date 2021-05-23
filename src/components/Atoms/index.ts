@@ -14,6 +14,7 @@ import PeopleIn, { PeopleInProps } from './PeopleIn'
 import TextInput, { TextInputProps } from './TextInput'
 import FileInput, { FileInputProps } from './FileInput'
 import SlideToggle, { SlideToggleProps } from './SlideToggle'
+import DateInput, { DateInputProps } from './DateInput'
 import MultipleSelect, { useMultipleSelect, MultipleSelectHook } from './MultipleSelect'
 
 export {
@@ -35,7 +36,8 @@ export {
     PeopleIn,
     TextInput,
     FileInput,
-    SlideToggle
+    SlideToggle,
+    DateInput
 }
 
 export type {
@@ -59,5 +61,6 @@ export type {
     PeopleInProps,
     TextInputProps,
     FileInputProps,
-    SlideToggleProps
+    SlideToggleProps,
+    DateInputProps
 }
