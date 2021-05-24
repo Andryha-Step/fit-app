@@ -152,7 +152,7 @@ const StyledBottomTabNav = styled.div<{ isHidden?: boolean; }>`
         display: none;
     ` : ''}
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 800px) {
         & {
             display: none;
         }

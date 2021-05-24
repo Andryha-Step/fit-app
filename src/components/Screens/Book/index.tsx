@@ -71,7 +71,7 @@ function Main(props: BookProps) {
                             style={{ flex: 1 }}
                             weight={'600'}
                             noWrap
-                        >More Filtes</Title>
+                        >More Filters</Title>
                     </TabSwticherCustomTab>
                 </Link>
             </OptionsContainer>

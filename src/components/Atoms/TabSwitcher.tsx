@@ -221,7 +221,7 @@ const StyledTab = styled.div<{ borderIndicatior?: boolean, fontSize?: string, fo
     ${p => p.layoutStyle === 'header' ? `
         @media screen and (max-height: 1000px) {
             & {
-                margin: 0 2rem;
+                margin: 0 1rem;
             }
         }
     ` : ''}

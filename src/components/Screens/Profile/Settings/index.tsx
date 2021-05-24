@@ -79,7 +79,7 @@ export default function Settings(props: SettingsProps): JSX.Element {
                         customTab={
                             (props) =>
                                 <CustomTab id={props.tab.id + ''} {...props}>
-                                    <Title id={props.tab.id + ''} weight="500" color={props.active ? 'white' : 'black'}>
+                                    <Title id={props.tab.id + ''} size='1rem' weight="500" color={props.active ? 'white' : 'black'}>
                                         {props.tab.title}
                                     </Title>
                                 </CustomTab>
@@ -94,7 +94,7 @@ export default function Settings(props: SettingsProps): JSX.Element {
                         customTab={
                             (props) =>
                                 <CustomTab id={props.tab.id + ''} {...props}>
-                                    <Title id={props.tab.id + ''} weight="500" color={props.active ? 'white' : 'black'}>
+                                    <Title id={props.tab.id + ''} size='1rem' weight="500" color={props.active ? 'white' : 'black'}>
                                         {props.tab.title}
                                     </Title>
                                 </CustomTab>
@@ -206,9 +206,9 @@ const CategoryElement = styled.div<{ icon: string, noArrow?: boolean }>`
 
 const CustomTab = styled.div<{ active: boolean }>`
     background-color: #F8F8F8;
-    padding: .5rem 1rem;
+    padding: .2rem 1rem;
     border-radius: 5rem;
-    min-width: 5rem;
+    min-width: 4rem;
     display: flex;
     justify-content: center;
     cursor: pointer;

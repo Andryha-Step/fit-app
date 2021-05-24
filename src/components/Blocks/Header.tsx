@@ -155,7 +155,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                 <TabSwitcher
                     {...mainTabSwitcher.tabSwitcherProps}
                 />
-                <SearchContainer isVisable={true} >
+                <SearchContainer isVisable={true}>
                     <Route
                         path={["/app/forYou", "/app/explore", "/app/chat"]}
                     >
@@ -238,10 +238,15 @@ const SearchContainer = styled.div<{ isVisable?: boolean, headerBottom?: boolean
     justify-content: center;
     align-items: center;
     margin: 0 2rem;
+    min-width: 3rem;
 
     & img {
-        height: 2rem;
+        height: 2.5rem;
         cursor: pointer;
+
+        @media screen and (max-width: 800px) {
+            height: 3rem;
+        }
 
         ${p => !p.isVisable ? `
             display: none;

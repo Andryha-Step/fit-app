@@ -119,7 +119,7 @@ export default function Calendar(props: CalendarProps): JSX.Element {
     const startShift = currentStartDate.getDay() ? currentStartDate.getDay() - 1 : 6;
     let calendarElements;
     if (weekMode) {
-        calendarElements = getThisWeekDays(currentStartDate, windowWidth > 1200 ? 14 : 7);
+        calendarElements = getThisWeekDays(currentStartDate, windowWidth > 1200 ? 10 : 7);
     } else {
         calendarElements = [...Array(startShift).fill(null), ...Array(getMonthDayCount(currentStartDate)).fill(currentStartDate).map((el, i) => new Date(el).setDate(i + 1))];
     }
@@ -136,7 +136,7 @@ export default function Calendar(props: CalendarProps): JSX.Element {
                     <Arrow src={arrow_img} alt="arrow" id="right" onClick={hangleArrowClick} right />
                 </ArrowContainer>
             </CalendarHeader>
-            <CalendarGrid weekMode={weekMode} columns={weekMode && windowWidth > 1200 ? '14' : '7'}>
+            <CalendarGrid weekMode={weekMode}>
                 {
                     !weekMode && daysOfWeek.map(day => (
                         <Title center weight={'500'} style={{ minHeight: '3rem' }}>{day}</Title>
@@ -204,15 +204,19 @@ const Arrow = styled.img<{ right?: boolean }>`
     `}
 
 `
-const CalendarGrid = styled.div<{ columns?: string, weekMode?: boolean }>`
+const CalendarGrid = styled.div<{ weekMode?: boolean }>`
     display: grid;
-    grid-template-columns: repeat(${p => p.columns || '7'}, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     /* grid-template-rows: repeat(7, 1fr); */
-    grid-column-gap: .8rem;
     margin: 1rem;
     ${p => !p.weekMode ? `
-        min-height: 28rem;
-    ` : ''}
+        grid-column-gap: .8rem;
+    ` : `
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        justify-items: center;
+    `}
 `
 
 const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?: boolean, selected?: boolean }>`
@@ -231,6 +235,8 @@ const CalendarDay = styled.div<{ selectable?: boolean, today?: boolean, weekDay?
     }
 
     ${p => p.selectable && p.weekDay ? `
+        max-width: 3rem;
+
         &&:hover {
             background: linear-gradient(122.49deg, rgba(66, 159, 186, 0.3) 0%, rgba(33, 126, 154, 0.3) 100%);
             border-radius: 2rem;

@@ -14,7 +14,7 @@ export interface CommunityProps {
 export default function Community(props: CommunityProps): JSX.Element {
 
     const { style } = props
-    const [isModalOpen, setModalOpen] = useState(true);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     return (
         <StyledCommunity style={style}>

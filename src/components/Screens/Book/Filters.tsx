@@ -210,7 +210,7 @@ const AppointmentHeader = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
-
+    width: calc(100% - 1rem);
 `
 
 const CloseButton = styled.button`

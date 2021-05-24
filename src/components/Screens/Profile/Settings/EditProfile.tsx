@@ -86,7 +86,7 @@ export default function EditProfile(props: EditProfileProps): JSX.Element {
                 <SlideToggle />
             </Flex>
             <SearchButtonContainer>
-                <Button primary width={'25rem'} noShadow>SEARCH</Button>
+                <Button primary width={'25rem'} noShadow>SAVE</Button>
             </SearchButtonContainer>
         </StyledEditProfile>
     )

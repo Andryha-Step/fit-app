@@ -74,6 +74,11 @@ const StyledBookClassCardContainer = styled.div`
     padding: 0 1.5rem;
     margin-bottom: 1rem;
     padding-left: 2rem;
+
+    @media screen and (max-width: 345px) {
+        width: 100%;
+        padding: 0;
+    }
 `
 
 const StyledBookClassCard = styled.div<{ noCover?: boolean }>`

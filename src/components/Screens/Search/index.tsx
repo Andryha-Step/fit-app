@@ -217,7 +217,6 @@ const StyledSearch = styled.div`
 const SearchHeader = styled.div`
     display: flex;
     padding: 0 2rem;
-    width: 100%;
     align-items: center;
     height: 5rem;
 `

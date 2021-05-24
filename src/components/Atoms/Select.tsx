@@ -19,12 +19,12 @@ export default function Select(props: SelectProps): JSX.Element {
 
     const selectRef = useRef<HTMLSelectElement>(null);
     return (
-        <StyledLabel mb={props.mb} style={props.style} theme={props.theme} onClick={e => e.preventDefault()}>
+        <StyledLabel mb={props.mb} style={props.style} theme={props.theme}>
             {
                 props.children &&
                 <StyledLabelText>{props.children}</StyledLabelText>
             }
-            <StyledSelect ref={selectRef} style={props.style} theme={props.theme} onClick={e => e.preventDefault()}>
+            <StyledSelect ref={selectRef} style={props.style} theme={props.theme}>
                 {props.options.map(opt => (
                     <option>{opt.title}</option>
                 ))}
