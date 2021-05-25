@@ -22,7 +22,7 @@ export default function DateInput(props: DateInputProps): JSX.Element {
 
     return (
         <>
-            <Modal wrapperTemplate='white-box' isOpen={modalOpen} onClose={() => setModalOpen(false)} style={modalStyle}>
+            <Modal wrapperTemplate='white-box' isOpen={modalOpen} onClose={() => setModalOpen(false)} style={modalStyle} wrapperWidth='25rem'>
                 <Calendar hideToday onDateSelect={(date) => setDate(date.getTime())} />
                 <Button primary width='100%' onClick={() => setModalOpen(false)}>Save</Button>
             </Modal>

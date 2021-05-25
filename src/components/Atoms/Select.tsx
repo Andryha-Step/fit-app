@@ -1,4 +1,4 @@
-import React, { MutableRefObject, Ref, RefObject, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import select_arrow from '../../assets/icons/arrow-down-black.svg';
 
@@ -12,19 +12,20 @@ export interface SelectProps {
     children?: React.ReactNode;
     style?: React.CSSProperties
     theme?: 'white' | 'gray';
+    icon?: string
+    iconSize?: string
     mb?: string
 }
 
 export default function Select(props: SelectProps): JSX.Element {
 
-    const selectRef = useRef<HTMLSelectElement>(null);
     return (
         <StyledLabel mb={props.mb} style={props.style} theme={props.theme}>
             {
                 props.children &&
                 <StyledLabelText>{props.children}</StyledLabelText>
             }
-            <StyledSelect ref={selectRef} style={props.style} theme={props.theme}>
+            <StyledSelect style={props.style} theme={props.theme} icon={props.icon || select_arrow} iconSize={props.iconSize || '1rem'}>
                 {props.options.map(opt => (
                     <option>{opt.title}</option>
                 ))}
@@ -33,7 +34,7 @@ export default function Select(props: SelectProps): JSX.Element {
     )
 }
 
-const StyledSelect = styled.select`
+const StyledSelect = styled.select<{ icon?: string, iconSize?: string }>`
     /* margin-bottom: 0.7rem; */
     border: 0.6px solid #F8F8F8;
     border-radius: 1rem;
@@ -55,9 +56,9 @@ const StyledSelect = styled.select`
         background: #F8F8F8;
     ` : ''}
 
-    background-image: url(${select_arrow});
+    background-image: url(${p => p.icon});
     background-repeat: no-repeat;
-    background-size: 1rem;
+    background-size: ${p => p.iconSize};
     background-position: 95% center;
     padding-right: 1rem;
 

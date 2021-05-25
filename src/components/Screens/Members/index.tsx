@@ -27,11 +27,11 @@ export default function Members(props: MembersProps): JSX.Element {
                 mb='1rem'
             />
             <MembersGrid>
-                <Member
+                {/* <Member
                     name='Anna Martin'
                     buttonText="MESSAGE"
                     avatarSrc={exampleAvatar}
-                />
+                /> */}
                 {
                     Array(10).fill(<Member
                         name='Marho'

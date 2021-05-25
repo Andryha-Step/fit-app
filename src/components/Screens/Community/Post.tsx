@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Title, Text, PeopleIn, ProgressBar } from '../../Atoms'
+import { Title, Text, PeopleIn, ProgressBar, Button } from '../../Atoms'
 import Flex from '../../Blocks/Flex'
 import clock from '../../../assets/icons/clockWhite.svg'
 import heart from '../../../assets/icons/heart.svg';
@@ -29,11 +29,12 @@ export interface PostProps {
     time: string
     avatar: React.ReactNode
     shownComments?: Comment[]
+    startClassButton?: boolean
 }
 
 export default function Post(props: PostProps): JSX.Element {
 
-    const { style, type, contact, text, likes, comments, time, shownComments, avatar } = props
+    const { style, type, contact, text, likes, comments, time, shownComments, avatar, startClassButton } = props
 
     return (
         <StyledPost style={style}>
@@ -42,6 +43,13 @@ export default function Post(props: PostProps): JSX.Element {
                 <Flex column jc="center">
                     <Title weight="600" size="1.2rem">{contact}</Title>
                     <Text color="#B0B0B0" size=".9rem">{time}</Text>
+                </Flex>
+                <Flex flex='1' jc='flex-end'>
+                    {
+                        startClassButton && (
+                            <Button primary padding='.2rem 0' width='10rem' noShadow>START CLASS</Button>
+                        )
+                    }
                 </Flex>
             </PostHeader>
             <PostBody text={type === 'text'}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, FileInput, Modal, Select, SlideToggle, Text, TextInput, Title } from '../../../Atoms'
+import { Button, DateInput, FileInput, Modal, Select, SlideToggle, Text, TextInput, Title } from '../../../Atoms'
 import BackHeader from '../../../Blocks/BackHeader'
 import Flex from '../../../Blocks/Flex'
 import Calendar from '../../Book/Calendar'
@@ -20,10 +20,6 @@ export default function EditProfile(props: EditProfileProps): JSX.Element {
 
     return (
         <StyledEditProfile style={style}>
-            <Modal wrapperTemplate='white-box' isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-                <Calendar hideToday onDateSelect={(date) => setDob(date.getTime())} />
-                <Button primary width='100%' onClick={() => setModalOpen(false)}>Save</Button>
-            </Modal>
             <BackHeader mb='2rem'>
                 <Title weight='600' size='1.5rem'>Edit Profile</Title>
             </BackHeader>
@@ -37,14 +33,12 @@ export default function EditProfile(props: EditProfileProps): JSX.Element {
                 title='Last name'
                 mb='1rem'
             />
-            <TextInput
-                placeholder="DD/MM/YY"
-                title='DOB'
-                mb='1rem'
-                rightInner={<img src={calendarIcon} alt='calendar' />}
-                readOnly
-                onClick={() => setModalOpen(true)}
-                value={dob ? new Date(dob).toLocaleDateString('en-EN') : ''}
+            <DateInput
+                inputProps={{
+                    placeholder: "DD/MM/YY",
+                    title: 'DOB',
+                    mb: '1rem'
+                }}
             />
             <TextInput
                 placeholder="email@example.com"

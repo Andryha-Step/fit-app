@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button, PeopleIn, Select } from '../../Atoms'
 import Post from './Post'
 import exampleAvatar7 from '../../../assets/images/example-avatar-7.png';
+import tuneIcon from '../../../assets/icons/tune.svg';
 import Avatar from '../Chat/Avatar';
 import PostModal from './PostModal';
 
@@ -21,6 +22,8 @@ export default function Community(props: CommunityProps): JSX.Element {
             <PostModal isModalOpen={isModalOpen} onClose={() => setModalOpen(false)} />
             <CommunityHeader>
                 <Select
+                    icon={tuneIcon}
+                    iconSize='1.4rem'
                     theme='gray'
                     options={[{ title: "Announcement", value: '1' }]}
                     style={{ margin: 0, width: '15rem' }}
@@ -36,6 +39,7 @@ export default function Community(props: CommunityProps): JSX.Element {
                 avatar={<PeopleIn size={"2.8rem"} count={1} />}
             />
             <Post
+                startClassButton
                 type='completed-card'
                 likes={1892}
                 comments={72}
