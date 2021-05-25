@@ -21,9 +21,10 @@ export default function ForYou(props: ForYouScreenProps): JSX.Element {
     return (
         <div>
             <FullWidthCard
+                tag='FEATURED'
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"
-                buttonText="RESUME"
+                inProgress
             />
             <Category
                 withBorder

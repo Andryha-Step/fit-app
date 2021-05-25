@@ -56,7 +56,7 @@ const Avatars = styled.div<{ size?: string }>`
     & > div > span {
         display: flex;
         align-items: center;
-        font-size: ${p => parseInt(p.size || '') / 2.5 || '.45'}rem;
+        font-size: ${p => parseInt(p.size || '') / 2 || '.45'}rem;
         margin-top: 0.1rem;
     }
 `

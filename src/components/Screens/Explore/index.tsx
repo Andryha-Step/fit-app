@@ -26,9 +26,10 @@ export default function Explore(props: ExploreProps): JSX.Element {
     return (
         <StyledExplore style={style}>
             <FullWidthCard
+                tag='FEATURED'
                 cardTitle="Cardio Blast"
                 cardText="Body | Cardio | Stay Toned"
-                buttonText="RESUME"
+                inProgress
             />
             <Category
                 tabs={Array(20).fill(null).map((el, i) => ({

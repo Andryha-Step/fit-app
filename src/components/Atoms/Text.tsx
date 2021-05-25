@@ -23,6 +23,10 @@ const StyledText = styled.span<TextProps>`
     ${p => p.mb ? `
         margin-bottom: ${p.mb};
     ` : ''}
+    
+    ${p => p.mr ? `
+        margin-right: ${p.mr};
+    ` : ''}
 `
 
 export interface TextProps {
@@ -34,6 +38,7 @@ export interface TextProps {
     size?: string
     noWrap?: boolean
     mb?: string
+    mr?: string
 }
 
 export default function Text(props: TextProps): JSX.Element {

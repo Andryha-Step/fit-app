@@ -15,6 +15,7 @@ import TextInput, { TextInputProps } from './TextInput'
 import FileInput, { FileInputProps } from './FileInput'
 import SlideToggle, { SlideToggleProps } from './SlideToggle'
 import DateInput, { DateInputProps } from './DateInput'
+import Icon, { IconProps } from './Icon'
 import MultipleSelect, { useMultipleSelect, MultipleSelectHook } from './MultipleSelect'
 
 export {
@@ -37,7 +38,8 @@ export {
     TextInput,
     FileInput,
     SlideToggle,
-    DateInput
+    DateInput,
+    Icon
 }
 
 export type {
@@ -62,5 +64,6 @@ export type {
     TextInputProps,
     FileInputProps,
     SlideToggleProps,
-    DateInputProps
+    DateInputProps,
+    IconProps
 }

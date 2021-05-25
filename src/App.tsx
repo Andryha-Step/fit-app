@@ -34,6 +34,7 @@ import Membership from './components/Screens/Profile/Settings/Membership';
 import Notifications from './components/Screens/Profile/Settings/Notifications';
 import Faqs from './components/Screens/Profile/Settings/Faqs';
 import Privacy from './components/Screens/Profile/Settings/Privacy';
+import ClassDetails from './components/Screens/ClassDetails';
 
 const AppContainer = styled.div`
 	width: 100%;
@@ -81,6 +82,7 @@ function App(): JSX.Element {
 						'/app/members',
 						'/app/favourites',
 						'/app/profile/',
+						'/app/class-details',
 					]} render={() => <BottomTabNav />} />
 					<OnboardingBackground>
 						<Route exact path="/login" component={() => <Auth login />} />
@@ -115,10 +117,25 @@ function App(): JSX.Element {
 					<Route exact path='/app/profile/settings/notifications' component={() => <Notifications />} />
 					<Route exact path='/app/profile/settings/faqs' component={() => <Faqs />} />
 					<Route exact path='/app/profile/settings/privacy-policy' component={() => <Privacy />} />
+					<Route exact path='/app/class-details' component={() => <ClassDetails />} />
 					<Route exact path='/landing' component={() => <Landing />} />
 					{/* <Route exact path='/app/chat' component={() => <ForYou />} /> */}
 					{/* <Route exact path='/app/profile' component={() => <ForYou />} /> */}
-					<Route exact path={["/app/forYou", '/app/explore', '/app/book', '/app/profile', '/app/community', '/landing', '/app/plans', '/app/challenges', '/app/experiences', '/app/members', '/app/favourites', '/app/profile/*']} render={() => (
+					<Route exact path={[
+						"/app/forYou",
+						'/app/explore',
+						'/app/book',
+						'/app/profile',
+						'/app/community',
+						'/landing',
+						'/app/plans',
+						'/app/challenges',
+						'/app/experiences',
+						'/app/members',
+						'/app/favourites',
+						'/app/profile/*',
+						'/app/class-details',
+					]} render={() => (
 						<Footer terms />
 					)} />
 				</AppContainer>

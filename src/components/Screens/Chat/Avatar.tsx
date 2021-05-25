@@ -27,6 +27,7 @@ export interface AvatarProps {
     title?: string
     size?: string
     mr?: string
+    mb?: string
 
     edit?: boolean
     onEditClick?: React.MouseEventHandler<HTMLDivElement>
@@ -34,7 +35,7 @@ export interface AvatarProps {
 
 export default function Avatar(props: AvatarProps): JSX.Element {
 
-    const { style, avatarColor, title, size, mr, onEditClick } = props
+    const { style, avatarColor, title, size, mr, mb, onEditClick } = props
     let { imageAvatarSrc } = props
 
     const tesing_avatar = useRef(EXAMPLE_AVATARS[~~(Math.random() * EXAMPLE_AVATARS.length)]).current
@@ -44,7 +45,7 @@ export default function Avatar(props: AvatarProps): JSX.Element {
     }
 
     return (
-        <AvatarContainer style={style} mr={mr}>
+        <AvatarContainer style={style} mr={mr} mb={mb}>
             {
                 imageAvatarSrc && (
                     <ImageAvatar size={size} src={imageAvatarSrc} alt="avatar" />
@@ -82,7 +83,7 @@ const ColorAvatar = styled.div<{ color?: string, size?: string }>`
     font-weight: 500;
 `
 
-const AvatarContainer = styled.div<{ mr?: string }>`
+const AvatarContainer = styled.div<{ mr?: string, mb?: string }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,6 +91,10 @@ const AvatarContainer = styled.div<{ mr?: string }>`
 
     ${p => p.mr ? `
         margin-right: ${p.mr};
+    ` : ''}
+
+    ${p => p.mb ? `
+        margin-bottom: ${p.mb};
     ` : ''}
 `
 
